@@ -8,7 +8,6 @@ import Wanted from "./pages/Wanted";
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#f3f4f6]">
-      {/* Top Utility Bar */}
       <div className="bg-brand-black border-b border-gray-800 py-2 px-6 text-white text-xs font-semibold h-10">
         <div className="max-w-7xl mx-auto flex justify-end items-center h-full">
           <span className="text-gray-500 uppercase tracking-[0.3em]">
@@ -17,7 +16,6 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Header */}
       <header className="bg-brand-white border-b border-gray-100 py-6 px-6 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <Link to="/" className="flex flex-col">
@@ -57,7 +55,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/listing/:slug" element={<Listing />} />
@@ -65,7 +62,6 @@ const App: React.FC = () => {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      {/* Footer */}
       <footer className="bg-brand-black text-white py-20 px-6 mt-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 text-sm">
           <div>
