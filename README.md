@@ -1,20 +1,35 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# FarmCash Sales Portal
 
-# Run and deploy your AI Studio app
+A lightweight React + Vite sales portal for FarmCash machinery listings.
 
-This contains everything you need to run your app locally.
+This project supports:
+- A home page showing all current adverts
+- Individual listing pages (one per machine)
+- A wanted page for sourcing machinery on request
 
-View your app in AI Studio: https://ai.studio/apps/drive/13D2wiOR0nfugHzd8Up4bjJF79qlwQfA9
+Built for fast static delivery via Google Cloud Run.
 
-## Run Locally
+---
 
-**Prerequisites:**  Node.js
+## Routes
 
+| Route | Purpose |
+|------|--------|
+| `/` | All adverts (Home) |
+| `/listing/:slug` | Individual listing page |
+| `/wanted` | Wanted / sourcing page |
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+
+## Tech Stack
+
+- React 19
+- Vite
+- TypeScript
+- React Router
+- Serve (for Cloud Run static hosting)
+
+---
+
+## Project Structure
+
