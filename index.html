@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>farmCash - Machinery Finance & Sales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Arvo:wght@700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-white: #fefefe;
+      --brand-green: #75ac49;
+      --brand-gold: #ca9c29;
+      --brand-black: #000000;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f6;
+    }
+    h1, h2, h3, .brand-font {
+      font-family: 'Oswald', sans-serif;
+    }
+    .logo-font {
+      font-family: 'Arvo', serif;
+      letter-spacing: -0.05em;
+    }
+    .hero-overlay-text {
+      background-color: rgba(0, 0, 0, 0.85);
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      color: var(--brand-white);
+    }
+    /* Brand Helper Classes */
+    .bg-brand-black { background-color: var(--brand-black); }
+    .bg-brand-green { background-color: var(--brand-green); }
+    .bg-brand-gold { background-color: var(--brand-gold); }
+    .bg-brand-white { background-color: var(--brand-white); }
+    
+    .text-brand-green { color: var(--brand-green); }
+    .text-brand-gold { color: var(--brand-gold); }
+    .text-brand-black { color: var(--brand-black); }
+    
+    .border-brand-green { border-color: var(--brand-green); }
+    .border-brand-gold { border-color: var(--brand-gold); }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
