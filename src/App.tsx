@@ -6,12 +6,14 @@ import Listing from "./pages/Listing";
 import Wanted from "./pages/Wanted";
 import PortalHeader from "./components/PortalHeader";
 import PortalFooter from "./components/PortalFooter";
+import { counts } from "./data/listings";
+
 
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header (single source of truth) */}
-      <PortalHeader />
+<PortalHeader counts={counts} />
 
       {/* Page content */}
       <main className="flex-1">
