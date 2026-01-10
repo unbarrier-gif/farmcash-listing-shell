@@ -28,7 +28,7 @@ const App: React.FC = () => {
         </Routes>
       </main>
 
-      {/* Footer (leave as-is for now; we'll refactor next) */}
+    {/* Footer */}
       <PortalFooter />
     </div>
   );
