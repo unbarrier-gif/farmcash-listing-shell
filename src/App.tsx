@@ -1,67 +1,34 @@
 import React from "react";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
 import Wanted from "./pages/Wanted";
+import PortalHeader from "./components/PortalHeader";
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#f3f4f6]">
-      <div className="bg-brand-black border-b border-gray-800 py-2 px-6 text-white text-xs font-semibold h-10">
-        <div className="max-w-7xl mx-auto flex justify-end items-center h-full">
-          <span className="text-gray-500 uppercase tracking-[0.3em]">
-            Official FarmCash Sales Portal
-          </span>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Header (single source of truth) */}
+      <PortalHeader />
 
-      <header className="bg-brand-white border-b border-gray-100 py-6 px-6 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <Link to="/" className="flex flex-col">
-            <div className="text-5xl logo-font leading-[0.9] flex">
-              <span className="text-brand-green">Farm</span>
-              <span className="text-brand-gold">Cash</span>
-            </div>
-            <div className="text-brand-gold font-bold text-sm tracking-tight ml-[1.6em] whitespace-nowrap logo-font uppercase">
-              Input Finance and Machinery Import
-            </div>
-          </Link>
+      {/* Page content */}
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              to="/"
-              className="bg-brand-black text-white px-6 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-all shadow-md"
-            >
-              All Adverts
-            </Link>
+          {/* Temporary route so the header "For sale" pill doesn't break.
+              Replace Home with a proper ForSale page later. */}
+          <Route path="/for-sale" element={<Home />} />
 
-            <Link
-              to="/wanted"
-              className="bg-brand-gold text-black px-6 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider hover:brightness-105 transition-all shadow-md"
-            >
-              Wanted
-            </Link>
+          <Route path="/listing/:slug" element={<Listing />} />
+          <Route path="/wanted" element={<Wanted />} />
 
-            <a
-              href="https://wa.me/447393138063"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#75ac49] text-white px-6 py-2.5 rounded-xl font-bold text-sm uppercase tracking-wider hover:brightness-105 transition-all shadow-md"
-            >
-              WhatsApp Seller
-            </a>
-          </div>
-        </div>
-      </header>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/listing/:slug" element={<Listing />} />
-        <Route path="/wanted" element={<Wanted />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-
+      {/* Footer (leave as-is for now; we'll refactor next) */}
       <footer className="bg-brand-black text-white py-20 px-6 mt-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 text-sm">
           <div>
