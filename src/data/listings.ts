@@ -36,7 +36,7 @@ export const listings: Listing[] = [
   status: "for-sale",
   title: "Zurn Profi Cut 620",
   year: "2012",
-  priceText: "POA",
+  priceText: "£35,000 + VAT",
   heroImage: {
     src: "/images/Ad 1 zurn-proficut-620-hero.jpg",
     alt: "Zurn Profi Cut 620 forage wagon secured on low loader truck for transport, side view",
