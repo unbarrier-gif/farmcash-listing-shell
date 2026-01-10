@@ -1,54 +1,112 @@
 export type ListingStatus = "for-sale" | "wanted";
 
+export type ListingSpecRow = {
+  label: string;
+  value: string;
+};
+
 export type Listing = {
   id: string;
   status: ListingStatus;
   title: string;
   year: string;
-  priceText?: string; // e.g. "£35,000 + VAT", "POA", "Budget: £XX,XXX"
+  priceText?: string;
+
   heroImage: {
     src: string;
     alt: string;
   };
+
+  /** Optional: shown on listing detail page */
+  specs?: ListingSpecRow[];
+
+  /** Optional: brochure link shown on listing detail page */
+  brochureUrl?: string;
+
+  /** Optional: small note shown on listing detail page */
+  notes?: string[];
 };
 
 export const listings: Listing[] = [
+  /**
+   * AD 1 — FOR SALE
+   */
   {
-    id: "2",
+  id: "ad-1",
+  status: "for-sale",
+  title: "Zurn Profi Cut 620",
+  year: "2012",
+  priceText: "POA",
+  heroImage: {
+    src: "/images/Ad 1 zurn-proficut-620-hero.jpg",
+    alt: "Zurn Profi Cut 620 forage wagon secured on low loader truck for transport, side view",
+  },
+},
+
+    },
+  },
+
+  /**
+   * AD 2 — FOR SALE
+   */
+  {
+    id: "ad-2",
     status: "for-sale",
-    title: "Zurn Profi Cut 620",
+    title: "Zurn ProfiCut 620",
     year: "2012",
     priceText: "POA",
     heroImage: {
-      // Put the hero image in /public/images/ and use this path:
-      src: "/images/zurn-proficut-620-hero.jpg",
-      alt: "Zurn Profi Cut 620 forage wagon secured on low loader truck for transport, side view",
+      src: "/images/ad-2-zurn-proficut-620-2012-hero.jpg",
+      alt: "Zurn ProfiCut 620 2012 forage wagon shown in transport position",
     },
   },
 
-  // TEMPLATE: add your next FOR SALE advert here
+  /**
+   * AD 3 — FOR SALE (client specs added)
+   */
   {
-    id: "3",
+    id: "ad-3",
     status: "for-sale",
-    title: "Advert 3 Title",
-    year: "Year",
-    priceText: "POA",
+    title: "Kemper 490 Plus Forager Header",
+    year: "2020",
+    priceText: "POA / Offers",
     heroImage: {
-      src: "/images/ad-3-hero.jpg",
-      alt: "Hero image for advert 3",
+      src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
+      alt: "Kemper forager header with 9.0 metre working width",
     },
+
+    specs: [
+      { label: "Model", value: "Kemper 490 Plus" },
+      { label: "Working width", value: "9 m" },
+      { label: "Rows", value: "12-row" },
+      { label: "Year (MY)", value: "2020" },
+      {
+        label: "Brackets / setup",
+        value: "Fits wide body Krone models 680–1180",
+      },
+    ],
+
+    brochureUrl:
+      "https://unbarrier.me/wp-content/uploads/2026/01/proficut_fendt_brochure_en_2015-03_web-2.pdf",
+
+    notes: [
+      "This unit is a 490 Plus model. Newer units are referred to as 490 Pro (a slightly evolved version).",
+      "The brochure link available is for the Pro model; functionally the Plus and Pro are essentially the same.",
+    ],
   },
 
-  // TEMPLATE: wanted example
+  /**
+   * WANTED — TEMPLATE
+   */
   {
-    id: "w-1",
+    id: "wanted-1",
     status: "wanted",
-    title: "Wanted: Example Machine",
+    title: "Wanted: Forager Header",
     year: "Any",
-    priceText: "Budget: £XX,XXX",
+    priceText: "Budget on request",
     heroImage: {
-      src: "/images/wanted-placeholder.jpg",
-      alt: "Wanted advert placeholder image for machinery requirement",
+      src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
+      alt: "Wanted advert placeholder for forager header requirement",
     },
   },
 ];
