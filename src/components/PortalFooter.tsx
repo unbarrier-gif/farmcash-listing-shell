@@ -98,17 +98,17 @@ const PortalFooter: React.FC = () => {
         {/* subtle divider + credit */}
         <div className="mt-12 pt-6 border-t border-gray-800/40">
           <p className="text-gray-500 text-xs text-center tracking-wide">
-            Built for fast static delivery via Cloud Run · Designed by{" "}
+            Built for fast static delivery via Cloud Run · Joyfully Designed by{" "}
             <a
              <a
-              href="https://unbarrier.me/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cherry-bomb-one-regular underline underline-offset-2 transition-opacity hover:opacity-90"
-              style={{ color: "#38ff99" }}
->
-  unbarrier.me
-</a>
+              <a
+            href="https://unbarrier.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cherry-bomb-one-regular text-[#38ff99] hover:opacity-90 transition-opacity underline underline-offset-2"
+          >
+            unbarrier.me
+          </a>
 
             >
               unbarrier.me
