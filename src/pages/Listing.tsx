@@ -1,12 +1,10 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { listings } from "../data/listings";
-import { ListingGallery } from "../components/ListingGallery";
+import ListingGallery from "../components/ListingGallery";
 
 const badgeClass = (status: string) =>
-  status === "wanted"
-    ? "bg-[#ca9c29] text-white"
-    : "bg-[#75ac49] text-white";
+  status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-[#75ac49] text-white";
 
 const badgeText = (status: string) => (status === "wanted" ? "Wanted" : "For sale");
 
@@ -33,13 +31,27 @@ const Listing: React.FC = () => {
     );
   }
 
-  const { heroImage, title, subtitle, year, priceText, serialRef, description, specs, notes, videoUrl, ctas } =
-    listing;
+  const {
+    heroImage,
+    title,
+    subtitle,
+    year,
+    priceText,
+    serialRef,
+    description,
+    specs,
+    notes,
+    videoUrl,
+    ctas,
+  } = listing;
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:py-12">
       <div className="mb-6">
-        <Link to="/" className="text-sm font-bold text-gray-600 hover:text-brand-black transition">
+        <Link
+          to="/"
+          className="text-sm font-bold text-gray-600 hover:text-brand-black transition"
+        >
           ← Back to all adverts
         </Link>
       </div>
@@ -164,8 +176,11 @@ const Listing: React.FC = () => {
 
         {/* SIDEBAR */}
         <aside className="space-y-6">
-          {/* Keep your gallery component as-is for now */}
-          <ListingGallery />
+          {/* ✅ DATA-DRIVEN GALLERY */}
+          <ListingGallery
+            images={listing.gallery?.length ? listing.gallery : [listing.heroImage]}
+            videoUrl={listing.videoUrl}
+          />
 
           <div className="bg-brand-white p-6 rounded-2xl shadow-md border border-gray-100">
             <h4 className="font-bold text-brand-black mb-4 brand-font uppercase tracking-wide">
@@ -213,7 +228,6 @@ const Listing: React.FC = () => {
             </div>
           </div>
 
-          {/* Debug line you had, still useful */}
           <p className="text-xs text-gray-400">
             Listing ID: <span className="font-mono">{slug}</span>
           </p>
