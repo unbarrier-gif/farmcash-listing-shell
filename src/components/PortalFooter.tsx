@@ -100,11 +100,16 @@ const PortalFooter: React.FC = () => {
           <p className="text-gray-500 text-xs text-center tracking-wide">
             Built for fast static delivery via Cloud Run · Designed by{" "}
             <a
+             <a
               href="https://unbarrier.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-opacity hover:opacity-90"
-              style={{ color: "#38ff99", fontFamily: '"Cherry Bomb One", cursive' }}
+              className="cherry-bomb-one-regular underline underline-offset-2 transition-opacity hover:opacity-90"
+              style={{ color: "#38ff99" }}
+>
+  unbarrier.me
+</a>
+
             >
               unbarrier.me
             </a>
