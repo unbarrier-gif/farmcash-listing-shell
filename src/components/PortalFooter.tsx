@@ -3,30 +3,32 @@ import React from "react";
 const PortalFooter: React.FC = () => {
   return (
     <footer className="bg-brand-black text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* LEFT */}
           <div>
+            {/* Branded mark */}
             <div className="mb-6">
               <img
                 src="/brand/farmcash-mark.png"
-                alt="FarmCash – Professional Financial Services for Modern Agriculture"
-                className="h-14 w-auto"
+                alt="FarmCash – Input Finance and Machinery Import"
+                className="h-14 w-auto object-contain"
               />
             </div>
 
             <p className="text-gray-300 text-xs uppercase tracking-[0.15em] leading-relaxed max-w-sm">
-              Professional Financial Services for Modern Agriculture. Specializing
-              in Machinery Import Bridging.
+              Professional Financial Services for Modern Agriculture. Specialising in Machinery
+              Import Bridging.
             </p>
 
+            {/* Social icons */}
             <div className="mt-8 flex gap-4">
-              {/* Facebook */}
               <a
                 href="https://www.facebook.com/FarmCashUK"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
+                className="transition-colors"
               >
                 <svg
                   className="w-6 h-6 fill-white hover:fill-brand-gold transition-colors"
@@ -37,12 +39,12 @@ const PortalFooter: React.FC = () => {
                 </svg>
               </a>
 
-              {/* Instagram */}
               <a
                 href="https://www.instagram.com/farmcashuk"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
+                className="transition-colors"
               >
                 <svg
                   className="w-6 h-6 fill-white hover:fill-brand-gold transition-colors"
@@ -61,7 +63,7 @@ const PortalFooter: React.FC = () => {
               Headquarters
             </h5>
 
-            <p className="text-gray-400 leading-relaxed uppercase text-xs tracking-[0.15em]">
+            <p className="text-gray-400 leading-relaxed uppercase text-xs tracking-[0.15em] space-y-1">
               Monkley Stables, Monkley Lane
               <br />
               Monkley, Rode, Frome, BA11 6QQ
@@ -98,9 +100,9 @@ const PortalFooter: React.FC = () => {
           </div>
         </div>
 
-        {/* Subtle divider + credit */}
-        <div className="mt-12 pt-6 border-t border-gray-800/40 text-center">
-          <p className="text-gray-500 text-xs tracking-wide">
+        {/* Subtle divider + credit (inside the footer container) */}
+        <div className="mt-12 pt-6 border-t border-gray-400/20">
+          <p className="text-gray-500 text-[11px] text-center">
             Built for fast static delivery via Cloud Run · Designed by{" "}
             <a
               href="https://unbarrier.me"
