@@ -52,13 +52,13 @@ const PortalHeader: React.FC = () => {
 
           {/* Wordmark */}
           <div className="flex flex-col">
-            <div className="text-5xl logo-font leading-[0.85] flex">
+          <div className="text-3xl md:text-4xl logo-font leading-[0.9] flex">
               <span className="text-[#75ac49]">Farm</span>
               <span className="text-[#ca9c29]">Cash</span>
             </div>
 
             {/* IMPORTANT: remove the old ml-[1.6em] so it aligns correctly with the icon */}
-            <div className="text-[#ca9c29] font-bold text-[11px] tracking-tight whitespace-nowrap logo-font uppercase opacity-90">
+            <div className="text-[#ca9c29] font-bold text-[10px] tracking-tight whitespace-nowrap logo-font uppercase opacity-90">
               Input Finance and Machinery Import
             </div>
           </div>
