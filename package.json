@@ -3,17 +3,19 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  {
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "serve -s dist -l ${PORT:-8080}"
+    "start": "node -e \"require('child_process').execSync('npx serve -s dist -l ' + (process.env.PORT || 8080), {stdio:'inherit'})\""
   },
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-router-dom": "^6.30.3"
+    "react-router-dom": "^6.30.3",
     "serve": "^14.2.4"
   },
   "devDependencies": {
@@ -26,10 +28,4 @@
     "typescript": "^5.7.2",
     "vite": "^6.0.0"
   }
-  {
-  "engines": {
-    "node": ">=20"
-  }
-}
-
 }
