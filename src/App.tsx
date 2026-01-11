@@ -9,26 +9,21 @@ import PortalFooter from "./components/PortalFooter";
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Header */}
+    <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
       <PortalHeader />
 
-      {/* Page content */}
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-          {/* Temporary route for the header "For sale" nav */}
-          <Route path="/for-sale" element={<Home />} />
-
-          <Route path="/listing/:slug" element={<Listing />} />
-          <Route path="/wanted" element={<Wanted />} />
-
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/for-sale" element={<Home />} />
+            <Route path="/listing/:slug" element={<Listing />} />
+            <Route path="/wanted" element={<Wanted />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
       </main>
 
-      {/* Footer */}
       <PortalFooter />
     </div>
   );
