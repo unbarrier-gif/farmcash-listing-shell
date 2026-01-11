@@ -18,4 +18,4 @@ COPY --from=builder /app/dist ./dist
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["sh", "-c", "serve -s dist -l $PORT"]
+CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:$PORT"]
