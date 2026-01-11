@@ -10,8 +10,8 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route element={<PortalLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/for-sale" element={<Home />} />
+        <Route path="/" element={<Home mode="all" />} />
+        <Route path="/for-sale" element={<Home mode="forSale" />} />
         <Route path="/wanted" element={<Wanted />} />
         <Route path="/listing/:id" element={<Listing />} />
         <Route path="*" element={<Navigate to="/" replace />} />
