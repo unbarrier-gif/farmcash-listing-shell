@@ -7,31 +7,26 @@ const PortalFooter: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* LEFT */}
           <div>
-            {/* ✅ Swap in your branded icon + tagline */}
             <div className="mb-6">
-              {/* Change this src to whatever your repo uses, e.g. /brand/farmcash-footer-lockup.png */}
               <img
-                <img
-                  src="/brand/farmcash-mark.png"
-                  alt="FarmCash – Input Finance and Machinery Import"
-                  className="h-14 w-auto"
-                />
-
+                src="/brand/farmcash-mark.png"
+                alt="FarmCash – Professional Financial Services for Modern Agriculture"
+                className="h-14 w-auto"
               />
             </div>
 
             <p className="text-gray-300 text-xs uppercase tracking-[0.15em] leading-relaxed max-w-sm">
-              Professional Financial Services for Modern Agriculture. Specializing in Machinery
-              Import Bridging.
+              Professional Financial Services for Modern Agriculture. Specializing
+              in Machinery Import Bridging.
             </p>
 
             <div className="mt-8 flex gap-4">
+              {/* Facebook */}
               <a
                 href="https://www.facebook.com/FarmCashUK"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="transition-colors"
               >
                 <svg
                   className="w-6 h-6 fill-white hover:fill-brand-gold transition-colors"
@@ -42,12 +37,12 @@ const PortalFooter: React.FC = () => {
                 </svg>
               </a>
 
+              {/* Instagram */}
               <a
                 href="https://www.instagram.com/farmcashuk"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="transition-colors"
               >
                 <svg
                   className="w-6 h-6 fill-white hover:fill-brand-gold transition-colors"
@@ -87,7 +82,7 @@ const PortalFooter: React.FC = () => {
             </p>
           </div>
 
-          {/* RIGHT (KEEP AS IS) */}
+          {/* RIGHT */}
           <div>
             <h5 className="font-bold text-white mb-8 brand-font uppercase tracking-widest text-lg">
               Legal
@@ -102,23 +97,22 @@ const PortalFooter: React.FC = () => {
             </p>
           </div>
         </div>
-        Add subtle footer credit and divider
-      </div>
-      {/* Footer credit */}
-<div className="mt-12 pt-6 border-t border-gray-800/40 text-center">
-  <p className="text-gray-500 text-xs tracking-wide">
-    Built for fast static delivery via Cloud Run · Designed by{" "}
-    <a
-      href="https://unbarrier.me"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-gray-400 hover:text-brand-gold transition-colors underline underline-offset-2"
-    >
-      unbarrier.me
-    </a>
-  </p>
-</div>
 
+        {/* Subtle divider + credit */}
+        <div className="mt-12 pt-6 border-t border-gray-800/40 text-center">
+          <p className="text-gray-500 text-xs tracking-wide">
+            Built for fast static delivery via Cloud Run · Designed by{" "}
+            <a
+              href="https://unbarrier.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-brand-gold transition-colors underline underline-offset-2"
+            >
+              unbarrier.me
+            </a>
+          </p>
+        </div>
+      </div>
     </footer>
   );
 };
