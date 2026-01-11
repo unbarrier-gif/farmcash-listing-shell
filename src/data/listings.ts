@@ -1,169 +1,230 @@
-export type ListingStatus = "for-sale" | "wanted";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { listings, type Listing as ListingType } from "../data/listings";
+import ListingGallery from "../components/ListingGallery";
 
-export type MediaImage = {
-  src: string;
-  alt: string;
+const badgeClass = (status: ListingType["status"]) =>
+  status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-[#75ac49] text-white";
+
+const badgeText = (status: ListingType["status"]) => (status === "wanted" ? "Wanted" : "For sale");
+
+const formatPhoneLabel = (phone: string) => {
+  const p = String(phone || "").trim();
+  if (!p) return "";
+  if (p.startsWith("07")) return p;
+  if (p.startsWith("+44")) return p.replace("+44", "+44 ");
+  return p;
 };
 
-export type SpecRow = {
-  label: string;
-  value: string;
+const Listing: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+
+  const listing = listings.find((l) => l.id === id);
+
+  if (!listing) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+          <h1 className="text-2xl font-bold text-neutral-900">Advert not found</h1>
+          <p className="text-gray-600 mt-2">
+            This advert may have been removed or the link is incorrect.
+          </p>
+          <Link
+            to="/"
+            className="inline-block mt-6 bg-neutral-900 text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
+          >
+            Back to all ads
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const {
+    heroImage,
+    title,
+    subtitle,
+    year,
+    priceText,
+    serialRef,
+    description,
+    specs,
+    notes,
+    videoUrl,
+    ctas,
+    status,
+    gallery,
+  } = listing;
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+      <div className="mb-6">
+        <Link to="/" className="text-sm font-bold text-gray-600 hover:text-neutral-900 transition">
+          ← Back to all ads
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        {/* MAIN */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+            <div className="aspect-[16/10] bg-gray-200 relative">
+              <img src={heroImage.src} alt={heroImage.alt} className="w-full h-full object-cover" />
+
+              <div className="absolute bottom-8 left-8 space-y-2 pointer-events-none">
+                <h2 className="hero-overlay-text text-3xl font-bold uppercase tracking-tight leading-none">
+                  {title}
+                </h2>
+
+                {subtitle ? (
+                  <h3 className="hero-overlay-text text-xl font-medium tracking-wide">{subtitle}</h3>
+                ) : null}
+              </div>
+
+              <div
+                className={[
+                  "absolute top-4 left-4 px-4 py-1.5 rounded-sm font-bold text-xs shadow-md uppercase tracking-widest",
+                  badgeClass(status),
+                ].join(" ")}
+              >
+                {badgeText(status)}
+              </div>
+            </div>
+
+            <div className="p-8">
+              {serialRef ? (
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mb-1">
+                  Serial Ref: {serialRef}
+                </p>
+              ) : null}
+
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                  <h1 className="text-3xl font-bold leading-none uppercase tracking-tight text-neutral-900">
+                    {subtitle ?? "Advert details"}
+                  </h1>
+                  <p className="mt-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
+                    Year: {year}
+                  </p>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
+                  <p className="text-4xl font-bold text-neutral-900">{priceText ?? "POA"}</p>
+                </div>
+              </div>
+
+              {description ? (
+                <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
+                  <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
+                    Description
+                  </h4>
+                  <p className="text-gray-600 leading-relaxed text-sm">{description}</p>
+                </div>
+              ) : null}
+
+              {specs && specs.length > 0 ? (
+                <div className="bg-white rounded-xl p-6 mb-8 border border-gray-200">
+                  <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
+                    Key specs
+                  </h4>
+                  <div className="space-y-3">
+                    {specs.map((row) => (
+                      <div key={row.label} className="flex justify-between gap-6">
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                          {row.label}
+                        </span>
+                        <span className="text-sm font-semibold text-neutral-900 text-right">
+                          {row.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {notes && notes.length > 0 ? (
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                  <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
+                    Notes
+                  </h4>
+                  <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                    {notes.map((n, idx) => (
+                      <li key={idx}>{n}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          {videoUrl ? (
+            <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+              <div className="p-6 border-b border-gray-100">
+                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
+              </div>
+              <video controls className="w-full" preload="metadata">
+                <source src={videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          ) : null}
+        </div>
+
+        {/* SIDEBAR */}
+        <aside className="space-y-6">
+          <ListingGallery images={gallery?.length ? gallery : [heroImage]} videoUrl={videoUrl} />
+
+          <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-wide">Enquire</h4>
+
+            <div className="space-y-3">
+              <a
+                href={ctas.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-[#75ac49] hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"
+              >
+                WhatsApp seller
+              </a>
+
+              <a
+                href={`tel:${ctas.phoneNumber}`}
+                className="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold py-3 rounded-xl transition-all block text-center"
+              >
+                Call {formatPhoneLabel(ctas.phoneNumber)}
+              </a>
+
+              {ctas.financeQuoteUrl ? (
+                <a
+                  href={ctas.financeQuoteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full border-2 border-neutral-900 text-neutral-900 hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
+                >
+                  Request finance quote
+                </a>
+              ) : null}
+
+              {ctas.brochureUrl ? (
+                <a
+                  href={ctas.brochureUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#75ac49] text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md hover:opacity-90"
+                >
+                  Download brochure
+                </a>
+              ) : null}
+            </div>
+          </div>
+
+          <p className="text-xs text-gray-400">
+            Listing ID: <span className="font-mono">{id}</span>
+          </p>
+        </aside>
+      </div>
+    </div>
+  );
 };
 
-export type Ctas = {
-  whatsappUrl: string;
-  phoneNumber: string;
-  financeQuoteUrl?: string;
-  brochureUrl?: string;
-};
-
-export type Listing = {
-  /** This is the URL id: /listing/:id */
-  id: string;
-
-  status: ListingStatus;
-  title: string;
-
-  /** Keep this as display text (not a number) so you never fight formatting */
-  year: string;
-
-  /** Display exactly as needed */
-  priceText?: string;
-
-  /** Optional “what is it” line under title */
-  subtitle?: string;
-
-  /** Optional reference for internal use */
-  serialRef?: string;
-
-  heroImage: MediaImage;
-
-  /** Optional extra media */
-  gallery?: MediaImage[];
-  videoUrl?: string;
-
-  /** Optional content */
-  description?: string;
-  specs?: SpecRow[];
-  notes?: string[];
-
-  ctas: Ctas;
-};
-
-const WHATSAPP_URL = "https://wa.me/447393138063";
-const PHONE_NUMBER = "+447393138063";
-const FINANCE_URL =
-  "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest";
-
-export const listings: Listing[] = [
-  /**
-   * AD 1 — FOR SALE
-   */
-  {
-    id: "ad-1",
-    status: "for-sale",
-    title: "Zurn Profi Cut 620",
-    year: "2012",
-    priceText: "£35,000 + VAT",
-    subtitle: "Direct Cut Wholecrop Header",
-    heroImage: {
-      // ✅ matches: public/images/Ad-1-zurn-proficut-620-hero.jpg
-      src: "/images/Ad-1-zurn-proficut-620-hero.jpg",
-      alt: "Zurn Profi Cut 620 forage wagon secured on low loader truck for transport, side view",
-    },
-    description:
-      "High-capacity direct cut header designed for wholecrop harvesting. Please enquire for compatibility, condition details, and delivery options.",
-    ctas: {
-      whatsappUrl: WHATSAPP_URL,
-      phoneNumber: PHONE_NUMBER,
-      financeQuoteUrl: FINANCE_URL,
-    },
-  },
-
-  /**
-   * AD 2 — FOR SALE
-   */
-  {
-    id: "ad-2",
-    status: "for-sale",
-    title: "Zurn ProfiCut 620",
-    year: "2012",
-    priceText: "POA",
-    subtitle: "Direct Cut Wholecrop Header",
-    heroImage: {
-      src: "/images/ad-2-zurn-proficut-620-2012-hero.jpg",
-      alt: "Zurn ProfiCut 620 wholecrop header, actual unit for sale",
-    },
-    ctas: {
-      whatsappUrl: WHATSAPP_URL,
-      phoneNumber: PHONE_NUMBER,
-      financeQuoteUrl: FINANCE_URL,
-      brochureUrl:
-        "https://unbarrier.me/wp-content/uploads/2026/01/proficut_fendt_brochure_en_2015-03_web-2.pdf",
-    },
-  },
-
-  /**
-   * AD 3 — FOR SALE
-   */
-  {
-    id: "ad-3",
-    status: "for-sale",
-    title: "Kemper 490 Plus Forager Header",
-    year: "MY 2020",
-    priceText: "POA / Offers",
-    subtitle: "9 m working width | 12-row",
-    heroImage: {
-      src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
-      alt: "Kemper forager header with 9 metre working width",
-    },
-    videoUrl: "/images/ad-3-kemper-490pro-9m.mp4",
-    specs: [
-      { label: "Model", value: "Kemper 490 Plus" },
-      { label: "Working width", value: "9 m" },
-      { label: "Rows", value: "12-row" },
-      { label: "Made in / MY", value: "2020" },
-      {
-        label: "Brackets / setup",
-        value: "Fits wide body Krone models 680–1180",
-      },
-    ],
-    notes: [
-      "This unit is a 490 Plus model. Newer units are referred to as 490 Pro (slightly evolved).",
-      "If a brochure is needed, the available link is for the Pro model; functionally the Plus and Pro are essentially the same.",
-    ],
-    ctas: {
-      whatsappUrl: WHATSAPP_URL,
-      phoneNumber: PHONE_NUMBER,
-      financeQuoteUrl: FINANCE_URL,
-    },
-  },
-
-  /**
-   * WANTED (template)
-   */
-  {
-    id: "wanted-1",
-    status: "wanted",
-    title: "Wanted: Machinery Sourcing Request",
-    year: "Any",
-    priceText: "Budget on request",
-    subtitle: "Tell us what you need and we’ll source it",
-    heroImage: {
-      // Fine as a placeholder, but you can swap later
-      src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
-      alt: "Wanted listing placeholder image for machinery sourcing",
-    },
-    ctas: {
-      whatsappUrl: WHATSAPP_URL,
-      phoneNumber: PHONE_NUMBER,
-      financeQuoteUrl: FINANCE_URL,
-    },
-  },
-];
-
-export const counts = {
-  all: listings.length,
-  forSale: listings.filter((l) => l.status === "for-sale").length,
-  wanted: listings.filter((l) => l.status === "wanted").length,
-};
+export default Listing;
