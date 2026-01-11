@@ -1,28 +1,23 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { listings } from "../data/listings";
+import { listings, type Listing as ListingType } from "../data/listings";
 import ListingGallery from "../components/ListingGallery";
 
-type Status = "for-sale" | "wanted" | string;
-
-const badgeClass = (status: Status) =>
+const badgeClass = (status: ListingType["status"]) =>
   status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-neutral-900 text-white";
 
-const badgeText = (status: Status) => (status === "wanted" ? "Wanted" : "For sale");
+const badgeText = (status: ListingType["status"]) => (status === "wanted" ? "Wanted" : "For sale");
 
 const formatPhoneLabel = (phone: string) => {
   const p = String(phone || "").trim();
   if (!p) return "";
-  // If it's already a UK mobile like 073..., keep as-is.
   if (p.startsWith("07")) return p;
-  // If it's +44..., add a space after +44 for readability.
   if (p.startsWith("+44")) return p.replace("+44", "+44 ");
   return p;
 };
 
 const Listing: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-
   const listing = listings.find((l) => l.id === id);
 
   if (!listing) {
@@ -49,6 +44,8 @@ const Listing: React.FC = () => {
     title,
     subtitle,
     year,
+    location,
+    width,
     priceText,
     serialRef,
     description,
@@ -57,25 +54,22 @@ const Listing: React.FC = () => {
     videoUrl,
     ctas,
     status,
-  } = listing as any;
+    gallery,
+  } = listing;
 
-  // ✅ Safe defaults so sidebar never crashes if a field is missing
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
     phoneNumber: ctas?.phoneNumber ?? "07393138063",
-    financeQuoteUrl: ctas?.financeQuoteUrl ?? "https://farmcash.co.uk/import-finance/",
+    financeQuoteUrl:
+      ctas?.financeQuoteUrl ??
+      "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest",
     brochureUrl: ctas?.brochureUrl ?? "",
   };
-
-  const hero = heroImage ?? listing.heroImage;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
       <div className="mb-6">
-        <Link
-          to="/"
-          className="text-sm font-bold text-gray-600 hover:text-neutral-900 transition"
-        >
+        <Link to="/" className="text-sm font-bold text-gray-600 hover:text-neutral-900 transition">
           ← Back to all ads
         </Link>
       </div>
@@ -85,11 +79,7 @@ const Listing: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200">
             <div className="aspect-[16/10] bg-gray-200 relative">
-              <img
-                src={hero?.src}
-                alt={hero?.alt ?? title ?? "Listing image"}
-                className="w-full h-full object-cover"
-              />
+              <img src={heroImage.src} alt={heroImage.alt} className="w-full h-full object-cover" />
 
               <div className="absolute bottom-8 left-8 space-y-2 pointer-events-none">
                 <h2 className="hero-overlay-text text-3xl font-bold uppercase tracking-tight leading-none">
@@ -97,9 +87,7 @@ const Listing: React.FC = () => {
                 </h2>
 
                 {subtitle ? (
-                  <h3 className="hero-overlay-text text-xl font-medium tracking-wide">
-                    {subtitle}
-                  </h3>
+                  <h3 className="hero-overlay-text text-xl font-medium tracking-wide">{subtitle}</h3>
                 ) : null}
               </div>
 
@@ -126,20 +114,16 @@ const Listing: React.FC = () => {
                     {subtitle ?? "Advert details"}
                   </h1>
 
-                  {year ? (
-                    <p className="mt-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
-                      Year: {year}
-                    </p>
-                  ) : null}
+                  <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.15em] text-gray-500 font-bold">
+                    {year ? <span>Year: {year}</span> : null}
+                    {width ? <span>Width: {width}</span> : null}
+                    {location ? <span>{location}</span> : null}
+                  </div>
                 </div>
 
                 <div className="text-right">
-                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                    Price
-                  </p>
-                  <p className="text-4xl font-bold text-neutral-900">
-                    {priceText ?? "POA"}
-                  </p>
+                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
+                  <p className="text-4xl font-bold text-neutral-900">{priceText ?? "POA"}</p>
                 </div>
               </div>
 
@@ -157,8 +141,9 @@ const Listing: React.FC = () => {
                   <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
                     Key specs
                   </h4>
+
                   <div className="space-y-3">
-                    {specs.map((row: any) => (
+                    {specs.map((row) => (
                       <div key={row.label} className="flex justify-between gap-6">
                         <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
                           {row.label}
@@ -178,7 +163,7 @@ const Listing: React.FC = () => {
                     Notes
                   </h4>
                   <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
-                    {notes.map((n: string, idx: number) => (
+                    {notes.map((n, idx) => (
                       <li key={idx}>{n}</li>
                     ))}
                   </ul>
@@ -190,9 +175,7 @@ const Listing: React.FC = () => {
           {videoUrl ? (
             <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
               <div className="p-6 border-b border-gray-100">
-                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">
-                  Video
-                </h4>
+                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
               </div>
               <video controls className="w-full" preload="metadata">
                 <source src={videoUrl} type="video/mp4" />
@@ -203,15 +186,10 @@ const Listing: React.FC = () => {
 
         {/* SIDEBAR */}
         <aside className="space-y-6">
-          <ListingGallery
-            images={listing.gallery?.length ? listing.gallery : [hero]}
-            videoUrl={videoUrl}
-          />
+          <ListingGallery images={gallery?.length ? gallery : [heroImage]} videoUrl={videoUrl} />
 
           <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-wide">
-              Enquire
-            </h4>
+            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-wide">Enquire</h4>
 
             <div className="space-y-3">
               <a
