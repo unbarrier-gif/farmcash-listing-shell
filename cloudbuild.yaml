@@ -38,5 +38,4 @@ images:
   - "${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}"
 
 options:
-logging: CLOUD_LOGGING_ONLY
-
+  logging: CLOUD_LOGGING_ONLY
