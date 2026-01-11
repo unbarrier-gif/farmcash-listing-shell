@@ -82,6 +82,7 @@ There is **no manual deployment step** once configured.
 - This repository is intended to be a **single source of truth** for the FarmCash sales portal.
 - Additional machine listings are added via structured data files, not CMS tooling.
 - The portal is deliberately not a marketplace — it is a **curated sales surface**.
+- 
 
 ---
 
