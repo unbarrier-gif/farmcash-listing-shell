@@ -83,9 +83,7 @@ const PortalFooter: React.FC = () => {
 
           {/* RIGHT */}
           <div>
-            <h5 className="font-bold text-white mb-8 uppercase tracking-widest text-lg">
-              Legal
-            </h5>
+            <h5 className="font-bold text-white mb-8 uppercase tracking-widest text-lg">Legal</h5>
 
             <p className="text-gray-400 leading-relaxed uppercase text-xs tracking-[0.15em]">
               FarmCash Ltd | Registered No: 14016448
@@ -102,10 +100,11 @@ const PortalFooter: React.FC = () => {
           <p className="text-gray-500 text-xs text-center tracking-wide">
             Built for fast static delivery via Cloud Run · Designed by{" "}
             <a
-              href="https://unbarrier.me"
+              href="https://unbarrier.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-[#ca9c29] transition-colors underline underline-offset-2"
+              className="underline underline-offset-2 transition-opacity hover:opacity-90"
+              style={{ color: "#38ff99", fontFamily: '"Cherry Bomb One", cursive' }}
             >
               unbarrier.me
             </a>
