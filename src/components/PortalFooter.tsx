@@ -72,7 +72,7 @@ const PortalFooter: React.FC = () => {
             </p>
 
             <p className="mt-6 text-white font-bold uppercase tracking-widest text-xs">
-              <span className="text-gray-400">Visit: </span>
+              <span className="text-gray-400" </span>
               <a
                 href="https://farmcash.co.uk/"
                 target="_blank"
