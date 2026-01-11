@@ -67,7 +67,8 @@ export const listings: Listing[] = [
     priceText: "£35,000 + VAT",
     subtitle: "Direct Cut Wholecrop Header",
     heroImage: {
-      src: "/images/Ad 1 zurn-proficut-620-hero.jpg",
+      // ✅ matches: public/images/Ad-1-zurn-proficut-620-hero.jpg
+      src: "/images/Ad-1-zurn-proficut-620-hero.jpg",
       alt: "Zurn Profi Cut 620 forage wagon secured on low loader truck for transport, side view",
     },
     description:
@@ -135,7 +136,6 @@ export const listings: Listing[] = [
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_URL,
-      // No brochure link for this exact model at the moment
     },
   },
 
@@ -150,6 +150,7 @@ export const listings: Listing[] = [
     priceText: "Budget on request",
     subtitle: "Tell us what you need and we’ll source it",
     heroImage: {
+      // Fine as a placeholder, but you can swap later
       src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
       alt: "Wanted listing placeholder image for machinery sourcing",
     },
