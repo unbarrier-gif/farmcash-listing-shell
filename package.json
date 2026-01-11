@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node -e \"require('child_process').execSync('npx serve -s dist -l ' + (process.env.PORT || 8080), {stdio:'inherit'})\""
+    "start": "serve -s dist -l ${PORT:-8080}"
   },
   "dependencies": {
     "react": "^19.2.3",
