@@ -20,7 +20,7 @@ const PortalFooter: React.FC = () => {
   </div>
 
   <p className="text-gray-300 text-sm leading-relaxed">
-    A lightweight sales portal for current machinery adverts and sourcing requests.
+  Professional Financial Services for Modern Agriculture. Specializing in Machinery Import Bridging.
   </p>
 
   <div className="mt-5">
