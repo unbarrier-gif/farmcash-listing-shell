@@ -1,5 +1,5 @@
 steps:
-  # 1) Build the container image using the Dockerfile in the repo root
+  # 1) Build the container image using the Dockerfile
   - name: gcr.io/cloud-builders/docker
     args:
       [
@@ -17,7 +17,7 @@ steps:
         "${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}"
       ]
 
-  # 3) Deploy the new image to Cloud Run
+  # 3) Deploy to Cloud Run
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: gcloud
     args:
