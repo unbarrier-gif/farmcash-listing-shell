@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 
 const navItems = [
   { label: "All Ads", path: "/", accent: "all" as const },
-  { label: "For sale", path: "/for-sale", accent: "sale" as const },
+  { label: "For Sale", path: "/for-sale", accent: "sale" as const },
   { label: "Wanted", path: "/wanted", accent: "wanted" as const },
 ];
 
@@ -20,12 +20,9 @@ const pillClass = (accent: "all" | "sale" | "wanted") => {
       return `${pillBase} bg-[#ca9c29] text-white border-[#ca9c29] shadow-md cursor-default pointer-events-none`;
     }
 
-    return `${pillBase} bg-[#fefefe] text-neutral-600 border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400 hover:shadow-sm hover:-translate-y-[1px]`;
+    return `${pillBase} bg-[#fefefe] text-neutral-700 border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400 hover:shadow-sm hover:-translate-y-[1px]`;
   };
 };
-
-const ctaBase =
-  "px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 border whitespace-nowrap inline-flex items-center justify-center";
 
 const PortalHeader: React.FC = () => {
   return (
@@ -38,21 +35,21 @@ const PortalHeader: React.FC = () => {
       </div>
 
       {/* Main header */}
-      <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col lg:flex-row justify-between items-center gap-5">
-        {/* Brand logo only */}
+      <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col items-center gap-4">
+        {/* Brand (logo only) */}
         <Link
           to="/"
-          className="flex items-center transition-opacity hover:opacity-95"
+          className="flex items-center justify-center transition-opacity hover:opacity-95"
           aria-label="FarmCash Home"
         >
           <img
             src="/brand/farmcash-mark.png"
-            alt="FarmCash"
-            className="h-12 w-auto object-contain"
+            alt="FarmCash – Input Finance and Machinery Import"
+            className="h-14 w-auto object-contain"
           />
         </Link>
 
-        {/* Navigation pills */}
+        {/* Nav pills */}
         <nav
           className="flex items-center gap-3 bg-gray-50/50 p-1.5 rounded-full border border-gray-100 shadow-inner overflow-x-auto max-w-full"
           role="navigation"
@@ -65,20 +62,18 @@ const PortalHeader: React.FC = () => {
               end={item.path === "/"}
               className={pillClass(item.accent)}
             >
-              {item.label}
+              <span>{item.label}</span>
             </NavLink>
           ))}
         </nav>
-      </div>
 
-      {/* CTA row */}
-      <div className="max-w-7xl mx-auto px-6 pb-5">
-        <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
+        {/* CTA row (under pills) */}
+        <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <a
             href="https://wa.me/447393138063"
             target="_blank"
             rel="noopener noreferrer"
-            className={`${ctaBase} bg-[#75ac49] text-white border-[#75ac49] shadow-md hover:brightness-110 hover:-translate-y-[1px]`}
+            className={`${pillBase} justify-center bg-[#75ac49] text-white border-[#75ac49] shadow-md hover:brightness-110 hover:-translate-y-[1px]`}
           >
             WhatsApp
           </a>
@@ -87,16 +82,16 @@ const PortalHeader: React.FC = () => {
             href="https://farmcash.co.uk/import-finance/"
             target="_blank"
             rel="noopener noreferrer"
-            className={`${ctaBase} bg-[#fefefe] text-neutral-700 border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400 hover:shadow-sm hover:-translate-y-[1px]`}
+            className={`${pillBase} justify-center bg-white text-neutral-800 border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400`}
           >
-            Request a finance quote
+            Request finance quote
           </a>
 
           <a
             href="tel:07393138063"
-            className={`${ctaBase} bg-neutral-900 text-white border-neutral-900 shadow-md hover:brightness-110 hover:-translate-y-[1px]`}
+            className={`${pillBase} justify-center bg-neutral-900 text-white border-neutral-900 shadow-md hover:brightness-110 hover:-translate-y-[1px]`}
           >
-            Call Martyn or Tim
+            Call 07393138063
           </a>
         </div>
       </div>
