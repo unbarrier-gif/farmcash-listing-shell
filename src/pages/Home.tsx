@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { listings } from "../data/listings";
+import { listings, type Listing } from "../data/listings";
 
 type HomeMode = "all" | "forSale";
 
@@ -8,31 +8,19 @@ type Props = {
   mode?: HomeMode;
 };
 
-const isForSaleListing = (l: any) => {
-  const category = String(l?.category ?? "").toLowerCase();
-  const type = String(l?.type ?? "").toLowerCase();
-  const kind = String(l?.kind ?? "").toLowerCase();
-
-  return (
-    l?.forSale === true ||
-    l?.isForSale === true ||
-    category.includes("for sale") ||
-    type.includes("for sale") ||
-    type === "sale" ||
-    kind === "sale" ||
-    kind === "forsale"
-  );
-};
-
 const Home: React.FC<Props> = ({ mode = "all" }) => {
-  const filtered =
-    mode === "forSale" ? listings.filter((l) => isForSaleListing(l)) : listings;
+  const filtered: Listing[] =
+    mode === "forSale" ? listings.filter((l) => l.status === "for-sale") : listings;
 
   const pageTitle = mode === "forSale" ? "For sale" : "Latest Listings";
   const pageSub =
     mode === "forSale"
       ? "Available machinery currently listed"
       : "Available machinery and active sourcing requests";
+
+  const badgeText = (status: Listing["status"]) => (status === "wanted" ? "Wanted" : "For sale");
+  const badgeClass = (status: Listing["status"]) =>
+    status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-[#75ac49] text-white";
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:py-12 min-h-[60vh]">
@@ -50,7 +38,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((l: any) => (
+        {filtered.map((l) => (
           <Link
             key={l.id}
             to={`/listing/${l.id}`}
@@ -58,49 +46,56 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
             aria-label={`View listing ${l.title ?? l.id}`}
           >
             <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 transition-all group-hover:shadow-lg group-hover:-translate-y-[2px]">
-              <div className="aspect-[16/10] bg-gray-100 overflow-hidden">
+              <div className="aspect-[16/10] bg-gray-100 overflow-hidden relative">
                 <img
-                  src={l.imageUrl}
-                  alt={l.imageAlt ?? l.title ?? "Machinery listing image"}
+                  src={l.heroImage.src}
+                  alt={l.heroImage.alt}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                   loading="lazy"
                 />
+
+                <div
+                  className={[
+                    "absolute top-4 left-4 px-4 py-1.5 rounded-sm font-bold text-xs shadow-md uppercase tracking-widest",
+                    badgeClass(l.status),
+                  ].join(" ")}
+                >
+                  {badgeText(l.status)}
+                </div>
               </div>
 
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.25em] mb-2">
-                      {l.badge ?? l.category ?? (isForSaleListing(l) ? "For sale" : "Listing")}
+                      {badgeText(l.status)}
                     </p>
 
-                    <h3 className="text-xl font-bold brand-font text-brand-black uppercase tracking-tight leading-snug">
+                    <h3 className="text-xl font-bold brand-font text-brand-black uppercase tracking-tight leading-snug truncate">
                       {l.title}
                     </h3>
 
                     {l.subtitle ? (
-                      <p className="mt-2 text-gray-500 text-sm leading-relaxed">
-                        {l.subtitle}
-                      </p>
+                      <p className="mt-2 text-gray-500 text-sm leading-relaxed">{l.subtitle}</p>
                     ) : null}
                   </div>
 
-                  {l.price ? (
-                    <div className="text-right">
+                  {l.priceText ? (
+                    <div className="text-right shrink-0">
                       <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1">
                         Price
                       </p>
                       <p className="text-2xl font-bold brand-font text-brand-black whitespace-nowrap">
-                        {l.price}
+                        {l.priceText}
                       </p>
                     </div>
                   ) : null}
                 </div>
 
-                {(l.location || l.year) ? (
+                {(l.year || l.serialRef) ? (
                   <div className="mt-5 pt-4 border-t border-gray-100 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.15em] text-gray-400 font-bold">
                     {l.year ? <span>{l.year}</span> : null}
-                    {l.location ? <span>{l.location}</span> : null}
+                    {l.serialRef ? <span>{l.serialRef}</span> : null}
                   </div>
                 ) : null}
               </div>
