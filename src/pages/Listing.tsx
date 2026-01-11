@@ -3,16 +3,26 @@ import { Link, useParams } from "react-router-dom";
 import { listings } from "../data/listings";
 import ListingGallery from "../components/ListingGallery";
 
-const badgeClass = (status: string) =>
+type Status = "wanted" | "forSale" | string;
+
+const badgeClass = (status: Status) =>
   status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-[#75ac49] text-white";
 
-const badgeText = (status: string) => (status === "wanted" ? "Wanted" : "For sale");
+const badgeText = (status: Status) => (status === "wanted" ? "Wanted" : "For sale");
+
+const formatPhoneLabel = (phone: string) => {
+  const p = String(phone || "").trim();
+  if (!p) return "";
+  // If it's already a UK mobile like 073..., keep as-is.
+  if (p.startsWith("07")) return p;
+  // If it's +44..., add a space after +44 for readability.
+  if (p.startsWith("+44")) return p.replace("+44", "+44 ");
+  return p;
+};
 
 const Listing: React.FC = () => {
-  // ✅ MUST match App.tsx route: /listing/:id
   const { id } = useParams<{ id: string }>();
 
-  // ✅ Find by id
   const listing = listings.find((l) => l.id === id);
 
   if (!listing) {
@@ -27,7 +37,7 @@ const Listing: React.FC = () => {
             to="/"
             className="inline-block mt-6 bg-neutral-900 text-white font-bold px-6 py-3 rounded-xl hover:opacity-90 transition"
           >
-            Back to all adverts
+            Back to all ads
           </Link>
         </div>
       </div>
@@ -46,13 +56,27 @@ const Listing: React.FC = () => {
     notes,
     videoUrl,
     ctas,
-  } = listing;
+    status,
+  } = listing as any;
+
+  // ✅ Safe defaults so sidebar never crashes if a field is missing
+  const safeCtas = {
+    whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
+    phoneNumber: ctas?.phoneNumber ?? "07393138063",
+    financeQuoteUrl: ctas?.financeQuoteUrl ?? "https://farmcash.co.uk/import-finance/",
+    brochureUrl: ctas?.brochureUrl ?? "",
+  };
+
+  const hero = heroImage ?? listing.heroImage;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
       <div className="mb-6">
-        <Link to="/" className="text-sm font-bold text-gray-600 hover:text-neutral-900 transition">
-          ← Back to all adverts
+        <Link
+          to="/"
+          className="text-sm font-bold text-gray-600 hover:text-neutral-900 transition"
+        >
+          ← Back to all ads
         </Link>
       </div>
 
@@ -61,7 +85,11 @@ const Listing: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200">
             <div className="aspect-[16/10] bg-gray-200 relative">
-              <img src={heroImage.src} alt={heroImage.alt} className="w-full h-full object-cover" />
+              <img
+                src={hero?.src}
+                alt={hero?.alt ?? title ?? "Listing image"}
+                className="w-full h-full object-cover"
+              />
 
               <div className="absolute bottom-8 left-8 space-y-2 pointer-events-none">
                 <h2 className="hero-overlay-text text-3xl font-bold uppercase tracking-tight leading-none">
@@ -69,17 +97,19 @@ const Listing: React.FC = () => {
                 </h2>
 
                 {subtitle ? (
-                  <h3 className="hero-overlay-text text-xl font-medium tracking-wide">{subtitle}</h3>
+                  <h3 className="hero-overlay-text text-xl font-medium tracking-wide">
+                    {subtitle}
+                  </h3>
                 ) : null}
               </div>
 
               <div
                 className={[
                   "absolute top-4 left-4 px-4 py-1.5 rounded-sm font-bold text-xs shadow-md uppercase tracking-widest",
-                  badgeClass(listing.status),
+                  badgeClass(status),
                 ].join(" ")}
               >
-                {badgeText(listing.status)}
+                {badgeText(status)}
               </div>
             </div>
 
@@ -95,14 +125,21 @@ const Listing: React.FC = () => {
                   <h1 className="text-3xl font-bold leading-none uppercase tracking-tight text-neutral-900">
                     {subtitle ?? "Advert details"}
                   </h1>
-                  <p className="mt-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
-                    Year: {year}
-                  </p>
+
+                  {year ? (
+                    <p className="mt-2 text-sm font-bold text-gray-500 uppercase tracking-widest">
+                      Year: {year}
+                    </p>
+                  ) : null}
                 </div>
 
                 <div className="text-right">
-                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
-                  <p className="text-4xl font-bold text-neutral-900">{priceText ?? "POA"}</p>
+                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
+                    Price
+                  </p>
+                  <p className="text-4xl font-bold text-neutral-900">
+                    {priceText ?? "POA"}
+                  </p>
                 </div>
               </div>
 
@@ -121,7 +158,7 @@ const Listing: React.FC = () => {
                     Key specs
                   </h4>
                   <div className="space-y-3">
-                    {specs.map((row) => (
+                    {specs.map((row: any) => (
                       <div key={row.label} className="flex justify-between gap-6">
                         <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
                           {row.label}
@@ -141,7 +178,7 @@ const Listing: React.FC = () => {
                     Notes
                   </h4>
                   <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
-                    {notes.map((n, idx) => (
+                    {notes.map((n: string, idx: number) => (
                       <li key={idx}>{n}</li>
                     ))}
                   </ul>
@@ -153,7 +190,9 @@ const Listing: React.FC = () => {
           {videoUrl ? (
             <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
               <div className="p-6 border-b border-gray-100">
-                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
+                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">
+                  Video
+                </h4>
               </div>
               <video controls className="w-full" preload="metadata">
                 <source src={videoUrl} type="video/mp4" />
@@ -165,16 +204,18 @@ const Listing: React.FC = () => {
         {/* SIDEBAR */}
         <aside className="space-y-6">
           <ListingGallery
-            images={listing.gallery?.length ? listing.gallery : [listing.heroImage]}
-            videoUrl={listing.videoUrl}
+            images={listing.gallery?.length ? listing.gallery : [hero]}
+            videoUrl={videoUrl}
           />
 
           <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-wide">Enquire</h4>
+            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-wide">
+              Enquire
+            </h4>
 
             <div className="space-y-3">
               <a
-                href={ctas.whatsappUrl}
+                href={safeCtas.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-[#75ac49] hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"
@@ -182,16 +223,16 @@ const Listing: React.FC = () => {
                 WhatsApp seller
               </a>
 
-              <button
-                onClick={() => (window.location.href = `tel:${ctas.phoneNumber}`)}
-                className="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold py-3 rounded-xl transition-all"
+              <a
+                href={`tel:${safeCtas.phoneNumber}`}
+                className="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold py-3 rounded-xl transition-all block text-center"
               >
-                Call {ctas.phoneNumber.replace("+44", "+44 ")}
-              </button>
+                Call {formatPhoneLabel(safeCtas.phoneNumber)}
+              </a>
 
-              {ctas.financeQuoteUrl ? (
+              {safeCtas.financeQuoteUrl ? (
                 <a
-                  href={ctas.financeQuoteUrl}
+                  href={safeCtas.financeQuoteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full border-2 border-neutral-900 text-neutral-900 hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
@@ -200,9 +241,9 @@ const Listing: React.FC = () => {
                 </a>
               ) : null}
 
-              {ctas.brochureUrl ? (
+              {safeCtas.brochureUrl ? (
                 <a
-                  href={ctas.brochureUrl}
+                  href={safeCtas.brochureUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full bg-[#75ac49] text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md hover:opacity-90"
