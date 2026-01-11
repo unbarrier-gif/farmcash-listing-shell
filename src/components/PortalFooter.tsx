@@ -6,32 +6,35 @@ const PortalFooter: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
-          <div>
-            <div className="flex flex-col mb-4">
-              <div className="text-3xl logo-font leading-none flex">
-                <span className="text-brand-green">Farm</span>
-                <span className="text-brand-gold">Cash</span>
-              </div>
-              <div className="text-brand-gold font-bold text-[10px] tracking-tight ml-[1.6em] logo-font uppercase">
-                Input Finance and Machinery Import
-              </div>
-            </div>
+<div>
+  <div className="flex flex-col mb-4">
+    <div className="text-3xl logo-font leading-none flex">
+      <span className="text-[#75ac49]">Farm</span>
+      <span className="text-[#ca9c29]">Cash</span>
+    </div>
 
-            <p className="text-gray-300 text-sm leading-relaxed">
-              A lightweight sales portal for current machinery adverts and sourcing requests.
-            </p>
+    {/* No ml-[1.6em] — keep alignment consistent with header */}
+    <div className="text-[#ca9c29] font-bold text-[10px] tracking-tight whitespace-nowrap logo-font uppercase">
+      Input Finance and Machinery Import
+    </div>
+  </div>
 
-            <div className="mt-5">
-              <a
-                href="https://farmcash.co.uk/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-brand-gold transition-colors"
-              >
-                Visit farmcash.co.uk
-              </a>
-            </div>
-          </div>
+  <p className="text-gray-300 text-sm leading-relaxed">
+    A lightweight sales portal for current machinery adverts and sourcing requests.
+  </p>
+
+  <div className="mt-5">
+    <a
+      href="https://farmcash.co.uk/"
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-[#ca9c29] transition-colors"
+    >
+      Visit farmcash.co.uk
+    </a>
+  </div>
+</div>
+
 
           {/* Contact */}
           <div>
