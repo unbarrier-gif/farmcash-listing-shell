@@ -9,6 +9,9 @@ const Home: React.FC = () => {
       </div>
     </div>
   );
+  <p className="text-gray-400 text-sm uppercase tracking-widest">
+  Browse adverts using the filters above.
+</p>
 };
 
 export default Home;
