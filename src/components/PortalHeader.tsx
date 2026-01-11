@@ -81,10 +81,19 @@ const PortalHeader: React.FC = () => {
             </a>
 
             <a
-              href="tel:07393138063"
+              href="tel:+447393138063"
               className="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-900 bg-neutral-900 text-white shadow-md hover:brightness-110 transition-all text-center"
             >
               Call 07393 138063
+            </a>
+
+            <a
+              href="https://wa.me/447393138063"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-[#ca9c29] bg-[#ca9c29] text-white shadow-md hover:brightness-110 transition-all text-center"
+            >
+              WhatsApp
             </a>
           </div>
         </div>
