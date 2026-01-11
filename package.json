@@ -7,10 +7,11 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "start": "serve -s dist -l 8080"
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview",
+  "start": "serve -s dist -l 8080"
+}
   },
   "dependencies": {
     "react": "^19.2.3",
