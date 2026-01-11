@@ -1,0 +1,38 @@
+steps:
+  # 1) Build the container image using the Dockerfile in the repo root
+  - name: gcr.io/cloud-builders/docker
+    args:
+      [
+        "build",
+        "-t",
+        "${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}",
+        "."
+      ]
+
+  # 2) Push the image to Artifact Registry
+  - name: gcr.io/cloud-builders/docker
+    args:
+      [
+        "push",
+        "${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}"
+      ]
+
+  # 3) Deploy the new image to Cloud Run
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE_NAME}",
+        "--image",
+        "${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}",
+        "--region",
+        "${_DEPLOY_REGION}",
+        "--platform",
+        "${_PLATFORM}",
+        "--allow-unauthenticated"
+      ]
+
+images:
+  - "${_AR_HOSTNAME}/${_AR_PROJECT_ID}/${_AR_REPOSITORY}/${_SERVICE_NAME}:${SHORT_SHA}"
