@@ -102,6 +102,7 @@ const PortalFooter: React.FC = () => {
             </p>
           </div>
         </div>
+        Add subtle footer credit and divider
       </div>
       {/* Footer credit */}
 <div className="mt-12 pt-6 border-t border-gray-800/40 text-center">
