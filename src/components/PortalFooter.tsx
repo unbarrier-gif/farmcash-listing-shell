@@ -103,6 +103,21 @@ const PortalFooter: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Footer credit */}
+<div className="mt-12 pt-6 border-t border-gray-800/40 text-center">
+  <p className="text-gray-500 text-xs tracking-wide">
+    Built for fast static delivery via Cloud Run · Designed by{" "}
+    <a
+      href="https://unbarrier.me"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-brand-gold transition-colors underline underline-offset-2"
+    >
+      unbarrier.me
+    </a>
+  </p>
+</div>
+
     </footer>
   );
 };
