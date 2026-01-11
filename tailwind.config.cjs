@@ -1,14 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
-  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        "brand-black": "#0f0f0f",
+        "brand-black": "#0a0a0a",
         "brand-green": "#75ac49",
         "brand-gold": "#ca9c29",
       },
     },
   },
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   plugins: [],
 };
