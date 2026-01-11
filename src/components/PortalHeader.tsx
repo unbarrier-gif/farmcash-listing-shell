@@ -26,7 +26,7 @@ const pillClass = (accent: "all" | "sale" | "wanted") => {
 
 const PortalHeader: React.FC = () => {
   return (
-    <header className="sticky top-0 z-50 bg-[#fefefe] shadow-sm border-b border-gray-100">
+  <header className="md:sticky md:top-0 z-50 bg-[#fefefe] shadow-sm border-b border-gray-100">
       {/* Top strapline */}
       <div className="bg-neutral-900 h-9 flex items-center justify-end px-6 border-b border-gray-800">
         <span className="text-white text-[10px] font-bold uppercase tracking-[0.4em]">
