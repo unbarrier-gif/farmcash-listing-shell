@@ -6,21 +6,19 @@ import Listing from "./pages/Listing";
 import Wanted from "./pages/Wanted";
 import PortalHeader from "./components/PortalHeader";
 import PortalFooter from "./components/PortalFooter";
-import { counts } from "./data/listings";
-
 
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Header (single source of truth) */}
-<PortalHeader counts={counts} />
+      {/* Header */}
+      <PortalHeader />
 
       {/* Page content */}
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
 
-          Replace Home with a proper ForSale page later. */}
+          {/* Temporary route for the header "For sale" nav */}
           <Route path="/for-sale" element={<Home />} />
 
           <Route path="/listing/:slug" element={<Listing />} />
@@ -30,7 +28,7 @@ const App: React.FC = () => {
         </Routes>
       </main>
 
-    {/* Footer */}
+      {/* Footer */}
       <PortalFooter />
     </div>
   );
