@@ -3,10 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import { listings } from "../data/listings";
 import ListingGallery from "../components/ListingGallery";
 
-type Status = "wanted" | "forSale" | string;
+type Status = "for-sale" | "wanted" | string;
 
 const badgeClass = (status: Status) =>
-  status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-[#75ac49] text-white";
+  status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-neutral-900 text-white";
 
 const badgeText = (status: Status) => (status === "wanted" ? "Wanted" : "For sale");
 
