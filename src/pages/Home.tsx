@@ -17,9 +17,9 @@ const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => b
   return row?.value;
 };
 
-const getTileLocation = (l: any) => l.location as string | undefined;
+const getTileLocation = (l: Listing) => l.location as string | undefined;
 
-const getTileWidth = (l: any) => {
+const getWidthRaw = (l: Listing) => {
   return (
     (l.width as string | undefined) ||
     findSpecValue(l.specs, (label) => label.includes("working width") || label === "width") ||
@@ -29,9 +29,40 @@ const getTileWidth = (l: any) => {
 
 const formatWidthShort = (widthRaw?: string) => {
   if (!widthRaw) return "";
-  const mMatch = widthRaw.match(/(\d+(\.\d+)?)/);
+  // Converts "6.20 m (20 ft)" -> "6.2M"
+  const mMatch = String(widthRaw).match(/(\d+(\.\d+)?)/);
   if (!mMatch) return String(widthRaw).toUpperCase();
   return `${mMatch[1]}M`.toUpperCase();
+};
+
+const pickTileSpec = (l: Listing) => {
+  // 1) Prefer width (short)
+  const w = formatWidthShort(getWidthRaw(l));
+  if (w) return w;
+
+  // 2) If subtitle contains something like "12-row" or "9 m working width", use it
+  const sub = String(l.subtitle || "").trim();
+  if (sub) {
+    // try to extract "12-row" or "12 row"
+    const rowMatch = sub.match(/(\d+)\s*-\s*row/i) || sub.match(/(\d+)\s*row/i);
+    if (rowMatch?.[0]) return rowMatch[0].replace(/\s+/g, " ").toUpperCase();
+
+    // try to extract "9 m" / "9m"
+    const mMatch = sub.match(/(\d+(\.\d+)?)\s*m/i);
+    if (mMatch?.[1]) return `${mMatch[1]}M`.toUpperCase();
+
+    // fallback: keep subtitle (trim to keep tiles tidy)
+    return sub.length > 24 ? `${sub.slice(0, 24).trim()}…` : sub;
+  }
+
+  // 3) Else try common spec rows
+  const rows = findSpecValue(l.specs, (label) => label === "rows" || label.includes("row"));
+  if (rows) return String(rows).toUpperCase();
+
+  const model = findSpecValue(l.specs, (label) => label === "model");
+  if (model) return String(model);
+
+  return "";
 };
 
 const Home: React.FC<Props> = ({ mode = "all" }) => {
@@ -59,7 +90,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((l: any) => (
+        {filtered.map((l) => (
           <AdvertTile
             key={l.id}
             listing={{
@@ -69,8 +100,8 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
               location: getTileLocation(l),
               heroImage: l.heroImage?.src,
               year: l.year,
-              price: l.priceText ?? l.price ?? "",
-              specSummary: formatWidthShort(getTileWidth(l)),
+              price: l.priceText ?? "",
+              specSummary: pickTileSpec(l),
             }}
           />
         ))}
