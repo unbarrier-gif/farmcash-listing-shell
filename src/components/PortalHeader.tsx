@@ -28,7 +28,7 @@ const pillClass = (accent: "all" | "sale" | "wanted") => {
 
 const PortalHeader: React.FC = () => {
   return (
-    <header className="md:sticky md:top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+    <header className="lg:sticky lg:top-0 z-50 bg-white shadow-sm border-b border-gray-100">
       {/* Top strapline */}
       <div className="bg-neutral-900 h-9 flex items-center justify-end px-6 border-b border-gray-800">
         <span className="text-white text-[10px] font-bold uppercase tracking-[0.4em]">
@@ -37,66 +37,68 @@ const PortalHeader: React.FC = () => {
       </div>
 
       {/* Main header */}
-      <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col items-center gap-5">
-        {/* Brand (logo-only) */}
-        <Link
-          to="/"
-          className="flex items-center justify-center transition-opacity hover:opacity-95"
-          aria-label="FarmCash Home"
-        >
-          <img
-            src="/brand/farmcash-mark.png"
-            alt="FarmCash – Input Finance and Machinery Import"
-            className="h-14 w-auto object-contain"
-          />
-        </Link>
-
-        {/* Nav + CTAs */}
-        <div className="w-full flex flex-col items-center gap-3">
-          {/* Nav pills */}
-          <nav
-            className="flex items-center gap-3 bg-gray-50/50 p-1.5 rounded-full border border-gray-100 shadow-inner overflow-x-auto max-w-full"
-            role="navigation"
-            aria-label="Main Navigation"
+      <div className="max-w-7xl mx-auto px-6 py-5">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          {/* Brand (LEFT aligned, larger) */}
+          <Link
+            to="/"
+            className="flex items-center justify-start transition-opacity hover:opacity-95"
+            aria-label="FarmCash Home"
           >
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.path === "/"}
-                className={pillClass(item.accent)}
+            <img
+              src="/brand/farmcash-mark.png"
+              alt="FarmCash – Input Finance and Machinery Import"
+              className="h-16 sm:h-18 md:h-20 w-auto object-contain"
+            />
+          </Link>
+
+          {/* Nav + CTAs */}
+          <div className="w-full md:w-auto flex flex-col items-start md:items-end gap-3">
+            {/* Nav pills */}
+            <nav
+              className="flex items-center gap-3 bg-gray-50/50 p-1.5 rounded-full border border-gray-100 shadow-inner overflow-x-auto max-w-full"
+              role="navigation"
+              aria-label="Main Navigation"
+            >
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  end={item.path === "/"}
+                  className={pillClass(item.accent)}
+                >
+                  <span>{item.label}</span>
+                </NavLink>
+              ))}
+            </nav>
+
+            {/* CTA row */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+              <a
+                href="https://farmcash.co.uk/import-finance/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 rounded-full text-sm font-semibold border border-brand-green bg-brand-green text-white shadow-md hover:brightness-110 transition-all text-center"
               >
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
-          </nav>
+                Request a finance quote
+              </a>
 
-          {/* CTA row (under pills) */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-            <a
-              href="https://farmcash.co.uk/import-finance/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-brand-green bg-brand-green text-white shadow-md hover:brightness-110 transition-all text-center"
-            >
-              Request a finance quote
-            </a>
+              <a
+                href="tel:+447393138063"
+                className="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-900 bg-neutral-900 text-white shadow-md hover:brightness-110 transition-all text-center"
+              >
+                Call 07393 138063
+              </a>
 
-            <a
-              href="tel:+447393138063"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-neutral-900 bg-neutral-900 text-white shadow-md hover:brightness-110 transition-all text-center"
-            >
-              Call 07393 138063
-            </a>
-
-            <a
-              href="https://wa.me/447393138063"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-brand-gold bg-brand-gold text-white shadow-md hover:brightness-110 transition-all text-center"
-            >
-              WhatsApp
-            </a>
+              <a
+                href="https://wa.me/447393138063"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 rounded-full text-sm font-semibold border border-brand-gold bg-brand-gold text-white shadow-md hover:brightness-110 transition-all text-center"
+              >
+                WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
