@@ -10,10 +10,4 @@ export enum AspectRatio {
   PORTRAIT = '9:16'
 }
 
-// State interface for tracking the lifecycle of a Veo video generation request
-export interface VeoGenerationState {
-  isGenerating: boolean;
-  progressMessage: string;
-  error?: string;
-  videoUrl?: string;
 }
