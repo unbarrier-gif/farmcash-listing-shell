@@ -259,7 +259,7 @@ export const listings: Listing[] = [
    * WANTED (template)
    * URL: /listing/wanted-1
    */
-  {
+  
     {
     id: "wanted-1",
     status: "wanted",
