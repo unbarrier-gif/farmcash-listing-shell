@@ -38,7 +38,7 @@ const ImageLightbox: React.FC<Props> = ({ open, image, onClose }) => {
       <button
         onClick={onClose}
         aria-label="Close image preview"
-        className="absolute inset-0 w-full h-full bg-white/10 backdrop-blur-md"
+        className="absolute inset-0 w-full h-full bg-brand-black/50 backdrop-blur-md"
       />
 
       {/* Close icon */}
