@@ -46,10 +46,6 @@ export type Listing = {
   /** Main media (also used for Home/Wanted tile image) */
   heroImage: MediaImage;
 
-  /** Optional extra media */
-  gallery?: MediaImage[];
-  videoUrl?: string;
-
   /** Optional content */
   description?: string;
   specs?: SpecRow[];
