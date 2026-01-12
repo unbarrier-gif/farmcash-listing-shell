@@ -37,9 +37,6 @@ export type AdvertTileListing = {
   detail?: string; // any other short line
 };
 
-const BRAND_GREEN = "#75ac49";
-const BRAND_GOLD = "#ca9c29";
-
 const normaliseStatus = (status?: ListingStatus) => {
   const s = String(status || "").toLowerCase().trim();
   if (s.includes("want")) return "wanted";
@@ -75,7 +72,11 @@ const buildSpec = (l: AdvertTileListing) => {
 
   // Rows
   if (l.rows !== undefined && l.rows !== null && String(l.rows).trim()) {
-    parts.push(String(l.rows).trim().toLowerCase().includes("row") ? String(l.rows).trim() : `${String(l.rows).trim()}-row`);
+    parts.push(
+      String(l.rows).trim().toLowerCase().includes("row")
+        ? String(l.rows).trim()
+        : `${String(l.rows).trim()}-row`
+    );
   }
 
   // Hours
@@ -90,25 +91,21 @@ const buildSpec = (l: AdvertTileListing) => {
   return parts.join(" · ");
 };
 
-const badgeStyles = (status: "wanted" | "for-sale") => {
-  if (status === "wanted") return { bg: BRAND_GOLD, text: "WANTED" };
-  return { bg: "#111111", text: "FOR SALE" };
-};
-
 type Props = {
   listing: AdvertTileListing;
 };
 
 const AdvertTile: React.FC<Props> = ({ listing }) => {
   const status = normaliseStatus(listing.status);
-  const badge = badgeStyles(status);
+
+  const badgeText = status === "wanted" ? "WANTED" : "FOR SALE";
+  const badgeClass = status === "wanted" ? "bg-brand-gold" : "bg-brand-black";
 
   const location = (listing.location || "").trim();
   const title = (listing.title || "").trim();
 
   const year = formatYear(listing.year);
   const spec = buildSpec(listing);
-
   const meta = [year, spec].filter(Boolean).join(" · ");
 
   const priceText = formatPrice(listing.price, listing.currency || "£");
@@ -143,11 +140,8 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
         </div>
 
         {/* Badge */}
-        <span
-          className="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white"
-          style={{ backgroundColor: badge.bg }}
-        >
-          {badge.text}
+        <span className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white ${badgeClass}`}>
+          {badgeText}
         </span>
       </div>
 
@@ -155,7 +149,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
       <div className="p-5">
         {/* Location */}
         {location ? (
-          <p className="text-sm font-medium uppercase tracking-wide" style={{ color: BRAND_GREEN }}>
+          <p className="text-sm font-medium uppercase tracking-wide text-brand-green">
             {location}
           </p>
         ) : null}
@@ -174,7 +168,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         <hr className="my-4 border-gray-100" />
 
-        {/* Price row */}
+        {/* Bottom row */}
         <div className="flex items-end gap-4">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-wide text-gray-400">
@@ -182,4 +176,18 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
             </p>
 
             <p className="mt-1 text-lg font-bold text-black">
-              {status === "wanted" ? "Get in touch" : (priceText || "POA
+              {status === "wanted" ? "Get in touch" : (priceText || "POA")}
+            </p>
+          </div>
+
+          {/* Arrow (grey → green on hover) */}
+          <div className="ml-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-brand-green">
+            <ArrowRight className="h-4 w-4 text-gray-500 transition-colors group-hover:text-white" />
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+};
+
+export default AdvertTile;
