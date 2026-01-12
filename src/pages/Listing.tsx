@@ -3,16 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { listings, type Listing as ListingType } from "../data/listings";
 import ListingGallery from "../components/ListingGallery";
 
-const BRAND_GREEN = "#75ac49";
-const BRAND_GOLD = "#ca9c29";
-
 const normaliseStatus = (status: ListingType["status"]) =>
   String(status || "").toLowerCase().includes("want") ? "wanted" : "for-sale";
-
-const badgeStyles = (status: "wanted" | "for-sale") => {
-  if (status === "wanted") return { bg: BRAND_GOLD, text: "WANTED" };
-  return { bg: "#111111", text: "FOR SALE" };
-};
 
 const formatPhoneLabel = (phone: string) => {
   const p = String(phone || "").trim();
@@ -64,7 +56,8 @@ const Listing: React.FC = () => {
   } = listing;
 
   const statusNorm = normaliseStatus(status);
-  const badge = badgeStyles(statusNorm);
+  const badgeText = statusNorm === "wanted" ? "WANTED" : "FOR SALE";
+  const badgeClass = statusNorm === "wanted" ? "bg-brand-gold" : "bg-brand-black";
 
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
@@ -108,49 +101,37 @@ const Listing: React.FC = () => {
                 />
               </div>
 
-              {/* Badge (matches tile) */}
+              {/* Badge */}
               <span
-                className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white"
-                style={{ backgroundColor: badge.bg }}
+                className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white ${badgeClass}`}
               >
-                {badge.text}
+                {badgeText}
               </span>
             </div>
 
             {/* HEADER CONTENT */}
             <div className="p-6 md:p-8">
-              {/* Location (brand green) */}
+              {/* Location */}
               {displayLocation ? (
-                <p
-                  className="text-sm font-medium uppercase tracking-wide"
-                  style={{ color: BRAND_GREEN }}
-                >
+                <p className="text-sm font-medium uppercase tracking-wide text-brand-green">
                   {displayLocation}
                 </p>
               ) : null}
 
-              {/* Title (bold black, larger) */}
+              {/* Title */}
               <h1 className="mt-1 text-2xl md:text-3xl font-bold leading-snug text-black">
                 {displayTitle}
               </h1>
 
-              {/* Optional subtitle (smaller, muted) */}
-              {subtitle ? (
-                <p className="mt-1 text-base text-gray-600">
-                  {subtitle}
-                </p>
-              ) : null}
+              {/* Optional subtitle */}
+              {subtitle ? <p className="mt-1 text-base text-gray-600">{subtitle}</p> : null}
 
               {/* Meta line */}
-              {metaLine ? (
-                <p className="mt-3 text-sm text-gray-500">
-                  {metaLine}
-                </p>
-              ) : null}
+              {metaLine ? <p className="mt-3 text-sm text-gray-500">{metaLine}</p> : null}
 
               <hr className="my-6 border-gray-100" />
 
-              {/* Price row (matches tile language) */}
+              {/* Price row */}
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-gray-400">
@@ -161,13 +142,12 @@ const Listing: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Quick action: WhatsApp */}
                 <div className="flex gap-3">
                   <a
                     href={safeCtas.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-[#75ac49] hover:opacity-90 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-sm"
+                    className="bg-brand-green hover:opacity-90 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-sm"
                   >
                     WhatsApp
                   </a>
@@ -257,7 +237,6 @@ const Listing: React.FC = () => {
         <aside className="space-y-6">
           <ListingGallery images={gallery?.length ? gallery : [heroImage]} videoUrl={videoUrl} />
 
-          {/* Enquire card */}
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
             <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900 mb-4">
               Enquire
@@ -268,7 +247,7 @@ const Listing: React.FC = () => {
                 href={safeCtas.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-[#75ac49] hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
+                className="w-full bg-brand-green hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 WhatsApp seller
               </a>
@@ -296,7 +275,7 @@ const Listing: React.FC = () => {
                   href={safeCtas.brochureUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#75ac49] text-white font-bold py-3 rounded-xl transition-all block text-center shadow-sm hover:opacity-90"
+                  className="w-full bg-brand-green text-white font-bold py-3 rounded-xl transition-all block text-center shadow-sm hover:opacity-90"
                 >
                   Download brochure
                 </a>
