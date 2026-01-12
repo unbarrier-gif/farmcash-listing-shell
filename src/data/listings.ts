@@ -205,7 +205,6 @@ export const listings: Listing[] = [
       { src: "/images/FC-2012-620/FC-2012-620-6.png", alt: "Detail view (image 6)." },
       { src: "/images/FC-2012-620/FC-2012-620-7.png", alt: "Detail view (image 7)." },
       { src: "/images/FC-2012-620/FC-2012-620-8.png", alt: "Detail view (image 8)." },
-      { src: "/images/FC-2012-620/FC-2012-620-11.png", alt: "Identification plate / model details (image 11)." },
     ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
