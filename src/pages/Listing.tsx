@@ -140,3 +140,196 @@ const Listing: React.FC = () => {
                   </h2>
 
                   {subtitle ? (
+                    <p className="mt-2 text-white/95 text-base md:text-xl font-semibold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                      {subtitle}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </button>
+
+            <div className="p-8">
+              {serialRef ? (
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">
+                  Serial ref: {serialRef}
+                </p>
+              ) : null}
+
+              {/* Title + meta + price */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div className="min-w-0">
+                  <h1 className="text-3xl md:text-4xl font-black leading-none uppercase tracking-tight text-neutral-900">
+                    {subtitle ? String(subtitle).toUpperCase() : "ADVERT DETAILS"}
+                  </h1>
+
+                  <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.15em] text-gray-500 font-bold">
+                    {year ? <span>Year: {year}</span> : null}
+                    {width ? <span>Width: {width}</span> : null}
+                    {location ? <span>{location}</span> : null}
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
+                  <p className="text-4xl font-black text-neutral-900">{priceText ?? "POA"}</p>
+                </div>
+              </div>
+
+              {/* Technical Description */}
+              <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
+                <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
+                  Technical Description
+                </h4>
+                <p className="text-gray-700 leading-relaxed text-sm">
+                  {description ? description : "Details coming soon."}
+                </p>
+              </div>
+
+              {/* Technical specs */}
+              {specs && specs.length > 0 ? (
+                <div className="bg-white rounded-xl p-6 mb-8 border border-gray-200">
+                  <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
+                    Technical specs
+                  </h4>
+
+                  <div className="space-y-3">
+                    {specs.map((row) => (
+                      <div
+                        key={row.label}
+                        className="flex justify-between gap-6 border-b border-gray-100 pb-2"
+                      >
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+                          {row.label}
+                        </span>
+                        <span className="text-sm font-bold text-neutral-900 text-right">
+                          {row.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {notes && notes.length > 0 ? (
+                <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                  <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
+                    Notes
+                  </h4>
+                  <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                    {notes.map((n, idx) => (
+                      <li key={idx}>{n}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          {videoUrl ? (
+            <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+              <div className="p-6 border-b border-gray-100">
+                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
+              </div>
+              <video controls className="w-full" preload="metadata">
+                <source src={videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          ) : null}
+        </div>
+
+        {/* SIDEBAR */}
+        <aside className="space-y-6">
+          {/* Clickable thumbs */}
+          <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">
+                Detailed images
+              </h4>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                {detailThumbs.length}/{detailThumbs.length}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {detailThumbs.map((img) => (
+                <button
+                  key={img.src}
+                  type="button"
+                  onClick={() => openLightbox(img)}
+                  className="aspect-square bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:opacity-95 transition"
+                  aria-label={`Open image: ${img.alt || "Image"}`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+
+            <p className="mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">
+              {allImages.length} high resolution images available
+            </p>
+          </div>
+
+          {/* ✅ Secure this asset card */}
+          <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-widest text-xs">
+              Secure this asset
+            </h4>
+
+            <div className="space-y-3">
+              <a
+                href={safeCtas.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full bg-brand-green hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"
+              >
+                WhatsApp seller
+              </a>
+
+              <a
+                href={`tel:${safeCtas.phoneNumber}`}
+                className="w-full bg-brand-black hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md"
+              >
+                Call {formatPhoneLabel(safeCtas.phoneNumber)}
+              </a>
+
+              {safeCtas.financeQuoteUrl ? (
+                <a
+                  href={safeCtas.financeQuoteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full border-2 border-brand-black text-brand-black hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
+                >
+                  Request finance quote
+                </a>
+              ) : null}
+
+              {safeCtas.brochureUrl ? (
+                <a
+                  href={safeCtas.brochureUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-brand-green text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md hover:opacity-90"
+                >
+                  Download brochure
+                </a>
+              ) : null}
+            </div>
+
+            {/* ✅ Removed “instant eligibility check available” */}
+          </div>
+
+          <p className="text-xs text-gray-400">
+            Listing ID: <span className="font-mono">{id}</span>
+          </p>
+        </aside>
+      </div>
+    </div>
+  );
+};
+
+export default Listing;
