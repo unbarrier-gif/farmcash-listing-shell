@@ -49,4 +49,71 @@ const PortalFooter: React.FC = () => {
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.
+                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm9.65 2.1a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* MIDDLE */}
+          <div>
+            <h5 className="font-bold text-white mb-8 uppercase tracking-widest text-lg">
+              Headquarters
+            </h5>
+
+            <p className="text-gray-400 leading-relaxed uppercase text-xs tracking-[0.15em]">
+              Monkley Stables, Monkley Lane
+              <br />
+              Monkley, Rode, Frome, BA11 6QQ
+              <br />
+              United Kingdom
+            </p>
+
+            <p className="mt-6 text-white font-bold uppercase tracking-widest text-xs">
+              <a
+                href="https://farmcash.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-brand-gold transition-colors border-b-2 border-brand-gold pb-1"
+              >
+                farmcash.co.uk
+              </a>
+            </p>
+          </div>
+
+          {/* RIGHT */}
+          <div>
+            <h5 className="font-bold text-white mb-8 uppercase tracking-widest text-lg">
+              Legal
+            </h5>
+
+            <p className="text-gray-400 leading-relaxed uppercase text-xs tracking-[0.15em]">
+              FarmCash Ltd | Registered No: 14016448
+            </p>
+
+            <p className="mt-6 text-gray-400 uppercase text-xs tracking-[0.15em]">
+              © 2026 FarmCash. All rights reserved.
+            </p>
+          </div>
+        </div>
+
+        {/* subtle divider + credit */}
+        <div className="mt-12 pt-6 border-t border-gray-800/40">
+          <p className="text-gray-500 text-xs text-center tracking-wide">
+            Built for fast static delivery via Cloud Run · Joyfully Designed by{" "}
+            <a
+              href="https://unbarrier.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cherry-bomb-one-regular text-brand-green hover:opacity-90 transition-opacity underline underline-offset-2 brightness-125"
+            >
+              unbarrier.me
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default PortalFooter;
