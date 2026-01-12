@@ -105,10 +105,12 @@ const PortalFooter: React.FC = () => {
               href="https://unbarrier.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="cherry-bomb-one-regular text-brand-green hover:opacity-90 transition-opacity underline underline-offset-2 brightness-125"
+              className="cherry-bomb-one-regular hover:opacity-90 transition-opacity underline underline-offset-2"
+              style={{ color: "#38ff99" }}
             >
               unbarrier.me
-            </a>
+          </a>
+
           </p>
         </div>
       </div>
