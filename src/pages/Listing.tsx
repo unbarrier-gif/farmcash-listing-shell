@@ -89,7 +89,7 @@ const Listing: React.FC = () => {
     brochureUrl: ctas?.brochureUrl ?? "",
   };
 
-  const detailThumbs = allImages.slice(0, 4);
+  const detailThumbs = allImages;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
