@@ -7,10 +7,9 @@ type GalleryImage = {
 
 type ListingGalleryProps = {
   images: GalleryImage[];
-  videoUrl?: string;
 };
 
-const ListingGallery: React.FC<ListingGalleryProps> = ({ images, videoUrl }) => {
+const ListingGallery: React.FC<ListingGalleryProps> = ({ images }) => {
   const safeImages = useMemo(() => images?.filter(Boolean) ?? [], [images]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -26,31 +25,6 @@ const ListingGallery: React.FC<ListingGalleryProps> = ({ images, videoUrl }) => 
           {safeImages.length > 0 ? `${activeIndex + 1}/${safeImages.length}` : "0/0"}
         </p>
       </div>
-
-      {/* Main media */}
-      <div className="p-6 space-y-4">
-        {videoUrl ? (
-          <div className="rounded-xl overflow-hidden border border-gray-200">
-            <video controls className="w-full" preload="metadata">
-              <source src={videoUrl} type="video/mp4" />
-            </video>
-          </div>
-        ) : null}
-
-        {active ? (
-          <div className="rounded-xl overflow-hidden border border-gray-200">
-            <img
-              src={active.src}
-              alt={active.alt}
-              className="w-full h-auto object-cover"
-              loading="eager"
-            />
-          </div>
-        ) : (
-          <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-sm text-gray-600">
-            No images added for this advert yet.
-          </div>
-        )}
 
         {/* Thumbnails */}
         {safeImages.length > 1 ? (
