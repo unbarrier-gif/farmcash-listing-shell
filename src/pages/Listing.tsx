@@ -36,11 +36,14 @@ const Listing: React.FC = () => {
   const allImages = useMemo(() => {
     if (!listing) return [];
     const imgs = (listing.gallery?.length ? listing.gallery : [listing.heroImage]).filter(Boolean);
+
     // Ensure hero is included (first) even if gallery exists but doesn’t include it
     const hero = listing.heroImage;
+
     const dedup = [hero, ...imgs].filter(
       (img, idx, arr) => arr.findIndex((x) => x.src === img.src) === idx
     );
+
     return dedup;
   }, [listing]);
 
@@ -89,6 +92,7 @@ const Listing: React.FC = () => {
     brochureUrl: ctas?.brochureUrl ?? "",
   };
 
+  // ✅ Option A: show ALL thumbs (still neat because we make the card scroll)
   const detailThumbs = allImages;
 
   return (
@@ -228,7 +232,9 @@ const Listing: React.FC = () => {
           {videoUrl ? (
             <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
               <div className="p-6 border-b border-gray-100">
-                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
+                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">
+                  Video
+                </h4>
               </div>
               <video controls className="w-full" preload="metadata">
                 <source src={videoUrl} type="video/mp4" />
@@ -239,34 +245,36 @@ const Listing: React.FC = () => {
 
         {/* SIDEBAR */}
         <aside className="space-y-6">
-          {/* Clickable thumbs */}
+          {/* ✅ Detailed images (ALL thumbs + scroll area) */}
           <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">
                 Detailed images
               </h4>
               <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                {detailThumbs.length}/{detailThumbs.length}
+                {detailThumbs.length}/{allImages.length}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              {detailThumbs.map((img) => (
-                <button
-                  key={img.src}
-                  type="button"
-                  onClick={() => openLightbox(img)}
-                  className="aspect-square bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:opacity-95 transition"
-                  aria-label={`Open image: ${img.alt || "Image"}`}
-                >
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
+            <div className="max-h-[420px] overflow-auto pr-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3">
+                {detailThumbs.map((img) => (
+                  <button
+                    key={img.src}
+                    type="button"
+                    onClick={() => openLightbox(img)}
+                    className="aspect-square bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:opacity-95 transition"
+                    aria-label={`Open image: ${img.alt || "Image"}`}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
 
             <p className="mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center">
@@ -319,8 +327,6 @@ const Listing: React.FC = () => {
                 </a>
               ) : null}
             </div>
-
-            {/* ✅ Removed “instant eligibility check available” */}
           </div>
 
           <p className="text-xs text-gray-400">
