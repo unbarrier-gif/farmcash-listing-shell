@@ -47,7 +47,6 @@ const formatPrice = (price?: number | string, currency = "£") => {
   if (price === undefined || price === null || price === "") return "";
   const raw = typeof price === "number" ? price : Number(String(price).replace(/[^0-9.]/g, ""));
   if (!Number.isFinite(raw)) return String(price);
-  // UK formatting
   return `${currency}${raw.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`;
 };
 
@@ -57,20 +56,16 @@ const formatYear = (year?: number | string) => {
 };
 
 const buildSpec = (l: AdvertTileListing) => {
-  // Prefer a curated summary if you’ve provided one
   if (l.specSummary && String(l.specSummary).trim()) return String(l.specSummary).trim();
 
-  // Otherwise build from common fields (use whatever exists)
   const parts: string[] = [];
 
-  // Working width / width
   const ww = l.workingWidth ?? l.width;
   if (ww !== undefined && ww !== null && String(ww).trim()) {
     const v = String(ww).trim();
     parts.push(v.toLowerCase().includes("m") ? v : `${v}m`);
   }
 
-  // Rows
   if (l.rows !== undefined && l.rows !== null && String(l.rows).trim()) {
     parts.push(
       String(l.rows).trim().toLowerCase().includes("row")
@@ -79,13 +74,11 @@ const buildSpec = (l: AdvertTileListing) => {
     );
   }
 
-  // Hours
   if (l.hours !== undefined && l.hours !== null && String(l.hours).trim()) {
     const v = String(l.hours).trim();
     parts.push(v.toLowerCase().includes("h") ? v : `${v}h`);
   }
 
-  // Detail (last resort)
   if (l.detail && String(l.detail).trim()) parts.push(String(l.detail).trim());
 
   return parts.join(" · ");
@@ -106,7 +99,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
   const year = formatYear(listing.year);
   const spec = buildSpec(listing);
-  const meta = [year, spec].filter(Boolean).join(" · ");
+  const meta = [year, spec].filter(Boolean).join(" • ").toUpperCase();
 
   const priceText = formatPrice(listing.price, listing.currency || "£");
 
@@ -125,64 +118,69 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   return (
     <Link
       to={`/listing/${listing.id}`}
-      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-[1px]"
       aria-label={title ? `Open listing: ${title}` : "Open listing"}
     >
       {/* Image */}
       <div className="relative">
-        <div className="aspect-[4/3] overflow-hidden rounded-t-2xl bg-gray-100">
+        <div className="aspect-[16/10] overflow-hidden rounded-t-2xl bg-gray-100">
           <img
             src={hero || fallbackHero}
             alt={title || "Listing image"}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             loading="lazy"
           />
         </div>
 
         {/* Badge */}
-        <span className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white ${badgeClass}`}>
+        <span
+          className={`absolute left-4 top-4 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
+        >
           {badgeText}
         </span>
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-6">
         {/* Location */}
         {location ? (
-          <p className="text-sm font-medium uppercase tracking-wide text-brand-green">
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-green">
             {location}
           </p>
-        ) : null}
+        ) : (
+          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-green">
+            &nbsp;
+          </p>
+        )}
 
         {/* Title */}
-        <h3 className="mt-1 text-lg font-bold leading-snug text-black">
+        <h3 className="mt-2 text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
           {title}
         </h3>
 
         {/* Meta */}
         {meta ? (
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
             {meta}
           </p>
         ) : null}
 
-        <hr className="my-4 border-gray-100" />
-
-        {/* Bottom row */}
-        <div className="flex items-end gap-4">
+        <div className="mt-6 pt-5 border-t border-gray-100 flex items-end justify-between gap-4">
           <div className="min-w-0">
-            <p className="text-xs uppercase tracking-wide text-gray-400">
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">
               {status === "wanted" ? "Request" : "Sale price"}
             </p>
 
-            <p className="mt-1 text-lg font-bold text-black">
+            <p className="text-2xl font-black text-black">
               {status === "wanted" ? "Get in touch" : (priceText || "POA")}
             </p>
           </div>
 
           {/* Arrow (grey → green on hover) */}
-          <div className="ml-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-brand-green">
-            <ArrowRight className="h-4 w-4 text-gray-500 transition-colors group-hover:text-white" />
+          <div className="shrink-0">
+            <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center transition-colors group-hover:bg-brand-green shadow-sm">
+              <ArrowRight className="h-5 w-5 text-gray-500 transition-colors group-hover:text-white" />
+            </div>
           </div>
         </div>
       </div>
