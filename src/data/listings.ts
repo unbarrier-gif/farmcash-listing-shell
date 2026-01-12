@@ -265,21 +265,31 @@ export const listings: Listing[] = [
    * URL: /listing/wanted-1
    */
   {
+    {
     id: "wanted-1",
     status: "wanted",
-    title: "Wanted: Machinery Sourcing Request",
-    subtitle: "Tell us what you need and we’ll source it",
+    title: "Wanted: Your next machine story",
+    subtitle: "We match good kit with good buyers",
     year: "Any",
     location: "UK",
-    priceText: "Budget on request",
+    priceText: "Tell us what you’ve got",
     heroImage: {
-      src: "/images/FC-2012-620/FC-2012-620-hero.png",
-      alt: "Wanted listing placeholder image for machinery sourcing.",
+      src: "/images/wanted-hero-1.png",
+      alt: "Playful tractor image used as the FarmCash wanted listing hero tile.",
     },
+    description:
+      "Got a machine that needs a new home? We’re always looking for quality kit — forage, arable, handling, trailers, headers, the lot. Send a quick message with make/model, year, condition, location, and a couple of photos. We’ll do the legwork and match it to the right buyer.",
+    notes: [
+      "This tile stays live permanently so buyers and sellers can always reach us.",
+      "If you’re not sure it’s ‘worth listing’, send it anyway — we’ll be straight with you.",
+    ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
+  },
+},
+
     },
   },
 ];
