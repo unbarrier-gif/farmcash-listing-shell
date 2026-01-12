@@ -46,6 +46,9 @@ export type Listing = {
   /** Main media (also used for Home/Wanted tile image) */
   heroImage: MediaImage;
 
+  /** Optional extra images for the lightbox + detail thumbs */
+  gallery?: MediaImage[];
+
   /** Optional content */
   description?: string;
   specs?: SpecRow[];
@@ -63,9 +66,7 @@ const FINANCE_FORM_URL =
 const PROFICUT_BROCHURE_URL = "/brochures/proficut_fendt_brochure_en_2015-03_web.pdf";
 
 export const listings: Listing[] = [
-
-  
-    /**
+  /**
    * AD 1 — FOR SALE
    * URL: /listing/fc-2013-620
    */
@@ -98,71 +99,28 @@ export const listings: Listing[] = [
       { label: "Coupling", value: "JD 8000/9000" },
     ],
     gallery: [
-      {
-        src: "/images/FC-2013-620/FC-2013-620-1.png",
-        alt: "Zürn ProfiCut 620 wholecrop header stored indoors (view 1).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-2.png",
-        alt: "Side/rear view of the header assembly (view 2).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-3.png",
-        alt: "Transport position view of the header (view 3).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-4.png",
-        alt: "Detail view of cutting / intake area (view 4).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-5.png",
-        alt: "Rear-side view on transporter trolley (view 5).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-6.png",
-        alt: "Header detail view (view 6).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-7.png",
-        alt: "Header detail view (view 7).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-8.png",
-        alt: "Header detail view (view 8).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-9.png",
-        alt: "Header detail view (view 9).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-10.png",
-        alt: "Header detail view (view 10).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-11.png",
-        alt: "Header detail view (view 11).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-12.png",
-        alt: "Header detail view (view 12).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-13.png",
-        alt: "Header detail view (view 13).",
-      },
-      {
-        src: "/images/FC-2013-620/FC-2013-620-backend-hero.png",
-        alt: "Alternative rear/side hero image of the Zürn ProfiCut 620.",
-      },
+      { src: "/images/FC-2013-620/FC-2013-620-1.png", alt: "Zürn ProfiCut 620 wholecrop header stored indoors (view 1)." },
+      { src: "/images/FC-2013-620/FC-2013-620-2.png", alt: "Side/rear view of the header assembly (view 2)." },
+      { src: "/images/FC-2013-620/FC-2013-620-3.png", alt: "Transport position view of the header (view 3)." },
+      { src: "/images/FC-2013-620/FC-2013-620-4.png", alt: "Detail view of cutting / intake area (view 4)." },
+      { src: "/images/FC-2013-620/FC-2013-620-5.png", alt: "Rear-side view on transporter trolley (view 5)." },
+      { src: "/images/FC-2013-620/FC-2013-620-6.png", alt: "Header detail view (view 6)." },
+      { src: "/images/FC-2013-620/FC-2013-620-7.png", alt: "Header detail view (view 7)." },
+      { src: "/images/FC-2013-620/FC-2013-620-8.png", alt: "Header detail view (view 8)." },
+      { src: "/images/FC-2013-620/FC-2013-620-9.png", alt: "Header detail view (view 9)." },
+      { src: "/images/FC-2013-620/FC-2013-620-10.png", alt: "Header detail view (view 10)." },
+      { src: "/images/FC-2013-620/FC-2013-620-11.png", alt: "Header detail view (view 11)." },
+      { src: "/images/FC-2013-620/FC-2013-620-12.png", alt: "Header detail view (view 12)." },
+      { src: "/images/FC-2013-620/FC-2013-620-13.png", alt: "Header detail view (view 13)." },
+      { src: "/images/FC-2013-620/FC-2013-620-backend-hero.png", alt: "Alternative rear/side hero image of the Zürn ProfiCut 620." },
     ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
-      brochureUrl: "/brochures/proficut_fendt_brochure_en_2015-03_web.pdf",
+      brochureUrl: PROFICUT_BROCHURE_URL,
     },
   },
-
 
   /**
    * AD 2 — FOR SALE
@@ -247,7 +205,6 @@ export const listings: Listing[] = [
       { src: "/images/FC-2020-490/FC-2020-490-6.png", alt: "Kemper header image 6." },
       { src: "/images/FC-2020-490/FC-2020-490-7.png", alt: "Kemper header image 7." },
     ],
-    
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
@@ -259,8 +216,7 @@ export const listings: Listing[] = [
    * WANTED (template)
    * URL: /listing/wanted-1
    */
-  
-    {
+  {
     id: "wanted-1",
     status: "wanted",
     title: "Wanted: Your next machine story",
@@ -282,9 +238,6 @@ export const listings: Listing[] = [
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
-  },
-},
-
     },
   },
 ];
