@@ -43,7 +43,7 @@ export type Listing = {
   /** Display exactly as needed on detail page */
   priceText?: string;
 
-  /** Main media */
+  /** Main media (also used for Home/Wanted tile image) */
   heroImage: MediaImage;
 
   /** Optional extra media */
@@ -57,16 +57,6 @@ export type Listing = {
 
   /** Calls to action */
   ctas: Ctas;
-
-  /* ---------------------------------------------------
-     TILE FIELDS (to keep existing Home.tsx working)
-     Home.tsx currently expects: imageUrl, imageAlt, badge, category, price
-     --------------------------------------------------- */
-  imageUrl: string;
-  imageAlt: string;
-  badge: string;
-  category: string;
-  price?: string;
 };
 
 const WHATSAPP_URL = "https://wa.me/447393138063";
@@ -108,27 +98,44 @@ export const listings: Listing[] = [
       { label: "Coupling", value: "JD 8000/9000" },
     ],
     gallery: [
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/1-1.png", alt: "Side view of header body" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/2-1.png", alt: "Rear-side view on transporter" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/3.png", alt: "Manufacturer identification plate" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/4-1.png", alt: "Transporter identification plate" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/5.png", alt: "Rear view on transporter indoors" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/3-1.png", alt: "Rear end view of Zürn ProfiCut 620" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/4-2.png", alt: "Side underside view showing cutter discs" },
-      { src: "https://unbarrier.me/wp-content/uploads/2026/01/hero-2.png", alt: "Rear-side view yellow housing" },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/1-1.png",
+        alt: "Side view of header body",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/2-1.png",
+        alt: "Rear-side view on transporter",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/3.png",
+        alt: "Manufacturer identification plate",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/4-1.png",
+        alt: "Transporter identification plate",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/5.png",
+        alt: "Rear view on transporter indoors",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/3-1.png",
+        alt: "Rear end view of Zürn ProfiCut 620",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/4-2.png",
+        alt: "Side underside view showing cutter discs",
+      },
+      {
+        src: "https://unbarrier.me/wp-content/uploads/2026/01/hero-2.png",
+        alt: "Rear-side view yellow housing",
+      },
     ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
-
-    // Tile fields for Home.tsx
-    imageUrl: "/images/Ad-1-zurn-proficut-620-hero.jpg",
-    imageAlt: "Zürn ProfiCut 620 wholecrop header, yellow unit stored indoors",
-    badge: "FOR SALE",
-    category: "For Sale",
-    price: "£35,000",
   },
 
   /**
@@ -156,13 +163,6 @@ export const listings: Listing[] = [
       brochureUrl:
         "https://unbarrier.me/wp-content/uploads/2026/01/proficut_fendt_brochure_en_2015-03_web-2.pdf",
     },
-
-    // Tile fields
-    imageUrl: "/images/ad-2-zurn-proficut-620-2012-hero.jpg",
-    imageAlt: "Zürn ProfiCut 620 wholecrop header",
-    badge: "FOR SALE",
-    category: "For Sale",
-    price: "POA",
   },
 
   /**
@@ -199,13 +199,6 @@ export const listings: Listing[] = [
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
-
-    // Tile fields
-    imageUrl: "/images/ad-3-kemper-490pro-9m-hero.jpg",
-    imageAlt: "Kemper forager header, 9 metre working width",
-    badge: "FOR SALE",
-    category: "For Sale",
-    price: "POA",
   },
 
   /**
@@ -229,13 +222,6 @@ export const listings: Listing[] = [
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
-
-    // Tile fields
-    imageUrl: "/images/ad-3-kemper-490pro-9m-hero.jpg",
-    imageAlt: "Wanted listing placeholder image",
-    badge: "WANTED",
-    category: "Wanted",
-    price: "Budget on request",
   },
 ];
 
