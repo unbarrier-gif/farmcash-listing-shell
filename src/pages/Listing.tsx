@@ -1,4 +1,3 @@
-// src/pages/Listing.tsx
 import React, { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { listings, type Listing as ListingType, type MediaImage } from "../data/listings";
@@ -39,7 +38,7 @@ const Listing: React.FC = () => {
     const hero = listing.heroImage;
     const imgs = (listing.gallery?.length ? listing.gallery : [hero]).filter(Boolean);
 
-    // Ensure hero is included (first) even if gallery exists but doesn’t include it
+    // Ensure hero is included first, even if gallery exists
     const dedup = [hero, ...imgs].filter(
       (img, idx, arr) => arr.findIndex((x) => x.src === img.src) === idx
     );
@@ -133,15 +132,15 @@ const Listing: React.FC = () => {
                 {badgeText(status)}
               </div>
 
-              {/* White title/subtitle overlay */}
-              <div className="absolute bottom-6 left-6 right-6 min-w-0">
-                <div className="inline-block bg-black/35 backdrop-blur-[1px] rounded-2xl px-5 py-4 max-w-full min-w-0">
-                  <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tight leading-tight break-words max-w-full drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+              {/* Title/subtitle overlay */}
+              <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6">
+                <div className="inline-block max-w-full bg-black/35 backdrop-blur-[1px] rounded-2xl px-4 md:px-5 py-3 md:py-4">
+                  <h2 className="text-white text-2xl md:text-5xl font-black uppercase tracking-tight leading-tight break-words max-w-full drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
                     {String(title || "").toUpperCase()}
                   </h2>
 
                   {subtitle ? (
-                    <p className="mt-2 text-white/95 text-base md:text-xl font-semibold tracking-wide break-words max-w-full drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                    <p className="mt-2 text-white/95 text-sm md:text-xl font-semibold tracking-wide break-words max-w-full drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
                       {subtitle}
                     </p>
                   ) : null}
@@ -149,9 +148,9 @@ const Listing: React.FC = () => {
               </div>
             </button>
 
-            <div className="p-6 md:p-8 min-w-0">
+            <div className="p-6 md:p-8">
               {serialRef ? (
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mb-2 break-words">
+                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">
                   Serial ref: {serialRef}
                 </p>
               ) : null}
@@ -164,13 +163,13 @@ const Listing: React.FC = () => {
                   </h1>
 
                   <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.15em] text-gray-500 font-bold">
-                    {year ? <span className="break-words">Year: {year}</span> : null}
-                    {width ? <span className="break-words">Width: {width}</span> : null}
-                    {location ? <span className="break-words">{location}</span> : null}
+                    {year ? <span>Year: {year}</span> : null}
+                    {width ? <span>Width: {width}</span> : null}
+                    {location ? <span>{location}</span> : null}
                   </div>
                 </div>
 
-                <div className="text-right w-full md:w-auto shrink-0">
+                <div className="text-left md:text-right w-full md:w-auto">
                   <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
                   <p className="text-4xl font-black text-neutral-900 break-words">{priceText ?? "POA"}</p>
                 </div>
@@ -181,14 +180,12 @@ const Listing: React.FC = () => {
                 <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
                   Technical description
                 </h4>
-                <p className="text-gray-700 leading-relaxed text-sm break-words">
-                  {description ? description : "Details coming soon."}
-                </p>
+                <p className="text-gray-700 leading-relaxed text-sm">{description ? description : "Details coming soon."}</p>
               </div>
 
               {/* Technical specs */}
               {specs && specs.length > 0 ? (
-                <div className="bg-white rounded-xl p-6 mb-8 border border-gray-200 min-w-0">
+                <div className="bg-white rounded-xl p-6 mb-8 border border-gray-200 overflow-hidden">
                   <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
                     Technical specs
                   </h4>
@@ -197,12 +194,12 @@ const Listing: React.FC = () => {
                     {specs.map((row) => (
                       <div
                         key={row.label}
-                        className="flex items-start justify-between gap-6 border-b border-gray-100 pb-2 min-w-0"
+                        className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-6 border-b border-gray-100 pb-2"
                       >
-                        <span className="text-xs font-bold uppercase tracking-widest text-gray-400 break-words min-w-0 pr-2">
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-400 break-words">
                           {row.label}
                         </span>
-                        <span className="text-sm font-bold text-neutral-900 text-right break-words min-w-0">
+                        <span className="text-sm font-bold text-neutral-900 sm:text-right break-words">
                           {row.value}
                         </span>
                       </div>
@@ -244,9 +241,11 @@ const Listing: React.FC = () => {
         <aside className="space-y-6 min-w-0">
           {/* Detailed images */}
           <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 min-w-0">
-            <div className="flex items-center justify-between mb-4 min-w-0">
-              <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Detailed images</h4>
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest shrink-0">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">
+                Detailed images
+              </h4>
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
                 {detailThumbs.length}/{allImages.length}
               </span>
             </div>
@@ -274,7 +273,9 @@ const Listing: React.FC = () => {
 
           {/* Secure this asset */}
           <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-widest text-xs">Secure this asset</h4>
+            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-widest text-xs">
+              Secure this asset
+            </h4>
 
             <div className="space-y-3">
               <a
@@ -317,7 +318,7 @@ const Listing: React.FC = () => {
             </div>
           </div>
 
-          <p className="text-xs text-gray-400 break-words">
+          <p className="text-xs text-gray-400">
             Listing ID: <span className="font-mono">{id}</span>
           </p>
         </aside>
