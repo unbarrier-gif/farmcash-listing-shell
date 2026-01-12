@@ -64,6 +64,8 @@ const PHONE_NUMBER = "07393138063";
 const FINANCE_FORM_URL =
   "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest";
 
+const PROFICUT_BROCHURE_URL = "/brochures/proficut_fendt_brochure_en_2015-03_web.pdf";
+
 export const listings: Listing[] = [
   /**
    * AD 1 — FOR SALE
@@ -72,128 +74,135 @@ export const listings: Listing[] = [
   {
     id: "fc-2013-620",
     status: "for-sale",
-    title: "Zürn ProfiCut 620 Wholecrop Header",
+    title: "Zürn ProfiCut 620",
     subtitle: "Direct Cut Wholecrop Header",
     year: "2013",
     location: "Somerset, UK",
-    width: "6.2M",
+    width: "6.20 m",
     serialRef: "FC-2013-620",
     priceText: "£35,000",
     heroImage: {
-      src: "/images/Ad-1-zurn-proficut-620-hero.jpg",
-      alt: "Zürn ProfiCut 620 wholecrop header, yellow unit stored indoors next to hay bales",
+      src: "/images/FC-2013-620/FC-2013-620-hero.png",
+      alt: "Zürn ProfiCut 620 wholecrop header stored indoors (hero view).",
     },
     description:
-      "High-capacity direct cut header designed for wholecrop harvesting. Please enquire for compatibility, condition details, and delivery options.",
+      "This 2013 Zürn ProfiCut 620 is a high-capacity header for direct harvesting of wholecrop. With a 6.20m working width, it is perfectly matched for John Deere 8000 and 9000 series forage harvesters. Robust drive system and professional build quality. Well-maintained unit with only 1,000 hectares of total use. Sale includes the transporter trolley as pictured.",
     specs: [
       { label: "Working width", value: "6.20 m (20 ft)" },
-      { label: "Operating speed", value: "5–15 km/h" },
-      { label: "Work rate", value: "Up to 6 ha/h" },
-      { label: "Cutting height", value: "5–15 cm" },
-      { label: "Qty. mower discs", value: "2 × 8" },
-      { label: "Qty. knives", value: "32 (2/disc)" },
-      { label: "RPM mower discs", value: "3,000 min⁻¹" },
-      { label: "Feeding auger Ø", value: "600 mm" },
-      { label: "Weight (unit)", value: "3,050 kg" },
-      { label: "Coupling", value: "JD 8000/9000" },
+      { label: "Application", value: "Direct harvesting of wholecrop" },
+      { label: "Compatibility", value: "John Deere 8000 & 9000 series" },
+      { label: "Usage", value: "Approx. 1,000 hectares" },
+      { label: "Transport trolley", value: "Included" },
     ],
     gallery: [
+      { src: "/images/FC-2013-620/FC-2013-620-1.png", alt: "Header on transporter trolley (view 1)." },
+      { src: "/images/FC-2013-620/FC-2013-620-2.png", alt: "Header on transporter trolley (view 2)." },
+      { src: "/images/FC-2013-620/FC-2013-620-3.png", alt: "Side/rear view of the header assembly." },
+      { src: "/images/FC-2013-620/FC-2013-620-4.png", alt: "Side view showing the header body and frame." },
+      { src: "/images/FC-2013-620/FC-2013-620-5.png", alt: "Transport position view of the header." },
+      { src: "/images/FC-2013-620/FC-2013-620-6.png", alt: "Detail view of cutter/underside area." },
+      { src: "/images/FC-2013-620/FC-2013-620-7.png", alt: "Detail view of rear section and linkage points." },
+      { src: "/images/FC-2013-620/FC-2013-620-8.png", alt: "Detail view of cutter discs / underside." },
+      { src: "/images/FC-2013-620/FC-2013-620-10.png", alt: "Identification plate / manufacturer details." },
       {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/1-1.png",
-        alt: "Side view of header body",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/2-1.png",
-        alt: "Rear-side view on transporter",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/3.png",
-        alt: "Manufacturer identification plate",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/4-1.png",
-        alt: "Transporter identification plate",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/5.png",
-        alt: "Rear view on transporter indoors",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/3-1.png",
-        alt: "Rear end view of Zürn ProfiCut 620",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/4-2.png",
-        alt: "Side underside view showing cutter discs",
-      },
-      {
-        src: "https://unbarrier.me/wp-content/uploads/2026/01/hero-2.png",
-        alt: "Rear-side view yellow housing",
+        src: "/images/FC-2013-620/FC-2013-620-backend-hero.png",
+        alt: "Rear-side view of the Zürn ProfiCut 620 (alternate hero).",
       },
     ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
+      brochureUrl: PROFICUT_BROCHURE_URL,
     },
   },
 
   /**
-   * AD 2 — FOR SALE (template-ready)
-   * URL: /listing/ad-2
+   * AD 2 — FOR SALE
+   * URL: /listing/fc-2012-620
    */
   {
-    id: "ad-2",
+    id: "fc-2012-620",
     status: "for-sale",
-    title: "Zürn ProfiCut 620 Wholecrop Header",
+    title: "Zürn ProfiCut 620",
     subtitle: "Direct Cut Wholecrop Header",
     year: "2012",
     location: "UK",
-    width: "6.2M",
-    priceText: "POA",
+    width: "6.20 m",
+    serialRef: "FC-2012-620",
+    priceText: "£27,000 + VAT",
     heroImage: {
-      src: "/images/ad-2-zurn-proficut-620-2012-hero.jpg",
-      alt: "Zürn ProfiCut 620 wholecrop header, actual unit for sale",
+      src: "/images/FC-2012-620/FC-2012-620-hero.png",
+      alt: "Zürn ProfiCut 620 (2012) wholecrop header (hero view).",
     },
-    notes: ["Template listing — details to be confirmed."],
+    description:
+      "2012 Zürn ProfiCut 620 header in good used condition. Green unit, compatible with a Fendt SPFH forage harvester. Approx. 2,500 hectares of use. Transporter trolley included. Enquire for availability, viewing, and delivery options.",
+    specs: [
+      { label: "Working width", value: "6.20 m" },
+      { label: "Colour", value: "Green" },
+      { label: "Compatibility", value: "Fendt SPFH" },
+      { label: "Usage", value: "Approx. 2,500 hectares" },
+      { label: "Transport trolley", value: "Included" },
+    ],
+    gallery: [
+      { src: "/images/FC-2012-620/FC-2012-620-hero-chilling.png", alt: "Header (alternate hero view)." },
+      { src: "/images/FC-2012-620/FC-2012-620-1.png", alt: "Yard view of the header (image 1)." },
+      { src: "/images/FC-2012-620/FC-2012-620-2.png", alt: "Yard view of the header (image 2)." },
+      { src: "/images/FC-2012-620/FC-2012-620-3.png", alt: "Detail view of header components (image 3)." },
+      { src: "/images/FC-2012-620/FC-2012-620-4.png", alt: "Side view / transport position (image 4)." },
+      { src: "/images/FC-2012-620/FC-2012-620-5.png", alt: "Rear/side view (image 5)." },
+      { src: "/images/FC-2012-620/FC-2012-620-6.png", alt: "Detail view (image 6)." },
+      { src: "/images/FC-2012-620/FC-2012-620-7.png", alt: "Detail view (image 7)." },
+      { src: "/images/FC-2012-620/FC-2012-620-8.png", alt: "Detail view (image 8)." },
+      { src: "/images/FC-2012-620/FC-2012-620-11.png", alt: "Identification plate / model details (image 11)." },
+    ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
-      brochureUrl:
-        "https://unbarrier.me/wp-content/uploads/2026/01/proficut_fendt_brochure_en_2015-03_web-2.pdf",
+      brochureUrl: PROFICUT_BROCHURE_URL,
     },
   },
 
   /**
    * AD 3 — FOR SALE
-   * URL: /listing/ad-3
+   * URL: /listing/fc-2020-490
    */
   {
-    id: "ad-3",
+    id: "fc-2020-490",
     status: "for-sale",
     title: "Kemper 490 Plus Forager Header",
-    subtitle: "9 m working width | 12-row",
+    subtitle: "9.0 m working width | 12-row",
     year: "2020",
     location: "UK",
-    width: "9M",
-    priceText: "POA / Offers",
+    width: "9.0 m",
+    serialRef: "FC-2020-490",
+    priceText: "POA (Open to offers)",
     heroImage: {
-      src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
-      alt: "Kemper forager header with 9 metre working width",
+      src: "/images/FC-2020-490/FC-2020-490-hero.png",
+      alt: "Kemper 490 Plus forager header (hero view).",
     },
-    videoUrl: "/images/ad-3-kemper-490pro-9m.mp4",
+    description:
+      "Kemper 490 Plus forager header with 9.0 m working width and 12-row configuration. Manufactured in 2020 and supplied with brackets and setup to fit wide body Krone forage harvesters (models 680–1180). This is the Plus version of the current 490 Pro model – functionally very similar, with minor evolutionary updates in the newer Pro range.",
     specs: [
       { label: "Model", value: "Kemper 490 Plus" },
-      { label: "Working width", value: "9 m" },
+      { label: "Working width", value: "9.0 m" },
       { label: "Rows", value: "12-row" },
       { label: "Made in / MY", value: "2020" },
-      { label: "Brackets / setup", value: "Fits wide body Krone models 680–1180" },
+      { label: "Fitment", value: "Brackets/setup to fit wide body Krone 680–1180" },
     ],
-    notes: [
-      "This unit is a 490 Plus model. Newer units are referred to as 490 Pro (slightly evolved).",
-      "If a brochure is needed, the available link is for the Pro model; functionally the Plus and Pro are essentially the same.",
+    gallery: [
+      { src: "/images/FC-2020-490/FC-2020-490-hero-chilling.png", alt: "Kemper header (alternate hero view)." },
+      { src: "/images/FC-2020-490/FC-2020-490-1.png", alt: "Kemper header image 1." },
+      { src: "/images/FC-2020-490/FC-2020-490-2.png", alt: "Kemper header image 2." },
+      { src: "/images/FC-2020-490/FC-2020-490-3.png", alt: "Kemper header image 3." },
+      { src: "/images/FC-2020-490/FC-2020-490-4.png", alt: "Kemper header image 4." },
+      { src: "/images/FC-2020-490/FC-2020-490-5.png", alt: "Kemper header image 5." },
+      { src: "/images/FC-2020-490/FC-2020-490-6.png", alt: "Kemper header image 6." },
+      { src: "/images/FC-2020-490/FC-2020-490-7.png", alt: "Kemper header image 7." },
     ],
+    // If/when you upload a video into /public/images/FC-2020-490/, set videoUrl to match the exact filename:
+    // videoUrl: "/images/FC-2020-490/<your-video-file>.mp4",
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
@@ -214,8 +223,8 @@ export const listings: Listing[] = [
     location: "UK",
     priceText: "Budget on request",
     heroImage: {
-      src: "/images/ad-3-kemper-490pro-9m-hero.jpg",
-      alt: "Wanted listing placeholder image for machinery sourcing",
+      src: "/images/FC-2012-620/FC-2012-620-hero.png",
+      alt: "Wanted listing placeholder image for machinery sourcing.",
     },
     ctas: {
       whatsappUrl: WHATSAPP_URL,
