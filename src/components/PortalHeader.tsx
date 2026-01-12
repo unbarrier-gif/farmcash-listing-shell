@@ -13,20 +13,22 @@ const pillBase =
 const pillClass = (accent: "all" | "sale" | "wanted") => {
   return ({ isActive }: { isActive: boolean }) => {
     if (isActive) {
-      if (accent === "all")
+      if (accent === "all") {
         return `${pillBase} bg-neutral-900 text-white border-neutral-900 shadow-md cursor-default pointer-events-none`;
-      if (accent === "sale")
-        return `${pillBase} bg-[#75ac49] text-white border-[#75ac49] shadow-md cursor-default pointer-events-none`;
-      return `${pillBase} bg-[#ca9c29] text-white border-[#ca9c29] shadow-md cursor-default pointer-events-none`;
+      }
+      if (accent === "sale") {
+        return `${pillBase} bg-brand-green text-white border-brand-green shadow-md cursor-default pointer-events-none`;
+      }
+      return `${pillBase} bg-brand-gold text-white border-brand-gold shadow-md cursor-default pointer-events-none`;
     }
 
-    return `${pillBase} bg-[#fefefe] text-neutral-600 border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400 hover:shadow-sm hover:-translate-y-[1px]`;
+    return `${pillBase} bg-white text-neutral-600 border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400 hover:shadow-sm hover:-translate-y-[1px]`;
   };
 };
 
 const PortalHeader: React.FC = () => {
   return (
-  <header className="md:sticky md:top-0 z-50 bg-[#fefefe] shadow-sm border-b border-gray-100">
+    <header className="md:sticky md:top-0 z-50 bg-white shadow-sm border-b border-gray-100">
       {/* Top strapline */}
       <div className="bg-neutral-900 h-9 flex items-center justify-end px-6 border-b border-gray-800">
         <span className="text-white text-[10px] font-bold uppercase tracking-[0.4em]">
@@ -75,7 +77,7 @@ const PortalHeader: React.FC = () => {
               href="https://farmcash.co.uk/import-finance/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-[#75ac49] bg-[#75ac49] text-white shadow-md hover:brightness-110 transition-all text-center"
+              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-brand-green bg-brand-green text-white shadow-md hover:brightness-110 transition-all text-center"
             >
               Request a finance quote
             </a>
@@ -91,7 +93,7 @@ const PortalHeader: React.FC = () => {
               href="https://wa.me/447393138063"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-[#ca9c29] bg-[#ca9c29] text-white shadow-md hover:brightness-110 transition-all text-center"
+              className="px-6 py-2.5 rounded-full text-sm font-semibold border border-brand-gold bg-brand-gold text-white shadow-md hover:brightness-110 transition-all text-center"
             >
               WhatsApp
             </a>
