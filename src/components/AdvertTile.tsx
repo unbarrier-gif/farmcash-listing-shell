@@ -21,6 +21,7 @@ export type AdvertTileListing = {
   heroImage?: string;
 
   // Pricing
+  priceText?: string; // e.g. "POA" or "£35,000"
   price?: number | string;
   currency?: string; // e.g. "£"
 
@@ -43,7 +44,7 @@ const normaliseStatus = (status?: ListingStatus) => {
 };
 
 const formatPrice = (price?: number | string, currency = "£") => {
-  if (price === undefined || price === null || price === "") return "";
+  if (price === undefined || price === null || price === "" || price === 0) return "";
   const raw = typeof price === "number" ? price : Number(String(price).replace(/[^0-9.]/g, ""));
   if (!Number.isFinite(raw)) return String(price);
   return `${currency}${raw.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`;
@@ -100,7 +101,9 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const spec = buildSpec(listing);
   const meta = [year, spec].filter(Boolean).join(" • ").toUpperCase();
 
-  const priceText = formatPrice(listing.price, listing.currency || "£");
+  const priceText =
+  (listing.priceText && String(listing.priceText).trim()) ||
+  formatPrice(listing.price, listing.currency || "£");
 
   const hero = listing.heroImage?.trim();
   const fallbackHero =
