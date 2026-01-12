@@ -9,7 +9,7 @@ type Props = {
   mode?: HomeMode;
 };
 
-const isForSale = (l: Listing) => l.status === "for-sale";
+const isForSale = (l: Listing) => String(l.status).toLowerCase().includes("for");
 
 const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => boolean) => {
   if (!specs) return undefined;
