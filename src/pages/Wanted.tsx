@@ -1,41 +1,75 @@
 import React from "react";
+import { listings } from "../data/listings";
+import type { SpecRow } from "../data/listings";
+import AdvertTile from "../components/AdvertTile";
+
+const isWanted = (l: any) => String(l.status || "").toLowerCase().includes("want");
+
+const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => boolean) => {
+  if (!specs) return undefined;
+  const row = specs.find((s) => match(String(s.label).toLowerCase()));
+  return row?.value;
+};
+
+const getTileLocation = (l: any) => l.location as string | undefined;
+
+const getTileWidth = (l: any) => {
+  return (
+    (l.width as string | undefined) ||
+    findSpecValue(l.specs, (label) => label.includes("working width") || label === "width") ||
+    undefined
+  );
+};
+
+const formatWidthShort = (widthRaw?: string) => {
+  if (!widthRaw) return "";
+  const mMatch = widthRaw.match(/(\d+(\.\d+)?)/);
+  if (!mMatch) return String(widthRaw).toUpperCase();
+  return `${mMatch[1]}M`.toUpperCase();
+};
 
 const Wanted: React.FC = () => {
+  const filtered = listings.filter(isWanted);
+
   return (
-    <main className="max-w-7xl mx-auto px-4 py-10 md:py-14 min-h-[60vh]">
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-10 md:p-14 text-center">
-        <div className="mx-auto h-1 w-12 bg-[#ca9c29] rounded-full mb-8" />
-
-        <h1 className="text-3xl md:text-4xl font-bold text-neutral-900 uppercase tracking-tight">
+    <main className="max-w-7xl mx-auto px-4 py-8 md:py-12 min-h-[60vh]">
+      <div className="mb-10">
+        <h2 className="text-4xl md:text-5xl font-bold brand-font text-neutral-900 uppercase tracking-tight mb-3">
           Wanted
-        </h1>
+        </h2>
 
-        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-          Tell us what machinery you’re looking for and we’ll source it through our network.
-        </p>
-
-        <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href="https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-full text-sm font-semibold border border-[#75ac49] bg-[#75ac49] text-white shadow-md hover:brightness-110 transition-all text-center"
-          >
-            Submit a sourcing request
-          </a>
-
-          <a
-            href="tel:07393138063"
-            className="px-6 py-3 rounded-full text-sm font-semibold border border-neutral-900 bg-neutral-900 text-white shadow-md hover:brightness-110 transition-all text-center"
-          >
-            Call 07393 138063
-          </a>
+        <div className="flex items-center gap-4">
+          <span className="h-1 w-12 bg-[#ca9c29] rounded-full" />
+          <p className="text-gray-500 uppercase text-[10px] md:text-xs font-bold tracking-[0.3em]">
+            Active sourcing requests
+          </p>
         </div>
-
-        <p className="mt-8 text-[10px] uppercase tracking-[0.25em] text-gray-400 font-bold">
-          Fast response · UK & Europe sourcing
-        </p>
       </div>
+
+      {filtered.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 text-gray-600">
+          No wanted ads are currently listed.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filtered.map((l: any) => (
+            <AdvertTile
+              key={l.id}
+              listing={{
+                id: l.id,
+                status: l.status,
+                title: l.title,
+                location: getTileLocation(l),
+                heroImage: l.heroImage?.src,
+                year: l.year,
+                // Wanted tiles show “Get in touch” automatically in AdvertTile
+                price: l.priceText ?? l.price ?? "",
+                specSummary: formatWidthShort(getTileWidth(l)),
+              }}
+            />
+          ))}
+        </div>
+      )}
     </main>
   );
 };
