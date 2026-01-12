@@ -100,7 +100,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
               location: getTileLocation(l),
               heroImage: l.heroImage?.src,
               year: l.year,
-              price: l.priceText ?? "",
+              priceText: l.priceText ?? "",
               specSummary: pickTileSpec(l),
             }}
           />
