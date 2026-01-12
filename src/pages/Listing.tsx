@@ -3,10 +3,16 @@ import { Link, useParams } from "react-router-dom";
 import { listings, type Listing as ListingType } from "../data/listings";
 import ListingGallery from "../components/ListingGallery";
 
-const badgeClass = (status: ListingType["status"]) =>
-  status === "wanted" ? "bg-[#ca9c29] text-white" : "bg-neutral-900 text-white";
+const BRAND_GREEN = "#75ac49";
+const BRAND_GOLD = "#ca9c29";
 
-const badgeText = (status: ListingType["status"]) => (status === "wanted" ? "Wanted" : "For sale");
+const normaliseStatus = (status: ListingType["status"]) =>
+  String(status || "").toLowerCase().includes("want") ? "wanted" : "for-sale";
+
+const badgeStyles = (status: "wanted" | "for-sale") => {
+  if (status === "wanted") return { bg: BRAND_GOLD, text: "WANTED" };
+  return { bg: "#111111", text: "FOR SALE" };
+};
 
 const formatPhoneLabel = (phone: string) => {
   const p = String(phone || "").trim();
@@ -57,6 +63,9 @@ const Listing: React.FC = () => {
     gallery,
   } = listing;
 
+  const statusNorm = normaliseStatus(status);
+  const badge = badgeStyles(statusNorm);
+
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
     phoneNumber: ctas?.phoneNumber ?? "07393138063",
@@ -65,6 +74,16 @@ const Listing: React.FC = () => {
       "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest",
     brochureUrl: ctas?.brochureUrl ?? "",
   };
+
+  const metaParts: string[] = [];
+  if (year) metaParts.push(String(year));
+  if (width) metaParts.push(String(width));
+  if (serialRef) metaParts.push(`Serial Ref: ${serialRef}`);
+  const metaLine = metaParts.join(" · ");
+
+  const displayTitle = String(title || "").trim();
+  const displayLocation = String(location || "").trim();
+  const displayPrice = priceText ?? "POA";
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
@@ -77,105 +96,155 @@ const Listing: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {/* MAIN */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-            <div className="aspect-[16/10] bg-gray-200 relative">
-              <img src={heroImage.src} alt={heroImage.alt} className="w-full h-full object-cover" />
-
-              <div className="absolute bottom-8 left-8 space-y-2 pointer-events-none">
-                <h2 className="hero-overlay-text text-3xl font-bold uppercase tracking-tight leading-none">
-                  {title}
-                </h2>
-
-                {subtitle ? (
-                  <h3 className="hero-overlay-text text-xl font-medium tracking-wide">{subtitle}</h3>
-                ) : null}
+          {/* HERO */}
+          <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+            <div className="relative">
+              <div className="aspect-[16/10] bg-gray-100 overflow-hidden">
+                <img
+                  src={heroImage?.src}
+                  alt={heroImage?.alt ?? displayTitle ?? "Machinery listing image"}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
 
-              <div
-                className={[
-                  "absolute top-4 left-4 px-4 py-1.5 rounded-sm font-bold text-xs shadow-md uppercase tracking-widest",
-                  badgeClass(status),
-                ].join(" ")}
+              {/* Badge (matches tile) */}
+              <span
+                className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white"
+                style={{ backgroundColor: badge.bg }}
               >
-                {badgeText(status)}
-              </div>
+                {badge.text}
+              </span>
             </div>
 
-            <div className="p-8">
-              {serialRef ? (
-                <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] mb-1">
-                  Serial Ref: {serialRef}
+            {/* HEADER CONTENT */}
+            <div className="p-6 md:p-8">
+              {/* Location (brand green) */}
+              {displayLocation ? (
+                <p
+                  className="text-sm font-medium uppercase tracking-wide"
+                  style={{ color: BRAND_GREEN }}
+                >
+                  {displayLocation}
                 </p>
               ) : null}
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                <div>
-                  <h1 className="text-3xl font-bold leading-none uppercase tracking-tight text-neutral-900">
-                    {subtitle ?? "Advert details"}
-                  </h1>
+              {/* Title (bold black, larger) */}
+              <h1 className="mt-1 text-2xl md:text-3xl font-bold leading-snug text-black">
+                {displayTitle}
+              </h1>
 
-                  <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.15em] text-gray-500 font-bold">
-                    {year ? <span>Year: {year}</span> : null}
-                    {width ? <span>Width: {width}</span> : null}
-                    {location ? <span>{location}</span> : null}
-                  </div>
+              {/* Optional subtitle (smaller, muted) */}
+              {subtitle ? (
+                <p className="mt-1 text-base text-gray-600">
+                  {subtitle}
+                </p>
+              ) : null}
+
+              {/* Meta line */}
+              {metaLine ? (
+                <p className="mt-3 text-sm text-gray-500">
+                  {metaLine}
+                </p>
+              ) : null}
+
+              <hr className="my-6 border-gray-100" />
+
+              {/* Price row (matches tile language) */}
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-gray-400">
+                    {statusNorm === "wanted" ? "Request" : "Sale price"}
+                  </p>
+                  <p className="mt-1 text-3xl font-bold text-black">
+                    {statusNorm === "wanted" ? "Get in touch" : displayPrice}
+                  </p>
                 </div>
 
-                <div className="text-right">
-                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
-                  <p className="text-4xl font-bold text-neutral-900">{priceText ?? "POA"}</p>
+                {/* Quick action: WhatsApp */}
+                <div className="flex gap-3">
+                  <a
+                    href={safeCtas.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#75ac49] hover:opacity-90 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-sm"
+                  >
+                    WhatsApp
+                  </a>
+
+                  <a
+                    href={`tel:${safeCtas.phoneNumber}`}
+                    className="bg-neutral-900 hover:bg-neutral-800 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-sm"
+                  >
+                    Call {formatPhoneLabel(safeCtas.phoneNumber)}
+                  </a>
                 </div>
               </div>
-
-              {description ? (
-                <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
-                  <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
-                    Description
-                  </h4>
-                  <p className="text-gray-600 leading-relaxed text-sm">{description}</p>
-                </div>
-              ) : null}
-
-              {specs && specs.length > 0 ? (
-                <div className="bg-white rounded-xl p-6 mb-8 border border-gray-200">
-                  <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
-                    Key specs
-                  </h4>
-
-                  <div className="space-y-3">
-                    {specs.map((row) => (
-                      <div key={row.label} className="flex justify-between gap-6">
-                        <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
-                          {row.label}
-                        </span>
-                        <span className="text-sm font-semibold text-neutral-900 text-right">
-                          {row.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-
-              {notes && notes.length > 0 ? (
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                  <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
-                    Notes
-                  </h4>
-                  <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
-                    {notes.map((n, idx) => (
-                      <li key={idx}>{n}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
             </div>
           </div>
 
-          {videoUrl ? (
-            <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+          {/* DESCRIPTION */}
+          {description ? (
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
               <div className="p-6 border-b border-gray-100">
-                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
+                  Description
+                </h3>
+              </div>
+              <div className="p-6">
+                <p className="text-gray-700 leading-relaxed text-sm">{description}</p>
+              </div>
+            </div>
+          ) : null}
+
+          {/* KEY SPECS */}
+          {specs && specs.length > 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
+              <div className="p-6 border-b border-gray-100">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
+                  Key specs
+                </h3>
+              </div>
+              <div className="p-6 space-y-3">
+                {specs.map((row) => (
+                  <div key={row.label} className="flex justify-between gap-6">
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                      {row.label}
+                    </span>
+                    <span className="text-sm font-semibold text-neutral-900 text-right">
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {/* NOTES */}
+          {notes && notes.length > 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
+              <div className="p-6 border-b border-gray-100">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
+                  Notes
+                </h3>
+              </div>
+              <div className="p-6">
+                <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                  {notes.map((n, idx) => (
+                    <li key={idx}>{n}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : null}
+
+          {/* VIDEO */}
+          {videoUrl ? (
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+              <div className="p-6 border-b border-gray-100">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
+                  Video
+                </h3>
               </div>
               <video controls className="w-full" preload="metadata">
                 <source src={videoUrl} type="video/mp4" />
@@ -188,22 +257,25 @@ const Listing: React.FC = () => {
         <aside className="space-y-6">
           <ListingGallery images={gallery?.length ? gallery : [heroImage]} videoUrl={videoUrl} />
 
-          <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-            <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-wide">Enquire</h4>
+          {/* Enquire card */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900 mb-4">
+              Enquire
+            </h3>
 
             <div className="space-y-3">
               <a
                 href={safeCtas.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-[#75ac49] hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"
+                className="w-full bg-[#75ac49] hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 WhatsApp seller
               </a>
 
               <a
                 href={`tel:${safeCtas.phoneNumber}`}
-                className="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold py-3 rounded-xl transition-all block text-center"
+                className="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold py-3 rounded-xl transition-all block text-center shadow-sm"
               >
                 Call {formatPhoneLabel(safeCtas.phoneNumber)}
               </a>
@@ -213,7 +285,7 @@ const Listing: React.FC = () => {
                   href={safeCtas.financeQuoteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full border-2 border-neutral-900 text-neutral-900 hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
+                  className="w-full border border-gray-300 text-neutral-900 hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
                 >
                   Request finance quote
                 </a>
@@ -224,7 +296,7 @@ const Listing: React.FC = () => {
                   href={safeCtas.brochureUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#75ac49] text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md hover:opacity-90"
+                  className="w-full bg-[#75ac49] text-white font-bold py-3 rounded-xl transition-all block text-center shadow-sm hover:opacity-90"
                 >
                   Download brochure
                 </a>
