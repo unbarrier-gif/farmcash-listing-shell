@@ -75,7 +75,6 @@ const Listing: React.FC = () => {
     description,
     specs,
     notes,
-    videoUrl,
     ctas,
     status,
   } = listing;
@@ -225,16 +224,7 @@ const Listing: React.FC = () => {
             </div>
           </div>
 
-          {videoUrl ? (
-            <div className="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div className="p-6 border-b border-gray-100">
-                <h4 className="font-bold text-neutral-900 uppercase tracking-widest text-xs">Video</h4>
-              </div>
-              <video controls className="w-full" preload="metadata">
-                <source src={videoUrl} type="video/mp4" />
-              </video>
-            </div>
-          ) : null}
+      
         </div>
 
         {/* SIDEBAR */}
