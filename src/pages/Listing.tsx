@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { listings, type Listing as ListingType } from "../data/listings";
-import ListingGallery from "../components/ListingGallery";
+import { listings, type Listing as ListingType, type MediaImage } from "../data/listings";
+import ImageLightbox from "../components/ImageLightbox";
 
-const normaliseStatus = (status: ListingType["status"]) =>
-  String(status || "").toLowerCase().includes("want") ? "wanted" : "for-sale";
+const badgeClass = (status: ListingType["status"]) =>
+  status === "wanted" ? "bg-brand-gold text-white" : "bg-brand-green text-white";
+
+const badgeText = (status: ListingType["status"]) => (status === "wanted" ? "Wanted" : "For sale");
 
 const formatPhoneLabel = (phone: string) => {
   const p = String(phone || "").trim();
@@ -17,6 +19,30 @@ const formatPhoneLabel = (phone: string) => {
 const Listing: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const listing = listings.find((l) => l.id === id);
+
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState<MediaImage | null>(null);
+
+  const openLightbox = (img: MediaImage) => {
+    setActiveImage(img);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    setActiveImage(null);
+  };
+
+  const allImages = useMemo(() => {
+    if (!listing) return [];
+    const imgs = (listing.gallery?.length ? listing.gallery : [listing.heroImage]).filter(Boolean);
+    // Ensure hero is included (first) even if gallery exists but doesn’t include it
+    const hero = listing.heroImage;
+    const dedup = [hero, ...imgs].filter(
+      (img, idx, arr) => arr.findIndex((x) => x.src === img.src) === idx
+    );
+    return dedup;
+  }, [listing]);
 
   if (!listing) {
     return (
@@ -52,12 +78,7 @@ const Listing: React.FC = () => {
     videoUrl,
     ctas,
     status,
-    gallery,
   } = listing;
-
-  const statusNorm = normaliseStatus(status);
-  const badgeText = statusNorm === "wanted" ? "WANTED" : "FOR SALE";
-  const badgeClass = statusNorm === "wanted" ? "bg-brand-gold" : "bg-brand-black";
 
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
@@ -68,18 +89,12 @@ const Listing: React.FC = () => {
     brochureUrl: ctas?.brochureUrl ?? "",
   };
 
-  const metaParts: string[] = [];
-  if (year) metaParts.push(String(year));
-  if (width) metaParts.push(String(width));
-  if (serialRef) metaParts.push(`Serial Ref: ${serialRef}`);
-  const metaLine = metaParts.join(" · ");
-
-  const displayTitle = String(title || "").trim();
-  const displayLocation = String(location || "").trim();
-  const displayPrice = priceText ?? "POA";
+  const detailThumbs = allImages.slice(0, 4);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+      <ImageLightbox open={lightboxOpen} image={activeImage} onClose={closeLightbox} />
+
       <div className="mb-6">
         <Link to="/" className="text-sm font-bold text-gray-600 hover:text-neutral-900 transition">
           ← Back to all ads
@@ -89,207 +104,39 @@ const Listing: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
         {/* MAIN */}
         <div className="lg:col-span-2 space-y-6">
-          {/* HERO */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-            <div className="relative">
-              <div className="aspect-[16/10] bg-gray-100 overflow-hidden">
-                <img
-                  src={heroImage?.src}
-                  alt={heroImage?.alt ?? displayTitle ?? "Machinery listing image"}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+          <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-200">
+            {/* HERO (clickable) */}
+            <button
+              type="button"
+              onClick={() => openLightbox(heroImage)}
+              className="relative aspect-[16/10] bg-gray-200 w-full text-left"
+              aria-label="Open hero image"
+            >
+              <img
+                src={heroImage.src}
+                alt={heroImage.alt}
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+
+              {/* Dark gradient to make white text readable */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
               {/* Badge */}
-              <span
-                className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white ${badgeClass}`}
+              <div
+                className={[
+                  "absolute top-4 left-4 px-4 py-1.5 rounded-full font-bold text-[10px] shadow-md uppercase tracking-widest",
+                  badgeClass(status),
+                ].join(" ")}
               >
-                {badgeText}
-              </span>
-            </div>
-
-            {/* HEADER CONTENT */}
-            <div className="p-6 md:p-8">
-              {/* Location */}
-              {displayLocation ? (
-                <p className="text-sm font-medium uppercase tracking-wide text-brand-green">
-                  {displayLocation}
-                </p>
-              ) : null}
-
-              {/* Title */}
-              <h1 className="mt-1 text-2xl md:text-3xl font-bold leading-snug text-black">
-                {displayTitle}
-              </h1>
-
-              {/* Optional subtitle */}
-              {subtitle ? <p className="mt-1 text-base text-gray-600">{subtitle}</p> : null}
-
-              {/* Meta line */}
-              {metaLine ? <p className="mt-3 text-sm text-gray-500">{metaLine}</p> : null}
-
-              <hr className="my-6 border-gray-100" />
-
-              {/* Price row */}
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-gray-400">
-                    {statusNorm === "wanted" ? "Request" : "Sale price"}
-                  </p>
-                  <p className="mt-1 text-3xl font-bold text-black">
-                    {statusNorm === "wanted" ? "Get in touch" : displayPrice}
-                  </p>
-                </div>
-
-                <div className="flex gap-3">
-                  <a
-                    href={safeCtas.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-brand-green hover:opacity-90 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-sm"
-                  >
-                    WhatsApp
-                  </a>
-
-                  <a
-                    href={`tel:${safeCtas.phoneNumber}`}
-                    className="bg-neutral-900 hover:bg-neutral-800 text-white font-bold px-5 py-3 rounded-xl transition-all shadow-sm"
-                  >
-                    Call {formatPhoneLabel(safeCtas.phoneNumber)}
-                  </a>
-                </div>
+                {badgeText(status)}
               </div>
-            </div>
-          </div>
 
-          {/* DESCRIPTION */}
-          {description ? (
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
-              <div className="p-6 border-b border-gray-100">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
-                  Description
-                </h3>
-              </div>
-              <div className="p-6">
-                <p className="text-gray-700 leading-relaxed text-sm">{description}</p>
-              </div>
-            </div>
-          ) : null}
+              {/* White title/subtitle overlay */}
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="inline-block bg-black/35 backdrop-blur-[1px] rounded-2xl px-5 py-4">
+                  <h2 className="text-white text-3xl md:text-5xl font-black uppercase tracking-tight leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+                    {String(title || "").toUpperCase()}
+                  </h2>
 
-          {/* KEY SPECS */}
-          {specs && specs.length > 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
-              <div className="p-6 border-b border-gray-100">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
-                  Key specs
-                </h3>
-              </div>
-              <div className="p-6 space-y-3">
-                {specs.map((row) => (
-                  <div key={row.label} className="flex justify-between gap-6">
-                    <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
-                      {row.label}
-                    </span>
-                    <span className="text-sm font-semibold text-neutral-900 text-right">
-                      {row.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : null}
-
-          {/* NOTES */}
-          {notes && notes.length > 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
-              <div className="p-6 border-b border-gray-100">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
-                  Notes
-                </h3>
-              </div>
-              <div className="p-6">
-                <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
-                  {notes.map((n, idx) => (
-                    <li key={idx}>{n}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ) : null}
-
-          {/* VIDEO */}
-          {videoUrl ? (
-            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-100">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900">
-                  Video
-                </h3>
-              </div>
-              <video controls className="w-full" preload="metadata">
-                <source src={videoUrl} type="video/mp4" />
-              </video>
-            </div>
-          ) : null}
-        </div>
-
-        {/* SIDEBAR */}
-        <aside className="space-y-6">
-          <ListingGallery images={gallery?.length ? gallery : [heroImage]} videoUrl={videoUrl} />
-
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-neutral-900 mb-4">
-              Enquire
-            </h3>
-
-            <div className="space-y-3">
-              <a
-                href={safeCtas.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-brand-green hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm"
-              >
-                WhatsApp seller
-              </a>
-
-              <a
-                href={`tel:${safeCtas.phoneNumber}`}
-                className="w-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold py-3 rounded-xl transition-all block text-center shadow-sm"
-              >
-                Call {formatPhoneLabel(safeCtas.phoneNumber)}
-              </a>
-
-              {safeCtas.financeQuoteUrl ? (
-                <a
-                  href={safeCtas.financeQuoteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full border border-gray-300 text-neutral-900 hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
-                >
-                  Request finance quote
-                </a>
-              ) : null}
-
-              {safeCtas.brochureUrl ? (
-                <a
-                  href={safeCtas.brochureUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-brand-green text-white font-bold py-3 rounded-xl transition-all block text-center shadow-sm hover:opacity-90"
-                >
-                  Download brochure
-                </a>
-              ) : null}
-            </div>
-          </div>
-
-          <p className="text-xs text-gray-400">
-            Listing ID: <span className="font-mono">{id}</span>
-          </p>
-        </aside>
-      </div>
-    </div>
-  );
-};
-
-export default Listing;
+                  {subtitle ? (
