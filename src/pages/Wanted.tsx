@@ -39,7 +39,7 @@ const Wanted: React.FC = () => {
         </h2>
 
         <div className="flex items-center gap-4">
-          <span className="h-1 w-12 bg-[#ca9c29] rounded-full" />
+          <span className="h-1 w-12 bg-brand-gold rounded-full" />
           <p className="text-gray-500 uppercase text-[10px] md:text-xs font-bold tracking-[0.3em]">
             Active sourcing requests
           </p>
@@ -62,7 +62,6 @@ const Wanted: React.FC = () => {
                 location: getTileLocation(l),
                 heroImage: l.heroImage?.src,
                 year: l.year,
-                // Wanted tiles show “Get in touch” automatically in AdvertTile
                 price: l.priceText ?? l.price ?? "",
                 specSummary: formatWidthShort(getTileWidth(l)),
               }}
