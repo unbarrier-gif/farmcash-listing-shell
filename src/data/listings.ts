@@ -247,8 +247,7 @@ export const listings: Listing[] = [
       { src: "/images/FC-2020-490/FC-2020-490-6.png", alt: "Kemper header image 6." },
       { src: "/images/FC-2020-490/FC-2020-490-7.png", alt: "Kemper header image 7." },
     ],
-    // If/when you upload a video into /public/images/FC-2020-490/, set videoUrl to match the exact filename:
-    // videoUrl: "/images/FC-2020-490/<your-video-file>.mp4",
+    
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
