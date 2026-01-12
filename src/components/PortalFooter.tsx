@@ -109,8 +109,7 @@ const PortalFooter: React.FC = () => {
               style={{ color: "#38ff99" }}
             >
               unbarrier.me
-          </a>
-
+            </a>
           </p>
         </div>
       </div>
