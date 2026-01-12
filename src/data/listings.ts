@@ -67,18 +67,20 @@ const FINANCE_FORM_URL =
 const PROFICUT_BROCHURE_URL = "/brochures/proficut_fendt_brochure_en_2015-03_web.pdf";
 
 export const listings: Listing[] = [
-  /**
+
+  
+    /**
    * AD 1 — FOR SALE
    * URL: /listing/fc-2013-620
    */
   {
     id: "fc-2013-620",
     status: "for-sale",
-    title: "Zürn ProfiCut 620",
+    title: "Zürn ProfiCut 620 Wholecrop Header",
     subtitle: "Direct Cut Wholecrop Header",
     year: "2013",
     location: "Somerset, UK",
-    width: "6.20 m",
+    width: "6.2M",
     serialRef: "FC-2013-620",
     priceText: "£35,000",
     heroImage: {
@@ -89,33 +91,82 @@ export const listings: Listing[] = [
       "This 2013 Zürn ProfiCut 620 is a high-capacity header for direct harvesting of wholecrop. With a 6.20m working width, it is perfectly matched for John Deere 8000 and 9000 series forage harvesters. Robust drive system and professional build quality. Well-maintained unit with only 1,000 hectares of total use. Sale includes the transporter trolley as pictured.",
     specs: [
       { label: "Working width", value: "6.20 m (20 ft)" },
-      { label: "Application", value: "Direct harvesting of wholecrop" },
-      { label: "Compatibility", value: "John Deere 8000 & 9000 series" },
-      { label: "Usage", value: "Approx. 1,000 hectares" },
-      { label: "Transport trolley", value: "Included" },
+      { label: "Operating speed", value: "5–15 km/h" },
+      { label: "Work rate", value: "Up to 6 ha/h" },
+      { label: "Cutting height", value: "5–15 cm" },
+      { label: "Qty. mower discs", value: "2 × 8" },
+      { label: "Qty. knives", value: "32 (2/disc)" },
+      { label: "RPM mower discs", value: "3,000 min⁻¹" },
+      { label: "Feeding auger Ø", value: "600 mm" },
+      { label: "Weight (unit)", value: "3,050 kg" },
+      { label: "Coupling", value: "JD 8000/9000" },
     ],
     gallery: [
-      { src: "/images/FC-2013-620/FC-2013-620-1.png", alt: "Header on transporter trolley (view 1)." },
-      { src: "/images/FC-2013-620/FC-2013-620-2.png", alt: "Header on transporter trolley (view 2)." },
-      { src: "/images/FC-2013-620/FC-2013-620-3.png", alt: "Side/rear view of the header assembly." },
-      { src: "/images/FC-2013-620/FC-2013-620-4.png", alt: "Side view showing the header body and frame." },
-      { src: "/images/FC-2013-620/FC-2013-620-5.png", alt: "Transport position view of the header." },
-      { src: "/images/FC-2013-620/FC-2013-620-6.png", alt: "Detail view of cutter/underside area." },
-      { src: "/images/FC-2013-620/FC-2013-620-7.png", alt: "Detail view of rear section and linkage points." },
-      { src: "/images/FC-2013-620/FC-2013-620-8.png", alt: "Detail view of cutter discs / underside." },
-      { src: "/images/FC-2013-620/FC-2013-620-10.png", alt: "Identification plate / manufacturer details." },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-1.png",
+        alt: "Zürn ProfiCut 620 wholecrop header stored indoors (view 1).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-2.png",
+        alt: "Side/rear view of the header assembly (view 2).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-3.png",
+        alt: "Transport position view of the header (view 3).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-4.png",
+        alt: "Detail view of cutting / intake area (view 4).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-5.png",
+        alt: "Rear-side view on transporter trolley (view 5).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-6.png",
+        alt: "Header detail view (view 6).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-7.png",
+        alt: "Header detail view (view 7).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-8.png",
+        alt: "Header detail view (view 8).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-9.png",
+        alt: "Header detail view (view 9).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-10.png",
+        alt: "Header detail view (view 10).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-11.png",
+        alt: "Header detail view (view 11).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-12.png",
+        alt: "Header detail view (view 12).",
+      },
+      {
+        src: "/images/FC-2013-620/FC-2013-620-13.png",
+        alt: "Header detail view (view 13).",
+      },
       {
         src: "/images/FC-2013-620/FC-2013-620-backend-hero.png",
-        alt: "Rear-side view of the Zürn ProfiCut 620 (alternate hero).",
+        alt: "Alternative rear/side hero image of the Zürn ProfiCut 620.",
       },
     ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
-      brochureUrl: PROFICUT_BROCHURE_URL,
+      brochureUrl: "/brochures/proficut_fendt_brochure_en_2015-03_web.pdf",
     },
   },
+
 
   /**
    * AD 2 — FOR SALE
