@@ -61,7 +61,7 @@ There is **no manual deployment step** once configured.
 
 ## Project structure (high level)
 /
-├── public/ # Static assets (images, video)
+├── public/ # Static assets (images)
 ├── src/ # React application source
 │ ├── components/
 │ ├── pages/
