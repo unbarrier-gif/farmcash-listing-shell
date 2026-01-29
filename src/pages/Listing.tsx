@@ -90,7 +90,7 @@ const Listing: React.FC = () => {
       ctas?.financeQuoteUrl ??
       "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest",
     brochureUrl: ctas?.brochureUrl ?? "",
-    portalUrl: (ctas as any)?.portalUrl ?? PORTAL_URL, // optional field if you add later
+    portalUrl: ctas?.portalUrl ?? PORTAL_URL,
   };
 
   const detailThumbs = allImages;

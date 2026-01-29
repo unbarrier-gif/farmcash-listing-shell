@@ -15,6 +15,7 @@ export type Ctas = {
   phoneNumber: string; // store either 0739... or +447...
   financeQuoteUrl?: string;
   brochureUrl?: string;
+  portalUrl?: string;
 };
 
 export type Listing = {
@@ -209,6 +210,37 @@ export const listings: Listing[] = [
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
       financeQuoteUrl: FINANCE_FORM_URL,
+    },
+  },
+
+  /**
+   * WANTED 2
+   * URL: /listing/wanted-2
+   */
+  {
+    id: "wanted-2",
+    status: "wanted",
+    title: "Claas Liner 2700 / 2800 Rotary Rake",
+    subtitle: "Twin rotor rotary rake",
+    year: "2014–2017",
+    location: "UK preferred",
+    priceText: "Open to market",
+    heroImage: {
+      src: "/images/FC-2026-wanted-2/hero.jpg",
+      alt: "Claas Liner twin-rotor rotary rake shown in working position, with two circular rotors fitted with red spring tines, a central drawbar hitch, and rear transport wheels raised for field operation.",
+    },
+    description:
+      "We are looking to source a Claas Liner 2700 or 2800 twin-rotor rotary rake from 2014–2017. Preference is for tidy, field-ready machines with good tine condition and a straight chassis. UK-based units are ideal; we can consider mainland Europe for the right machine.",
+    specs: [
+      { label: "Make", value: "Claas" },
+      { label: "Model", value: "Liner 2700 / 2800" },
+      { label: "Type", value: "Twin-rotor rotary rake" },
+      { label: "Model years", value: "2014–2017" },
+      { label: "Location preference", value: "UK preferred" },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
     },
   },
 
