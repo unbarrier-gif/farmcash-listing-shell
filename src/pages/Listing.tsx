@@ -16,6 +16,8 @@ const formatPhoneLabel = (phone: string) => {
   return p;
 };
 
+const PORTAL_URL = "https://portal.farmcash.online/";
+
 const Listing: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const listing = listings.find((l) => l.id === id);
@@ -79,6 +81,8 @@ const Listing: React.FC = () => {
     status,
   } = listing;
 
+  const isWanted = status === "wanted";
+
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
     phoneNumber: ctas?.phoneNumber ?? "07393138063",
@@ -86,9 +90,17 @@ const Listing: React.FC = () => {
       ctas?.financeQuoteUrl ??
       "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest",
     brochureUrl: ctas?.brochureUrl ?? "",
+    portalUrl: (ctas as any)?.portalUrl ?? PORTAL_URL, // optional field if you add later
   };
 
   const detailThumbs = allImages;
+
+  const priceLabel = isWanted ? "Budget" : "Price";
+  const priceValue = priceText ?? (isWanted ? "Wanted" : "POA");
+
+  const sidebarTitle = isWanted ? "Help us source this" : "Secure this asset";
+  const whatsappLabel = isWanted ? "WhatsApp details" : "WhatsApp seller";
+  const callLabel = isWanted ? "Call FarmCash" : `Call ${formatPhoneLabel(safeCtas.phoneNumber)}`;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12 overflow-x-hidden">
@@ -154,7 +166,7 @@ const Listing: React.FC = () => {
                 </p>
               ) : null}
 
-              {/* Title + meta + price */}
+              {/* Title + meta + price/budget */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 min-w-0">
                 <div className="min-w-0">
                   <h1 className="text-3xl md:text-4xl font-black leading-none uppercase tracking-tight text-neutral-900 break-words">
@@ -169,17 +181,19 @@ const Listing: React.FC = () => {
                 </div>
 
                 <div className="text-left md:text-right w-full md:w-auto">
-                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Price</p>
-                  <p className="text-4xl font-black text-neutral-900 break-words">{priceText ?? "POA"}</p>
+                  <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">{priceLabel}</p>
+                  <p className="text-4xl font-black text-neutral-900 break-words">{priceValue}</p>
                 </div>
               </div>
 
               {/* Technical Description */}
               <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
                 <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
-                  Technical description
+                  {isWanted ? "Wanted description" : "Technical description"}
                 </h4>
-                <p className="text-gray-700 leading-relaxed text-sm">{description ? description : "Details coming soon."}</p>
+                <p className="text-gray-700 leading-relaxed text-sm">
+                  {description ? description : "Details coming soon."}
+                </p>
               </div>
 
               {/* Technical specs */}
@@ -223,8 +237,6 @@ const Listing: React.FC = () => {
               ) : null}
             </div>
           </div>
-
-      
         </div>
 
         {/* SIDEBAR */}
@@ -261,30 +273,41 @@ const Listing: React.FC = () => {
             </p>
           </div>
 
-          {/* Secure this asset */}
+          {/* CTA box */}
           <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
             <h4 className="font-bold text-neutral-900 mb-4 uppercase tracking-widest text-xs">
-              Secure this asset
+              {sidebarTitle}
             </h4>
 
             <div className="space-y-3">
+              {/* Portal CTA (always useful) */}
+              <a
+                href={safeCtas.portalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full border-2 border-brand-black text-brand-black hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
+              >
+                View on portal
+              </a>
+
               <a
                 href={safeCtas.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-brand-green hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"
               >
-                WhatsApp seller
+                {whatsappLabel}
               </a>
 
               <a
                 href={`tel:${safeCtas.phoneNumber}`}
                 className="w-full bg-brand-black hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md"
               >
-                Call {formatPhoneLabel(safeCtas.phoneNumber)}
+                {callLabel}
               </a>
 
-              {safeCtas.financeQuoteUrl ? (
+              {/* Finance quote CTA: hide for Wanted by default */}
+              {!isWanted && safeCtas.financeQuoteUrl ? (
                 <a
                   href={safeCtas.financeQuoteUrl}
                   target="_blank"
@@ -295,6 +318,7 @@ const Listing: React.FC = () => {
                 </a>
               ) : null}
 
+              {/* Brochure CTA (sales listings typically) */}
               {safeCtas.brochureUrl ? (
                 <a
                   href={safeCtas.brochureUrl}
@@ -306,6 +330,12 @@ const Listing: React.FC = () => {
                 </a>
               ) : null}
             </div>
+
+            {isWanted ? (
+              <p className="mt-4 text-xs text-gray-500 leading-relaxed">
+                Have a suitable machine? Send photos, spec, price and location via WhatsApp or the portal.
+              </p>
+            ) : null}
           </div>
 
           <p className="text-xs text-gray-400">
