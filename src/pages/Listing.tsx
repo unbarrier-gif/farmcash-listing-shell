@@ -84,14 +84,14 @@ const Listing: React.FC = () => {
   const isWanted = status === "wanted";
 
   const safeCtas = {
-    whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
-    phoneNumber: ctas?.phoneNumber ?? "07393138063",
-    financeQuoteUrl:
-      ctas?.financeQuoteUrl ??
-      "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest",
-    brochureUrl: ctas?.brochureUrl ?? "",
-    portalUrl: (ctas as any)?.portalUrl ?? PORTAL_URL, // optional field if you add later
-  };
+  whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
+  phoneNumber: ctas?.phoneNumber ?? "07393138063",
+  financeQuoteUrl:
+    ctas?.financeQuoteUrl ??
+    "https://www.cognitoforms.com/FarmCashLtd/AgriculturalMachineryImportFinanceRequest",
+  brochureUrl: ctas?.brochureUrl ?? "",
+  portalUrl: ctas?.portalUrl ?? PORTAL_URL,
+};
 
   const detailThumbs = allImages;
 
