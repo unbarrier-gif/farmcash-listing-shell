@@ -102,8 +102,8 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const meta = [year, spec].filter(Boolean).join(" • ").toUpperCase();
 
   const priceText =
-  (listing.priceText && String(listing.priceText).trim()) ||
-  formatPrice(listing.price, listing.currency || "£");
+    (listing.priceText && String(listing.priceText).trim()) ||
+    formatPrice(listing.price, listing.currency || "£");
 
   const hero = listing.heroImage?.trim();
   const fallbackHero =
@@ -120,7 +120,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   return (
     <Link
       to={`/listing/${listing.id}`}
-      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-[1px]"
+      className="group relative block h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-[1px]"
       aria-label={title ? `Open listing: ${title}` : "Open listing"}
     >
       {/* Image */}
@@ -143,7 +143,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
       </div>
 
       {/* Content */}
-      <div className="p-6">
+      <div className="p-6 pb-20">
         {/* Location */}
         {location ? (
           <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-green">
@@ -167,43 +167,36 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           </p>
         ) : null}
 
-        <div className="mt-6 pt-5 border-t border-gray-100 flex items-end justify-between gap-4">
-          <div className="min-w-0">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">
-              {status === "wanted" ? "Request" : "Sale price"}
-            </p>
+        {/* Price / Request */}
+        <div className="mt-6 pt-5 border-t border-gray-100">
+          <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">
+            {status === "wanted" ? "Request" : "Sale price"}
+          </p>
 
-            <p className="text-2xl font-black text-black">
-              {status === "wanted" ? "Get in touch" : (priceText || "POA")}
-            </p>
-          </div>
+          <p className="text-2xl font-black text-black">
+            {status === "wanted" ? "Get in touch" : (priceText || "POA")}
+          </p>
+        </div>
+      </div>
 
-          {/* Arrow (grey → green on hover) */}
-          <div className="shrink-0">
-            <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center transition-colors group-hover:bg-brand-green shadow-sm">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5 text-gray-500 transition-colors group-hover:text-white"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M5 12h12"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M13 6l6 6-6 6"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-
-            </div>
-          </div>
+      {/* Arrow CTA — pinned bottom-right */}
+      <div className="absolute bottom-6 right-6">
+        <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center transition-colors group-hover:bg-brand-green shadow-sm">
+          <svg
+            viewBox="0 0 24 24"
+            className="h-5 w-5 text-gray-500 transition-colors group-hover:text-white"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M5 12h12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            <path
+              d="M13 6l6 6-6 6"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </div>
     </Link>
