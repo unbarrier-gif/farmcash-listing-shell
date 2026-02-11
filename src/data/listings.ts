@@ -228,7 +228,7 @@ export const listings: Listing[] = [
     priceText: "Offers",
     heroImage: {
       src: "/images/FC-Ford-Weights/FC-Ford-Weights-hero.jpg",
-      alt: "Full set of Ford tractor front weights stacked on a stand.",
+      alt: "Ford-branded suitcase weights on front bracket — close-up showing cast FORD lettering.",
     },
     description:
       "Honestly? We're not entirely sure what breed of Ford these came off — but they're the real deal. Genuine Ford cast-iron front weights, full set on the original stand, built like absolute tanks. They've got that proper lived-in patina that only comes from decades of honest work. If your tractor's front end needs some extra conviction, or you just appreciate a nice bit of Ford iron, give us a shout.",
@@ -241,8 +241,7 @@ export const listings: Listing[] = [
       "Not sure if these fit your setup? Drop us a message — we won't judge the question.",
     ],
     gallery: [
-      { src: "/images/FC-Ford-Weights/FC-Ford-Weights-1.jpg", alt: "Close-up of Ford-branded suitcase weights showing cast lettering." },
-      { src: "/images/FC-Ford-Weights/FC-Ford-Weights-2.jpg", alt: "Second angle of the Ford tractor weight set." },
+      { src: "/images/FC-Ford-Weights/FC-Ford-Weights-1.jpg", alt: "Full stack of Ford wheel weights on stand — showing the sheer quantity of cast-iron ballast." },
     ],
     ctas: {
       whatsappUrl: WHATSAPP_URL,
