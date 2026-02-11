@@ -214,6 +214,42 @@ export const listings: Listing[] = [
   },
 
   /**
+   * AD 4 — FOR SALE
+   * URL: /listing/fc-ford-weights
+   */
+  {
+    id: "fc-ford-weights",
+    status: "for-sale",
+    title: "Ford Tractor Front Weights",
+    subtitle: "Full set on stand — proper old-school ballast",
+    year: "Vintage",
+    location: "Bradford-on-Avon",
+    serialRef: "FC-Ford-Weights",
+    priceText: "Offers",
+    heroImage: {
+      src: "/images/FC-Ford-Weights/FC-Ford-Weights-hero.jpg",
+      alt: "Ford-branded suitcase weights on front bracket — close-up showing cast FORD lettering.",
+    },
+    description:
+      "Honestly? We're not entirely sure what breed of Ford these came off — but they're the real deal. Genuine Ford cast-iron front weights, full set on the original stand, built like absolute tanks. They've got that proper lived-in patina that only comes from decades of honest work. If your tractor's front end needs some extra conviction, or you just appreciate a nice bit of Ford iron, give us a shout.",
+    specs: [
+      { label: "Make", value: "Ford" },
+      { label: "Type", value: "Front tractor weights (cast iron)" },
+      { label: "Condition", value: "Used — honest patina, solid throughout" },
+    ],
+    notes: [
+      "Not sure if these fit your setup? Drop us a message — we won't judge the question.",
+    ],
+    gallery: [
+      { src: "/images/FC-Ford-Weights/FC-Ford-Weights-1.jpg", alt: "Full stack of Ford wheel weights on stand — showing the sheer quantity of cast-iron ballast." },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
+    },
+  },
+
+  /**
    * WANTED 2
    * URL: /listing/wanted-2
    */
