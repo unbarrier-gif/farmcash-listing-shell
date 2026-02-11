@@ -223,7 +223,7 @@ export const listings: Listing[] = [
     title: "Ford Tractor Front Weights",
     subtitle: "Full set on stand — proper old-school ballast",
     year: "Vintage",
-    location: "UK",
+    location: "Bradford-on-Avon",
     serialRef: "FC-Ford-Weights",
     priceText: "Offers",
     heroImage: {
