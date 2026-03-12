@@ -5,25 +5,34 @@ const whatsappUrl =
 
 const SourcingRequestCard: React.FC = () => {
   return (
-    <article className="group relative block h-full overflow-hidden rounded-2xl border border-gray-200 bg-brand-green/5 shadow-sm transition-all hover:shadow-md hover:-translate-y-[1px]">
+    <article className="group relative block h-full overflow-hidden rounded-2xl border border-gray-200 bg-brand-green/5 shadow-sm transition-all hover:-translate-y-[1px] hover:shadow-lg">
+      <img
+        src="/images/wanted-hero-1.png"
+        alt="FarmCash sourcing request – tell us what machine you need"
+        className="h-48 w-full object-cover rounded-t-xl"
+        loading="lazy"
+      />
+
       <div className="p-6 py-8">
-        <span className="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-brand-green text-white uppercase tracking-widest">
-          Sourcing request
+        <span className="mb-3 inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
+          SOURCING REQUEST
         </span>
 
-        <h3 className="mt-4 text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
-          Wanted: your next machine story
+        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
+          WANTED: YOUR NEXT MACHINE STORY
         </h3>
 
-        <div className="mt-4 space-y-3 text-sm text-gray-700 leading-relaxed">
+        <div className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
           <p>Looking for something specific?</p>
           <p>
-            Can&apos;t find the right machine? Tell us the make, model or spec and we&apos;ll source it.
+            Can&apos;t find the right machine?
+            <br />
+            Tell us the make, model or spec and we&apos;ll source it.
           </p>
           <p>We regularly source machinery across the UK and Europe.</p>
         </div>
 
-        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-gray-500">
+        <p className="mt-4 text-xs text-gray-500">
           No obligation – just tell us what you&apos;re looking for.
         </p>
 
@@ -31,13 +40,10 @@ const SourcingRequestCard: React.FC = () => {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center rounded-xl bg-brand-green px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-black"
           aria-label="Send your sourcing request on WhatsApp"
+          className="mt-6 inline-flex items-center rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90"
         >
-          <span aria-hidden="true" className="mr-2">
-            💬
-          </span>
-          Send your request →
+          💬 Send your request →
         </a>
       </div>
     </article>
