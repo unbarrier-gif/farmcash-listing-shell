@@ -40,6 +40,7 @@ export type Listing = {
   /** Optional tile metadata */
   location?: string;
   width?: string;
+  /** Current machine location country (not build/manufacture origin) */
   country: "UK" | "Germany" | "Netherlands";
 
   /** Optional reference */

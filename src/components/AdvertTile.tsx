@@ -101,7 +101,6 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const badgeText = status === "wanted" ? "WANTED" : "FOR SALE";
   const badgeClass = status === "wanted" ? "bg-brand-gold" : "bg-brand-black";
 
-  const location = (listing.location || "").trim();
   const title = (listing.title || "").trim();
 
   const year = formatYear(listing.year);
@@ -132,18 +131,18 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     >
       {/* Image */}
       <div className="relative">
-        <div className="aspect-[16/10] overflow-hidden rounded-t-2xl bg-gray-100">
+        <div className="relative overflow-hidden rounded-xl bg-gray-100">
           <img
             src={hero || fallbackHero}
             alt={title || "Listing image"}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
           />
         </div>
 
         {/* Badge */}
         <span
-          className={`absolute right-4 top-4 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
+          className={`absolute top-3 right-3 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
         >
           {badgeText}
         </span>
@@ -157,19 +156,8 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
       {/* Content */}
       <div className="p-6 pb-20">
-        {/* Location */}
-        {location ? (
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-green">
-            {location}
-          </p>
-        ) : (
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-green">
-            &nbsp;
-          </p>
-        )}
-
         {/* Title */}
-        <h3 className="mt-2 text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
+        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
           {title}
         </h3>
 
