@@ -75,6 +75,7 @@ const Listing: React.FC = () => {
     priceText,
     serialRef,
     description,
+    features,
     specs,
     notes,
     ctas,
@@ -187,14 +188,40 @@ const Listing: React.FC = () => {
               </div>
 
               {/* Technical Description */}
-              <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
-                <h4 className="font-bold text-neutral-900 mb-2 uppercase text-xs tracking-widest border-b pb-2">
+              <div className="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-100">
+                <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
                   {isWanted ? "Wanted description" : "Technical description"}
                 </h4>
-                <p className="text-gray-700 leading-relaxed text-sm">
-                  {description ? description : "Details coming soon."}
-                </p>
+                {description ? (
+                  <div className="space-y-4 text-gray-700 leading-relaxed text-sm">
+                    {description
+                      .split(/\n\s*\n/)
+                      .map((paragraph) => paragraph.trim())
+                      .filter(Boolean)
+                      .map((paragraph, idx) => (
+                        <p key={idx}>{paragraph}</p>
+                      ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-700 leading-relaxed text-sm">Details coming soon.</p>
+                )}
               </div>
+
+              {!isWanted && features && features.length > 0 ? (
+                <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
+                  <h4 className="font-bold text-neutral-900 mb-4 uppercase text-xs tracking-widest border-b pb-2">
+                    Key features
+                  </h4>
+                  <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2 mb-4">
+                    {features.map((feature, idx) => (
+                      <li key={idx} className="break-words">
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-sm font-semibold text-neutral-900">Price: {priceValue}</p>
+                </div>
+              ) : null}
 
               {/* Technical specs */}
               {specs && specs.length > 0 ? (
