@@ -2,6 +2,7 @@ import React from "react";
 import { listings } from "../data/listings";
 import type { SpecRow } from "../data/listings";
 import AdvertTile from "../components/AdvertTile";
+import SourcingRequestCard from "../components/SourcingRequestCard";
 
 const isWanted = (l: any) => String(l.status || "").toLowerCase().includes("want");
 
@@ -46,15 +47,10 @@ const Wanted: React.FC = () => {
         </div>
       </div>
 
-      {filtered.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 text-gray-600">
-          No wanted ads are currently listed.
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((l: any) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filtered.map((l: any, index: number) => (
+          <React.Fragment key={l.id}>
             <AdvertTile
-              key={l.id}
               listing={{
                 id: l.id,
                 status: l.status,
@@ -66,9 +62,13 @@ const Wanted: React.FC = () => {
                 specSummary: formatWidthShort(getTileWidth(l)),
               }}
             />
-          ))}
-        </div>
-      )}
+
+            {index === 1 ? <SourcingRequestCard /> : null}
+          </React.Fragment>
+        ))}
+
+        {filtered.length < 2 ? <SourcingRequestCard /> : null}
+      </div>
     </main>
   );
 };

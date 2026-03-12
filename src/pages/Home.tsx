@@ -2,6 +2,7 @@ import React from "react";
 import { listings } from "../data/listings";
 import type { Listing, SpecRow } from "../data/listings";
 import AdvertTile from "../components/AdvertTile";
+import SourcingRequestCard from "../components/SourcingRequestCard";
 
 type HomeMode = "all" | "forSale";
 
@@ -90,21 +91,26 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((l) => (
-          <AdvertTile
-            key={l.id}
-            listing={{
-              id: l.id,
-              status: l.status,
-              title: l.title,
-              location: getTileLocation(l),
-              heroImage: l.heroImage?.src,
-              year: l.year,
-              priceText: l.priceText ?? "",
-              specSummary: pickTileSpec(l),
-            }}
-          />
+        {filtered.map((l, index) => (
+          <React.Fragment key={l.id}>
+            <AdvertTile
+              listing={{
+                id: l.id,
+                status: l.status,
+                title: l.title,
+                location: getTileLocation(l),
+                heroImage: l.heroImage?.src,
+                year: l.year,
+                priceText: l.priceText ?? "",
+                specSummary: pickTileSpec(l),
+              }}
+            />
+
+            {index === 1 ? <SourcingRequestCard /> : null}
+          </React.Fragment>
         ))}
+
+        {filtered.length < 2 ? <SourcingRequestCard /> : null}
 
         {/* Slot Available tile 1 */}
         <div className="bg-white/50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-12 text-center flex-col opacity-70">
