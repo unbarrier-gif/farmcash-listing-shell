@@ -291,22 +291,6 @@ Track width can be adjusted from the cab and the machine comes with two wheel se
 
 The sprayer is in good working order and ready for the coming season.
 
-Key Features:
-
-• 2019 Bateman RB35
-• 4,700 hours
-• 30/24m VG contour boom
-• Norac BBL contour following
-• Autosteer fitted
-• 4 speed transmission (60k)
-• Autolube system
-• 5 way nozzle setup
-• Track adjustment from cab
-• Two wheel sets (420 & 600)
-• Full service history
-
-Price: £165,000 + VAT
-
 Transport and finance options available.
 
 Viewings welcome.
