@@ -43,6 +43,8 @@ export type Listing = {
 
   /** Display exactly as needed on detail page */
   priceText?: string;
+  price?: string;
+  hours?: string;
 
   /** Main media (also used for Home/Wanted tile image) */
   heroImage: MediaImage;
@@ -52,6 +54,7 @@ export type Listing = {
 
   /** Optional content */
   description?: string;
+  features?: string[];
   specs?: SpecRow[];
   notes?: string[];
 
@@ -246,6 +249,63 @@ export const listings: Listing[] = [
     ctas: {
       whatsappUrl: WHATSAPP_URL,
       phoneNumber: PHONE_NUMBER,
+    },
+  },
+
+  /**
+   * AD 5 — FOR SALE
+   * URL: /listing/bateman-rb35-2019
+   */
+  {
+    id: "bateman-rb35-2019",
+    status: "for-sale",
+    title: "2019 Bateman RB35 Self Propelled Sprayer",
+    subtitle: "30/24m VG contour boom | 4-speed 60k transmission",
+    year: "2019",
+    location: "UK",
+    serialRef: "FC-2019-BATEMAN-RB35-001",
+    priceText: "£165,000 + VAT",
+    price: "£165,000 + VAT",
+    hours: "4,700",
+    heroImage: {
+      src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-hero.jpg",
+      alt: "2019 Bateman RB35 self propelled sprayer (hero view).",
+    },
+    gallery: [
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-front.jpg", alt: "Front view of the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-rear.jpg", alt: "Rear view of the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-side-left.jpg", alt: "Left side view of the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-side-right.jpg", alt: "Right side view of the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-cab.jpg", alt: "Cab view of the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-controls.jpg", alt: "Operator controls inside the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-cert.jpg", alt: "Certification and documentation image for the Bateman RB35 sprayer." },
+      { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-field.jpg", alt: "Bateman RB35 sprayer in field working context." },
+    ],
+    description:
+      "2019 Bateman RB35 self propelled sprayer with approximately 4,700 hours and full service history. Machine is in good working order and ready to go to work this season. Transport assistance available. Finance options available.",
+    features: [
+      "30/24m VG contour boom",
+      "Norac BBL contour following",
+      "Autosteer",
+      "4 speed transmission (60k)",
+      "Autolube system",
+      "5 way nozzle system",
+      "Track adjustment from cab",
+      "Two wheel sets (420 and 600)",
+    ],
+    specs: [
+      { label: "Make", value: "Bateman" },
+      { label: "Model", value: "RB35" },
+      { label: "Machine type", value: "Self Propelled Sprayer" },
+      { label: "Year", value: "2019" },
+      { label: "Hours", value: "4,700" },
+      { label: "Price", value: "£165,000 + VAT" },
+      { label: "Location", value: "UK" },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
+      financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
 
