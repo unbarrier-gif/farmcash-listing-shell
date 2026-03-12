@@ -1,10 +1,12 @@
 import React from "react";
 import { listings } from "../data/listings";
-import type { SpecRow } from "../data/listings";
+import type { Listing, SpecRow } from "../data/listings";
 import AdvertTile from "../components/AdvertTile";
 import SourcingRequestCard from "../components/SourcingRequestCard";
 
-const isWanted = (l: any) => String(l.status || "").toLowerCase().includes("want");
+type DisplayItem = Listing | { type: "sourcing" };
+
+const isWanted = (l: Listing) => String(l.status || "").toLowerCase().includes("want");
 
 const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => boolean) => {
   if (!specs) return undefined;
@@ -12,9 +14,9 @@ const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => b
   return row?.value;
 };
 
-const getTileLocation = (l: any) => l.location as string | undefined;
+const getTileLocation = (l: Listing) => l.location as string | undefined;
 
-const getTileWidth = (l: any) => {
+const getTileWidth = (l: Listing) => {
   return (
     (l.width as string | undefined) ||
     findSpecValue(l.specs, (label) => label.includes("working width") || label === "width") ||
@@ -30,7 +32,16 @@ const formatWidthShort = (widthRaw?: string) => {
 };
 
 const Wanted: React.FC = () => {
-  const filtered = listings.filter(isWanted);
+  const sortedListings = [...listings].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+
+  const filteredListings = sortedListings.filter(isWanted);
+
+  const displayListings: DisplayItem[] =
+    filteredListings.length < 2
+      ? [...filteredListings, { type: "sourcing" }]
+      : [filteredListings[0], filteredListings[1], { type: "sourcing" }, ...filteredListings.slice(2)];
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:py-12 min-h-[60vh]">
@@ -48,26 +59,27 @@ const Wanted: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((l: any, index: number) => (
-          <React.Fragment key={l.id}>
+        {displayListings.map((item) => {
+          if ("type" in item) {
+            return <SourcingRequestCard key="sourcing-card" />;
+          }
+
+          return (
             <AdvertTile
+              key={item.id}
               listing={{
-                id: l.id,
-                status: l.status,
-                title: l.title,
-                location: getTileLocation(l),
-                heroImage: l.heroImage?.src,
-                year: l.year,
-                price: l.priceText ?? l.price ?? "",
-                specSummary: formatWidthShort(getTileWidth(l)),
+                id: item.id,
+                status: item.status,
+                title: item.title,
+                location: getTileLocation(item),
+                heroImage: item.heroImage?.src,
+                year: item.year,
+                price: item.priceText ?? item.price ?? "",
+                specSummary: formatWidthShort(getTileWidth(item)),
               }}
             />
-
-            {index === 1 ? <SourcingRequestCard /> : null}
-          </React.Fragment>
-        ))}
-
-        {filtered.length < 2 ? <SourcingRequestCard /> : null}
+          );
+        })}
       </div>
     </main>
   );

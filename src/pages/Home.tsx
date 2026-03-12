@@ -10,6 +10,8 @@ type Props = {
   mode?: HomeMode;
 };
 
+type DisplayItem = Listing | { type: "sourcing" };
+
 const isForSale = (l: Listing) => String(l.status).toLowerCase().includes("for");
 
 const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => boolean) => {
@@ -67,7 +69,16 @@ const pickTileSpec = (l: Listing) => {
 };
 
 const Home: React.FC<Props> = ({ mode = "all" }) => {
-  const filtered = mode === "forSale" ? listings.filter(isForSale) : listings;
+  const sortedListings = [...listings].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+
+  const filteredListings = mode === "forSale" ? sortedListings.filter(isForSale) : sortedListings;
+
+  const displayListings: DisplayItem[] =
+    filteredListings.length < 2
+      ? [...filteredListings, { type: "sourcing" }]
+      : [filteredListings[0], filteredListings[1], { type: "sourcing" }, ...filteredListings.slice(2)];
 
   const pageTitle = mode === "forSale" ? "For sale" : "All ads";
   const pageSub =
@@ -91,26 +102,27 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((l, index) => (
-          <React.Fragment key={l.id}>
+        {displayListings.map((item) => {
+          if ("type" in item) {
+            return <SourcingRequestCard key="sourcing-card" />;
+          }
+
+          return (
             <AdvertTile
+              key={item.id}
               listing={{
-                id: l.id,
-                status: l.status,
-                title: l.title,
-                location: getTileLocation(l),
-                heroImage: l.heroImage?.src,
-                year: l.year,
-                priceText: l.priceText ?? "",
-                specSummary: pickTileSpec(l),
+                id: item.id,
+                status: item.status,
+                title: item.title,
+                location: getTileLocation(item),
+                heroImage: item.heroImage?.src,
+                year: item.year,
+                priceText: item.priceText ?? "",
+                specSummary: pickTileSpec(item),
               }}
             />
-
-            {index === 1 ? <SourcingRequestCard /> : null}
-          </React.Fragment>
-        ))}
-
-        {filtered.length < 2 ? <SourcingRequestCard /> : null}
+          );
+        })}
 
         {/* Slot Available tile 1 */}
         <div className="bg-white/50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-12 text-center flex-col opacity-70">

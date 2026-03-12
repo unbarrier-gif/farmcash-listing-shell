@@ -28,6 +28,9 @@ export type Listing = {
   /** Main display title */
   title: string;
 
+  /** ISO timestamp used for feed ordering */
+  createdAt: string;
+
   /** Optional subtitle shown under title on listing page */
   subtitle?: string;
 
@@ -77,6 +80,7 @@ export const listings: Listing[] = [
   {
     id: "fc-2013-620",
     status: "for-sale",
+    createdAt: "2026-03-08T09:00:00Z",
     title: "Zürn ProfiCut 620 Wholecrop Header",
     subtitle: "Direct Cut Wholecrop Header",
     year: "2013",
@@ -133,6 +137,7 @@ export const listings: Listing[] = [
   {
     id: "fc-2012-620",
     status: "for-sale",
+    createdAt: "2026-03-07T09:00:00Z",
     title: "Zürn ProfiCut 620",
     subtitle: "Direct Cut Wholecrop Header",
     year: "2012",
@@ -179,6 +184,7 @@ export const listings: Listing[] = [
   {
     id: "fc-2020-490",
     status: "for-sale",
+    createdAt: "2026-03-06T09:00:00Z",
     title: "Kemper 490 Plus Forager Header",
     subtitle: "9.0 m working width | 12-row",
     year: "2020",
@@ -223,6 +229,7 @@ export const listings: Listing[] = [
   {
     id: "fc-ford-weights",
     status: "for-sale",
+    createdAt: "2026-03-05T09:00:00Z",
     title: "Ford Tractor Front Weights",
     subtitle: "Full set on stand — proper old-school ballast",
     year: "Vintage",
@@ -259,6 +266,7 @@ export const listings: Listing[] = [
   {
     id: "bateman-rb35-2019",
     status: "for-sale",
+    createdAt: "2026-03-12T10:45:00Z",
     title: "2019 Bateman RB35 Self Propelled Sprayer",
     subtitle: "30/24m VG contour boom | 4-speed 60k transmission",
     year: "2019",
@@ -332,6 +340,7 @@ Contact FarmCash for full details.`,
   {
     id: "wanted-2",
     status: "wanted",
+    createdAt: "2026-03-10T09:00:00Z",
     title: "Claas Liner 2700 / 2800 Rotary Rake",
     subtitle: "Twin rotor rotary rake",
     year: "2014–2017",
