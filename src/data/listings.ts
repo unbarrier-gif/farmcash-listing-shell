@@ -281,17 +281,49 @@ export const listings: Listing[] = [
       { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-cert.jpg", alt: "Certification and documentation image for the Bateman RB35 sprayer." },
       { src: "/images/FC-2019-BATEMAN-RB35-001/FC-2019-BATEMAN-RB35-001-field.jpg", alt: "Bateman RB35 sprayer in field working context." },
     ],
-    description:
-      "2019 Bateman RB35 self propelled sprayer with approximately 4,700 hours and full service history. Machine is in good working order and ready to go to work this season. Transport assistance available. Finance options available.",
+    description: `Bateman RB35 Self Propelled Sprayer – 2019 – 4,700 Hours
+
+A well maintained Bateman RB35 self propelled sprayer equipped with a 30/24m VG contour boom and Norac BBL contour following system.
+
+This machine has covered approximately 4,700 hours and comes with a full service history. The RB35 is fitted with autosteer, a 4 speed 60k transmission, autolube system, and a 5 way nozzle setup.
+
+Track width can be adjusted from the cab and the machine comes with two wheel sets (420 and 600) making it suitable for a wide range of spraying conditions.
+
+The sprayer is in good working order and ready for the coming season.
+
+Key Features:
+
+• 2019 Bateman RB35
+• 4,700 hours
+• 30/24m VG contour boom
+• Norac BBL contour following
+• Autosteer fitted
+• 4 speed transmission (60k)
+• Autolube system
+• 5 way nozzle setup
+• Track adjustment from cab
+• Two wheel sets (420 & 600)
+• Full service history
+
+Price: £165,000 + VAT
+
+Transport and finance options available.
+
+Viewings welcome.
+
+Contact FarmCash for full details.`,
     features: [
+      "2019 Bateman RB35",
+      "4,700 hours",
       "30/24m VG contour boom",
       "Norac BBL contour following",
-      "Autosteer",
+      "Autosteer fitted",
       "4 speed transmission (60k)",
       "Autolube system",
-      "5 way nozzle system",
+      "5 way nozzle setup",
       "Track adjustment from cab",
-      "Two wheel sets (420 and 600)",
+      "Two wheel sets (420 & 600)",
+      "Full service history",
     ],
     specs: [
       { label: "Make", value: "Bateman" },
