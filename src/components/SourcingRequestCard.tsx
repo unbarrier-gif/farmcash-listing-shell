@@ -4,6 +4,26 @@ const whatsappUrl =
   "https://wa.me/447939138063?text=Hi%20FarmCash%20-%20I'm%20looking%20for%20a%20machine.%20Make:%20%0AModel:%20%0AType:%20%0ABudget:%20";
 
 const SourcingRequestCard: React.FC = () => {
+  const handleSourcingClick = async () => {
+    try {
+      await fetch("/api/sourcing-request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          source: "portal",
+          timestamp: new Date().toISOString(),
+          page: window.location.pathname,
+        }),
+      });
+    } catch (error) {
+      console.error("Sourcing request logging failed", error);
+    }
+
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <article className="group relative block h-full overflow-hidden rounded-2xl border border-gray-200 bg-brand-green/5 shadow-sm transition-all hover:-translate-y-[1px] hover:shadow-lg">
       <img
@@ -36,15 +56,14 @@ const SourcingRequestCard: React.FC = () => {
           No obligation – just tell us what you&apos;re looking for.
         </p>
 
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={handleSourcingClick}
           aria-label="Send your sourcing request on WhatsApp"
           className="mt-6 inline-flex items-center rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90"
         >
           💬 Send your request →
-        </a>
+        </button>
       </div>
     </article>
   );

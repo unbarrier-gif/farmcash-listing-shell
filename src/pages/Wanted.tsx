@@ -4,8 +4,6 @@ import type { Listing, SpecRow } from "../data/listings";
 import AdvertTile from "../components/AdvertTile";
 import SourcingRequestCard from "../components/SourcingRequestCard";
 
-type DisplayItem = Listing | { type: "sourcing" };
-
 const isWanted = (l: Listing) => String(l.status || "").toLowerCase().includes("want");
 
 const findSpecValue = (specs: SpecRow[] | undefined, match: (label: string) => boolean) => {
@@ -38,11 +36,6 @@ const Wanted: React.FC = () => {
 
   const filteredListings = sortedListings.filter(isWanted);
 
-  const displayListings: DisplayItem[] =
-    filteredListings.length < 2
-      ? [...filteredListings, { type: "sourcing" }]
-      : [filteredListings[0], filteredListings[1], { type: "sourcing" }, ...filteredListings.slice(2)];
-
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:py-12 min-h-[60vh]">
       <div className="mb-10">
@@ -58,28 +51,29 @@ const Wanted: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {displayListings.map((item) => {
-          if ("type" in item) {
-            return <SourcingRequestCard key="sourcing-card" />;
-          }
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
+        {filteredListings.map((item, index) => {
           return (
-            <AdvertTile
-              key={item.id}
-              listing={{
-                id: item.id,
-                status: item.status,
-                title: item.title,
-                location: getTileLocation(item),
-                heroImage: item.heroImage?.src,
-                year: item.year,
-                price: item.priceText ?? item.price ?? "",
-                specSummary: formatWidthShort(getTileWidth(item)),
-              }}
-            />
+            <React.Fragment key={item.id}>
+              {index === 2 && <SourcingRequestCard />}
+              <AdvertTile
+                listing={{
+                  id: item.id,
+                  status: item.status,
+                  title: item.title,
+                  location: getTileLocation(item),
+                  heroImage: item.heroImage?.src,
+                  year: item.year,
+                  price: item.priceText ?? item.price ?? "",
+                  specSummary: formatWidthShort(getTileWidth(item)),
+                  country: item.country,
+                }}
+              />
+            </React.Fragment>
           );
         })}
+
+        {filteredListings.length < 3 ? <SourcingRequestCard /> : null}
       </div>
     </main>
   );

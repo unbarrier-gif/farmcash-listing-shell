@@ -40,6 +40,7 @@ export type Listing = {
   /** Optional tile metadata */
   location?: string;
   width?: string;
+  country: "UK" | "Germany" | "Netherlands";
 
   /** Optional reference */
   serialRef?: string;
@@ -85,6 +86,7 @@ export const listings: Listing[] = [
     subtitle: "Direct Cut Wholecrop Header",
     year: "2013",
     location: "Somerset, UK",
+    country: "UK",
     width: "6.2M",
     serialRef: "FC-2013-620",
     priceText: "£35,000",
@@ -142,6 +144,7 @@ export const listings: Listing[] = [
     subtitle: "Direct Cut Wholecrop Header",
     year: "2012",
     location: "UK",
+    country: "Germany",
     width: "6.20 m",
     serialRef: "FC-2012-620",
     priceText: "£27,000 + VAT",
@@ -189,6 +192,7 @@ export const listings: Listing[] = [
     subtitle: "9.0 m working width | 12-row",
     year: "2020",
     location: "UK",
+    country: "Netherlands",
     width: "9.0 m",
     serialRef: "FC-2020-490",
     priceText: "POA (Open to offers)",
@@ -234,6 +238,7 @@ export const listings: Listing[] = [
     subtitle: "Full set on stand — proper old-school ballast",
     year: "Vintage",
     location: "Bradford-on-Avon",
+    country: "UK",
     serialRef: "FC-Ford-Weights",
     priceText: "Offers",
     heroImage: {
@@ -271,6 +276,7 @@ export const listings: Listing[] = [
     subtitle: "30/24m VG contour boom | 4-speed 60k transmission",
     year: "2019",
     location: "UK",
+    country: "UK",
     serialRef: "FC-2019-BATEMAN-RB35-001",
     priceText: "£165,000 + VAT",
     price: "£165,000 + VAT",
@@ -345,6 +351,7 @@ Contact FarmCash for full details.`,
     subtitle: "Twin rotor rotary rake",
     year: "2014–2017",
     location: "UK preferred",
+    country: "UK",
     priceText: "Open to market",
     heroImage: {
       src: "/images/FC-2026-wanted-2/hero.jpg",

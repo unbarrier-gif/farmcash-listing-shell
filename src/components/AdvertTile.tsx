@@ -12,6 +12,7 @@ type ListingStatus = "for-sale" | "wanted" | "sale" | "for_sale" | "for sale" | 
 export type AdvertTileListing = {
   id: string;
   status?: ListingStatus;
+  country?: "UK" | "Germany" | "Netherlands";
 
   // Core display
   title: string;
@@ -88,6 +89,12 @@ type Props = {
   listing: AdvertTileListing;
 };
 
+const flagMap = {
+  UK: "🇬🇧",
+  Germany: "🇩🇪",
+  Netherlands: "🇳🇱",
+} as const;
+
 const AdvertTile: React.FC<Props> = ({ listing }) => {
   const status = normaliseStatus(listing.status);
 
@@ -136,10 +143,16 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         {/* Badge */}
         <span
-          className={`absolute left-4 top-4 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
+          className={`absolute right-4 top-4 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
         >
           {badgeText}
         </span>
+
+        {listing.country ? (
+          <div className="absolute top-3 left-3 bg-white/90 px-2 py-1 rounded-md text-sm font-medium shadow">
+            {flagMap[listing.country]} {listing.country}
+          </div>
+        ) : null}
       </div>
 
       {/* Content */}
