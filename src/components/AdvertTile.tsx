@@ -28,6 +28,7 @@ export type AdvertTileListing = {
 
   // Meta
   year?: number | string;
+  createdAt?: string;
 
   // Flexible spec fields (use any you have in your data)
   specSummary?: string; // best option: "6.2m" or "9m working width | 12-row"
@@ -112,6 +113,10 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     formatPrice(listing.price, listing.currency || "£");
 
   const hero = listing.heroImage?.trim();
+  const isNewListing =
+    !!listing.createdAt &&
+    (new Date().getTime() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24) <= 7;
+
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
     encodeURIComponent(
@@ -130,25 +135,30 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
       aria-label={title ? `Open listing: ${title}` : "Open listing"}
     >
       {/* Image */}
-      <div className="relative">
-        <div className="relative overflow-hidden rounded-xl bg-gray-100">
+      <div className="relative overflow-hidden rounded-xl bg-gray-100">
           <img
             src={hero || fallbackHero}
             alt={title || "Listing image"}
             className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
           />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
+
+          {isNewListing && (
+            <div className="absolute bottom-3 left-3 z-10 bg-brand-green text-white text-xs font-semibold px-2 py-1 rounded-md shadow">
+              NEW LISTING
+            </div>
+          )}
 
         {/* Badge */}
         <span
-          className={`absolute top-3 right-3 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
+          className={`absolute top-3 right-3 z-10 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
         >
           {badgeText}
         </span>
 
         {listing.country ? (
-          <div className="absolute top-3 left-3 bg-white/90 px-2 py-1 rounded-md text-sm font-medium shadow">
+          <div className="absolute top-3 left-3 z-10 bg-white/90 px-2 py-1 rounded-md text-sm font-medium shadow">
             {flagMap[listing.country]} {listing.country}
           </div>
         ) : null}
@@ -156,8 +166,19 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
       {/* Content */}
       <div className="p-6 pb-20">
+        {/* Price / Request */}
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+            {status === "wanted" ? "Request" : "Sale price"}
+          </p>
+
+          <p className="text-2xl font-bold text-gray-900">
+            {status === "wanted" ? "Get in touch" : (priceText || "POA")}
+          </p>
+        </div>
+
         {/* Title */}
-        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
+        <h3 className="mt-3 text-lg font-semibold text-gray-900">
           {title}
         </h3>
 
@@ -167,17 +188,6 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
             {meta}
           </p>
         ) : null}
-
-        {/* Price / Request */}
-        <div className="mt-6 pt-5 border-t border-gray-100">
-          <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-1">
-            {status === "wanted" ? "Request" : "Sale price"}
-          </p>
-
-          <p className="text-2xl font-black text-black">
-            {status === "wanted" ? "Get in touch" : (priceText || "POA")}
-          </p>
-        </div>
       </div>
 
       {/* Arrow CTA — pinned bottom-right */}
