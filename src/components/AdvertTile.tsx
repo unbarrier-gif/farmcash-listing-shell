@@ -98,9 +98,16 @@ const flagMap = {
 
 const AdvertTile: React.FC<Props> = ({ listing }) => {
   const status = normaliseStatus(listing.status);
+  const isSoldTestListing =
+    (listing.title || "").trim() === "Zürn ProfiCut 620" &&
+    formatYear(listing.year) === "2012";
 
-  const badgeText = status === "wanted" ? "WANTED" : "FOR SALE";
-  const badgeClass = status === "wanted" ? "bg-brand-gold" : "bg-brand-black";
+  const badgeText = isSoldTestListing ? "SOLD" : status === "wanted" ? "WANTED" : "FOR SALE";
+  const badgeClass = isSoldTestListing
+    ? "bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
+    : status === "wanted"
+      ? "bg-brand-gold"
+      : "bg-brand-black";
 
   const title = (listing.title || "").trim();
 
@@ -139,7 +146,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           <img
             src={hero || fallbackHero}
             alt={title || "Listing image"}
-            className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+            className={`w-full h-48 object-cover transition-transform duration-300 hover:scale-105 ${isSoldTestListing ? "opacity-70 group-hover:opacity-100 transition-opacity duration-300" : ""}`}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
@@ -152,7 +159,11 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         {/* Badge */}
         <span
-          className={`absolute top-3 right-3 z-10 rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest shadow-sm`}
+          className={`absolute top-3 right-3 z-10 shadow-sm ${
+            isSoldTestListing
+              ? badgeClass
+              : `rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest`
+          }`}
         >
           {badgeText}
         </span>
@@ -172,9 +183,16 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
             {status === "wanted" ? "Request" : "Sale price"}
           </p>
 
-          <p className="text-2xl font-bold text-gray-900">
-            {status === "wanted" ? "Get in touch" : (priceText || "POA")}
-          </p>
+          {isSoldTestListing ? (
+            <>
+              <p className="text-2xl text-gray-700 font-semibold">SOLD</p>
+              <p className="text-xs text-gray-500 mt-1">Similar machines available</p>
+            </>
+          ) : (
+            <p className="text-2xl font-bold text-gray-900">
+              {status === "wanted" ? "Get in touch" : (priceText || "POA")}
+            </p>
+          )}
         </div>
 
         {/* Title */}
