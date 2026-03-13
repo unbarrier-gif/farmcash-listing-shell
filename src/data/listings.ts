@@ -405,6 +405,50 @@ Contact FarmCash for full details.`,
   },
 
   /**
+   * AD 7 — FOR SALE
+   * URL: /listing/fc-2014-new-holland-t6-140-001
+   */
+  {
+    id: "fc-2014-new-holland-t6-140-001",
+    status: "for-sale",
+    createdAt: "2026-03-13T12:00:00Z",
+    title: "New Holland T6.140 Tractor",
+    subtitle: "Cab tractor | Proven New Holland reliability",
+    year: "2014",
+    location: "UK",
+    country: "UK",
+    serialRef: "FC-2014-NEW-HOLLAND-T6-140-001",
+    priceText: "POA",
+    price: "POA",
+    hours: "17,245",
+    heroImage: {
+      src: "/images/FC-2014-NEW-HOLLAND-T6-140-001/hero.jpeg",
+      alt: "New Holland T6.140 tractor (hero view).",
+    },
+    gallery: [
+      { src: "/images/FC-2014-NEW-HOLLAND-T6-140-001/hero.jpeg", alt: "New Holland T6.140 tractor image 1 (hero)." },
+      { src: "/images/FC-2014-NEW-HOLLAND-T6-140-001/1.jpeg", alt: "New Holland T6.140 tractor image 2." },
+    ],
+    description:
+      "2014 New Holland T6.140 cab tractor with 17,245 hours. A proven and dependable machine suitable for mixed farming operations and day-to-day workload requirements.",
+    specs: [
+      { label: "Brand", value: "New Holland" },
+      { label: "Model", value: "T6.140" },
+      { label: "Year", value: "2014" },
+      { label: "Hours", value: "17,245" },
+      { label: "Configuration", value: "Cab tractor" },
+      { label: "Suitability", value: "Mixed farming operations" },
+      { label: "Location", value: "UK" },
+      { label: "Price", value: "POA" },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
+      financeQuoteUrl: FINANCE_FORM_URL,
+    },
+  },
+
+  /**
    * WANTED 2
    * URL: /listing/wanted-2
    */
