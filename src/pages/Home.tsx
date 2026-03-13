@@ -110,6 +110,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
                   priceText: item.priceText ?? "",
                   specSummary: pickTileSpec(item),
                   country: item.country,
+                  hours: item.hours,
                 }}
               />
             </React.Fragment>

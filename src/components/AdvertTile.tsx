@@ -110,8 +110,9 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const title = (listing.title || "").trim();
 
   const year = formatYear(listing.year);
-  const spec = buildSpec(listing);
-  const meta = [year, spec].filter(Boolean).join(" • ").toUpperCase();
+  const hoursValue = listing.hours ? `${String(listing.hours).replace(/[^0-9,]/g, "")} hrs` : "";
+  const locationValue = listing.location ? String(listing.location).trim() : "";
+  const meta = [year, hoursValue, locationValue].filter(Boolean).join(" · ");
 
   const priceText =
     (listing.priceText && String(listing.priceText).trim()) ||
@@ -146,7 +147,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           <img
             src={hero || fallbackHero}
             alt={title || "Listing image"}
-            className={`w-full h-48 object-cover transition-transform duration-300 hover:scale-105 ${isSoldListing ? "grayscale-[30%] brightness-[0.95]" : ""}`}
+            className={`w-full h-48 object-cover object-center transition-transform duration-300 hover:scale-105 ${isSoldListing ? "grayscale-[30%] brightness-[0.95]" : ""}`}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
@@ -205,7 +206,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         {/* Meta */}
         {meta ? (
-          <p className="mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
+          <p className="mt-3 text-xs font-bold text-gray-500 tracking-wide">
             {meta}
           </p>
         ) : null}

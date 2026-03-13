@@ -67,6 +67,7 @@ const Wanted: React.FC = () => {
                   price: item.priceText ?? item.price ?? "",
                   specSummary: formatWidthShort(getTileWidth(item)),
                   country: item.country,
+                  hours: item.hours,
                 }}
               />
             </React.Fragment>
