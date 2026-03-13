@@ -341,6 +341,70 @@ Contact FarmCash for full details.`,
   },
 
   /**
+   * AD 6 — FOR SALE
+   * URL: /listing/fc-2012-horsch-maestro-1275-001
+   */
+  {
+    id: "fc-2012-horsch-maestro-1275-001",
+    status: "for-sale",
+    createdAt: "2026-03-13T09:00:00Z",
+    title: "2012 Horsch Maestro 12.75 SW",
+    subtitle: "12 row maize drill",
+    year: "2012",
+    location: "UK",
+    country: "UK",
+    serialRef: "FC-2012-HORSCH-MAESTRO-1275-001",
+    priceText: "£50,000",
+    price: "£50,000",
+    heroImage: {
+      src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/6.png",
+      alt: "2012 Horsch Maestro 12.75 SW seed drill shown in full side profile.",
+    },
+    gallery: [
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/1.png", alt: "Horsch Maestro 12.75 SW image 1." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/2.png", alt: "Horsch Maestro 12.75 SW image 2." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/3.png", alt: "Horsch Maestro 12.75 SW image 3." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/4.png", alt: "Horsch Maestro 12.75 SW image 4." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/5.png", alt: "Horsch Maestro 12.75 SW image 5." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/6.png", alt: "Horsch Maestro 12.75 SW image 6." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/7.png", alt: "Horsch Maestro 12.75 SW image 7." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/8.png", alt: "Horsch Maestro 12.75 SW image 8." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/9.png", alt: "Horsch Maestro 12.75 SW image 9." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/10.png", alt: "Horsch Maestro 12.75 SW image 10." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/11.png", alt: "Horsch Maestro 12.75 SW image 11." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/12.png", alt: "Horsch Maestro 12.75 SW image 12." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/13.png", alt: "Horsch Maestro 12.75 SW image 13." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/14.png", alt: "Horsch Maestro 12.75 SW image 14." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/15.png", alt: "Horsch Maestro 12.75 SW image 15." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/16.png", alt: "Horsch Maestro 12.75 SW image 16." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/17.png", alt: "Horsch Maestro 12.75 SW image 17." },
+      { src: "/images/FC-2012-HORSCH-MAESTRO-1275-001/18.png", alt: "Horsch Maestro 12.75 SW image 18." },
+    ],
+    description:
+      "2012 Horsch Maestro 12.75 SW seed drill in good working order and prepared for the coming season. This 12 row maize drill has covered approximately 10,000 hectares and is fitted with brand new 520/85R42 wheels.",
+    features: [
+      "12 row maize drill",
+      "10,000 hectares",
+      "Prepared and ready for the coming season",
+      "Brand new 520/85R42 wheels fitted",
+    ],
+    specs: [
+      { label: "Brand", value: "Horsch" },
+      { label: "Model", value: "Maestro 12.75 SW" },
+      { label: "Category", value: "Seed Drill" },
+      { label: "Year", value: "2012" },
+      { label: "Machine number", value: "12229" },
+      { label: "Location", value: "UK" },
+      { label: "Price", value: "£50,000" },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
+      financeQuoteUrl: FINANCE_FORM_URL,
+    },
+  },
+
+  /**
    * WANTED 2
    * URL: /listing/wanted-2
    */
