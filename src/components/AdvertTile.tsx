@@ -98,12 +98,10 @@ const flagMap = {
 
 const AdvertTile: React.FC<Props> = ({ listing }) => {
   const status = normaliseStatus(listing.status);
-  const isSoldTestListing =
-    (listing.title || "").trim() === "Zürn ProfiCut 620" &&
-    formatYear(listing.year) === "2012";
+  const isSoldListing = String(listing.status || "").toLowerCase().trim() === "sold";
 
-  const badgeText = isSoldTestListing ? "SOLD" : status === "wanted" ? "WANTED" : "FOR SALE";
-  const badgeClass = isSoldTestListing
+  const badgeText = isSoldListing ? "SOLD" : status === "wanted" ? "WANTED" : "FOR SALE";
+  const badgeClass = isSoldListing
     ? "bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
     : status === "wanted"
       ? "bg-brand-gold"
@@ -142,14 +140,19 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
       aria-label={title ? `Open listing: ${title}` : "Open listing"}
     >
       {/* Image */}
-      <div className="relative overflow-hidden rounded-xl bg-gray-100">
+      <div
+        className={`relative overflow-hidden rounded-xl bg-gray-100 ${isSoldListing ? "ring-2 ring-red-500/30" : ""}`}
+      >
           <img
             src={hero || fallbackHero}
             alt={title || "Listing image"}
-            className={`w-full h-48 object-cover transition-transform duration-300 hover:scale-105 ${isSoldTestListing ? "opacity-70 group-hover:opacity-100 transition-opacity duration-300" : ""}`}
+            className={`w-full h-48 object-cover transition-transform duration-300 hover:scale-105 ${isSoldListing ? "grayscale-[30%] brightness-[0.95]" : ""}`}
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
+          {isSoldListing ? (
+            <div className="absolute inset-0 bg-gradient-to-t from-red-900/10 to-transparent"></div>
+          ) : null}
 
           {isNewListing && (
             <div className="absolute bottom-3 left-3 z-10 bg-brand-green text-white text-xs font-semibold px-2 py-1 rounded-md shadow">
@@ -160,7 +163,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
         {/* Badge */}
         <span
           className={`absolute top-3 right-3 z-10 shadow-sm ${
-            isSoldTestListing
+            isSoldListing
               ? badgeClass
               : `rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest`
           }`}
@@ -183,7 +186,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
             {status === "wanted" ? "Request" : "Sale price"}
           </p>
 
-          {isSoldTestListing ? (
+          {isSoldListing ? (
             <>
               <p className="text-2xl text-gray-700 font-semibold">SOLD</p>
               <p className="text-xs text-gray-500 mt-1">Similar machines available</p>
