@@ -139,7 +139,7 @@ export const listings: Listing[] = [
    */
   {
     id: "fc-2012-620",
-    status: "for-sale",
+    status: "sold",
     createdAt: "2026-03-07T09:00:00Z",
     title: "Zürn ProfiCut 620",
     subtitle: "Direct Cut Wholecrop Header",
