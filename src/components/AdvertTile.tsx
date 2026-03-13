@@ -188,7 +188,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
           {isSoldListing ? (
             <>
-              <p className="text-2xl text-gray-700 font-semibold">SOLD</p>
+              <p className="text-2xl text-red-600 font-semibold">SOLD</p>
               <p className="text-xs text-gray-500 mt-1">Similar machines available</p>
             </>
           ) : (
