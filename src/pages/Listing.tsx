@@ -4,9 +4,14 @@ import { listings, type Listing as ListingType, type MediaImage } from "../data/
 import ImageLightbox from "../components/ImageLightbox";
 
 const badgeClass = (status: ListingType["status"]) =>
-  status === "wanted" ? "bg-brand-gold text-white" : "bg-brand-green text-white";
+  status === "wanted"
+    ? "bg-brand-gold text-white"
+    : status === "sold"
+      ? "bg-red-600 text-white"
+      : "bg-brand-green text-white";
 
-const badgeText = (status: ListingType["status"]) => (status === "wanted" ? "Wanted" : "For sale");
+const badgeText = (status: ListingType["status"]) =>
+  status === "wanted" ? "Wanted" : status === "sold" ? "Sold" : "For sale";
 
 const formatPhoneLabel = (phone: string) => {
   const p = String(phone || "").trim();
@@ -83,6 +88,7 @@ const Listing: React.FC = () => {
   } = listing;
 
   const isWanted = status === "wanted";
+  const isSold = status === "sold";
 
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
@@ -96,12 +102,23 @@ const Listing: React.FC = () => {
 
   const detailThumbs = allImages;
 
-  const priceLabel = isWanted ? "Budget" : "Price";
-  const priceValue = priceText ?? (isWanted ? "Wanted" : "POA");
+  const priceLabel = isSold ? "Status" : isWanted ? "Budget" : "Price";
+  const priceValue = isSold ? "SOLD" : priceText ?? (isWanted ? "Wanted" : "POA");
 
-  const sidebarTitle = isWanted ? "Help us source this" : "Secure this asset";
-  const whatsappLabel = isWanted ? "WhatsApp details" : "WhatsApp seller";
-  const callLabel = isWanted ? "Call FarmCash" : `Call ${formatPhoneLabel(safeCtas.phoneNumber)}`;
+  const sidebarTitle = isSold ? "This machine has been sold" : isWanted ? "Help us source this" : "Secure this asset";
+  const sidebarDescription = isSold
+    ? "FarmCash regularly sources similar machinery across the UK and EU. Contact us to discuss current availability."
+    : null;
+  const whatsappLabel = isSold
+    ? "WhatsApp about similar machines"
+    : isWanted
+      ? "WhatsApp details"
+      : "WhatsApp seller";
+  const callLabel = isSold
+    ? "Call 07393 138063"
+    : isWanted
+      ? "Call FarmCash"
+      : `Call ${formatPhoneLabel(safeCtas.phoneNumber)}`;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12 overflow-x-hidden">
@@ -144,6 +161,14 @@ const Listing: React.FC = () => {
                 {badgeText(status)}
               </div>
 
+              {isSold ? (
+                <div className="absolute bottom-6 left-6 bg-black/60 text-white px-5 py-3 rounded-lg text-sm">
+                  <p className="font-bold">SOLD</p>
+                  <p>This machine has now been sold.</p>
+                  <p>Similar machines available through FarmCash.</p>
+                </div>
+              ) : null}
+
               {/* Title/subtitle overlay */}
               <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6">
                 <div className="inline-block max-w-full bg-black/35 backdrop-blur-[1px] rounded-2xl px-4 md:px-5 py-3 md:py-4">
@@ -174,6 +199,10 @@ const Listing: React.FC = () => {
                     {subtitle ? String(subtitle).toUpperCase() : "ADVERT DETAILS"}
                   </h1>
 
+                  {isSold ? (
+                    <p className="mt-2 text-xs text-gray-500 uppercase tracking-wide">Recently sold by FarmCash</p>
+                  ) : null}
+
                   <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs uppercase tracking-[0.15em] text-gray-500 font-bold">
                     {year ? <span>Year: {year}</span> : null}
                     {width ? <span>Width: {width}</span> : null}
@@ -183,7 +212,13 @@ const Listing: React.FC = () => {
 
                 <div className="text-left md:text-right w-full md:w-auto">
                   <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">{priceLabel}</p>
-                  <p className="text-4xl font-black text-neutral-900 break-words">{priceValue}</p>
+                  <p
+                    className={`break-words ${
+                      isSold ? "text-red-600 font-bold text-3xl" : "text-4xl font-black text-neutral-900"
+                    }`}
+                  >
+                    {priceValue}
+                  </p>
                 </div>
               </div>
 
@@ -306,16 +341,21 @@ const Listing: React.FC = () => {
               {sidebarTitle}
             </h4>
 
+            {sidebarDescription ? (
+              <p className="text-sm text-gray-600 leading-relaxed mb-4">{sidebarDescription}</p>
+            ) : null}
+
             <div className="space-y-3">
-              {/* Portal CTA (always useful) */}
-              <a
-                href={safeCtas.portalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full border-2 border-brand-black text-brand-black hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
-              >
-                View on portal
-              </a>
+              {!isSold ? (
+                <a
+                  href={safeCtas.portalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full border-2 border-brand-black text-brand-black hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
+                >
+                  View on portal
+                </a>
+              ) : null}
 
               <a
                 href={safeCtas.whatsappUrl}
@@ -327,14 +367,25 @@ const Listing: React.FC = () => {
               </a>
 
               <a
-                href={`tel:${safeCtas.phoneNumber}`}
+                href={`tel:${isSold ? "07393138063" : safeCtas.phoneNumber}`}
                 className="w-full bg-brand-black hover:opacity-90 text-white font-bold py-3 rounded-xl transition-all block text-center shadow-md"
               >
                 {callLabel}
               </a>
 
+              {isSold ? (
+                <a
+                  href={safeCtas.portalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full border-2 border-brand-black text-brand-black hover:bg-gray-50 font-bold py-3 rounded-xl transition-all text-sm uppercase tracking-widest block text-center"
+                >
+                  Request machine sourcing
+                </a>
+              ) : null}
+
               {/* Finance quote CTA: hide for Wanted by default */}
-              {!isWanted && safeCtas.financeQuoteUrl ? (
+              {!isSold && !isWanted && safeCtas.financeQuoteUrl ? (
                 <a
                   href={safeCtas.financeQuoteUrl}
                   target="_blank"
@@ -346,7 +397,7 @@ const Listing: React.FC = () => {
               ) : null}
 
               {/* Brochure CTA (sales listings typically) */}
-              {safeCtas.brochureUrl ? (
+              {!isSold && safeCtas.brochureUrl ? (
                 <a
                   href={safeCtas.brochureUrl}
                   target="_blank"
