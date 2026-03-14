@@ -3,6 +3,10 @@ import React from "react";
 const whatsappUrl =
   "https://wa.me/447939138063?text=Hi%20FarmCash%20-%20I'm%20looking%20for%20a%20machine.%20Make:%20%0AModel:%20%0AType:%20%0ABudget:%20";
 
+const ctaWrapperClasses = "mt-auto pt-6 flex justify-center";
+const ctaButtonClasses =
+  "inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90";
+
 const SourcingRequestCard: React.FC = () => {
   const handleSourcingClick = async () => {
     try {
@@ -34,36 +38,39 @@ const SourcingRequestCard: React.FC = () => {
       />
 
       <div className="flex flex-col flex-grow p-6 py-8">
-        <span className="mb-3 inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
+        <span className="inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
           SOURCING REQUEST
         </span>
 
-        <h3 className="text-xl font-black uppercase tracking-tight leading-snug text-black">
-          WANTED: YOUR NEXT MACHINE STORY
-        </h3>
+        <div className="detail-text-stack min-h-0">
+          <h3 className="detail-primary-line text-xl md:text-2xl tracking-tight text-black">
+            WANTED: YOUR NEXT MACHINE STORY
+          </h3>
 
-        <div className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
-          <p>Looking for something specific?</p>
-          <p>
-            Can&apos;t find the right machine?
-            <br />
-            Tell us the make, model or spec and we&apos;ll source it.
-          </p>
-          <p>We regularly source machinery across the UK and Europe.</p>
+          <div className="detail-copy space-y-2 text-sm text-gray-700 leading-relaxed normal-case tracking-normal font-normal md:space-y-3">
+            <p>Looking for something specific?</p>
+            <p>
+              Can&apos;t find the right machine?
+              <br />
+              Tell us the make, model or spec and we&apos;ll source it.
+            </p>
+            <p>We regularly source machinery across the UK and Europe.</p>
+          </div>
         </div>
 
         <p className="mt-4 text-xs text-gray-500">
           No obligation – just tell us what you&apos;re looking for.
         </p>
 
-        <div className="mt-auto border-t border-brand-green/15 pt-4">
+        <div className={ctaWrapperClasses}>
           <button
             type="button"
             onClick={handleSourcingClick}
             aria-label="Send your sourcing request on WhatsApp"
-            className="inline-flex items-center text-xs font-black uppercase tracking-[0.14em] text-brand-green transition hover:underline"
+            className={ctaButtonClasses}
           >
-            💬 Send your request →
+            <span aria-hidden="true">💬</span>
+            <span>Send your request →</span>
           </button>
         </div>
       </div>

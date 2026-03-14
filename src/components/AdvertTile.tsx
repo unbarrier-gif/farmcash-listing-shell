@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { listingPillBaseClass, listingPillToneClass } from "./listingPillStyles";
 
 type ListingStatus = "for-sale" | "wanted" | "sale" | "for_sale" | "for sale" | string;
 
@@ -51,10 +52,10 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
   const badgeText = isSoldListing ? "SOLD" : status === "wanted" ? "WANTED" : "FOR SALE";
   const badgeClass = isSoldListing
-    ? "bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
+    ? listingPillToneClass.sold
     : status === "wanted"
-      ? "bg-brand-gold"
-      : "bg-brand-black";
+      ? listingPillToneClass.wanted
+      : listingPillToneClass.dark;
 
   const title = (listing.title || "").trim();
   const year = formatYear(listing.year);
@@ -72,7 +73,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     (new Date().getTime() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24) <= 14;
 
   const photoCount = Math.max(listing.galleryCount || 0, hero ? 1 : 0);
-  const viewLabel = photoCount > 0 ? `VIEW ${photoCount} PHOTOS →` : "VIEW LISTING →";
+  const viewLabel = photoCount > 0 ? `View ${photoCount}` : "View";
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
@@ -101,29 +102,25 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent" />
 
         {isNewListing ? (
-          <div className="absolute top-3 left-3 z-10 bg-brand-green text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow uppercase tracking-wider">
+          <div className={`absolute top-3 left-3 z-10 shadow ${listingPillBaseClass} ${listingPillToneClass.success}`}>
             NEW LISTING
           </div>
         ) : null}
 
         {listing.machineType ? (
-          <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 bg-white/90 px-2.5 py-1 rounded-md text-[10px] font-bold shadow uppercase tracking-wider text-gray-700">
+          <div
+            className={`absolute top-3 left-1/2 -translate-x-1/2 z-10 shadow ${listingPillBaseClass} ${listingPillToneClass.neutral}`}
+          >
             {listing.machineType}
           </div>
         ) : null}
 
-        <span
-          className={`absolute top-3 right-3 z-10 shadow-sm ${
-            isSoldListing
-              ? badgeClass
-              : `rounded-full px-3 py-1 text-[10px] font-bold text-white ${badgeClass} uppercase tracking-widest`
-          }`}
-        >
+        <span className={`absolute top-3 right-3 z-10 shadow-sm ${listingPillBaseClass} ${badgeClass}`}>
           {badgeText}
         </span>
 
         {photoCount > 0 ? (
-          <div className="absolute bottom-3 left-3 z-10 bg-black/70 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
+          <div className={`absolute bottom-3 left-3 z-10 ${listingPillBaseClass} ${listingPillToneClass.mutedDark}`}>
             {photoCount} photos
           </div>
         ) : null}
@@ -144,29 +141,45 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         <h3 className="mt-1 min-h-[3.5rem] text-lg font-semibold leading-snug text-gray-900">{title}</h3>
 
-        <div className="mt-2 min-h-[1.5rem]">
+        <div className="mt-3 min-h-[1.5rem]">
           {meta ? <p className="text-sm text-gray-500">{meta}</p> : null}
         </div>
 
-        <div className="mt-3 min-h-[4.5rem] space-y-1">
+        <div className="mt-3 min-h-[4.5rem] flex flex-col gap-2">
           {listing.highlight ? (
-            <p className="inline-flex bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
-              {listing.highlight}
-            </p>
+            <div className="mt-1">
+              <p className="inline-flex max-w-full bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider leading-tight whitespace-normal [overflow-wrap:anywhere]">
+                {listing.highlight}
+              </p>
+            </div>
           ) : null}
 
           {listing.quickSpec ? (
-            <p className="text-xs font-bold text-gray-800 uppercase tracking-wider">{listing.quickSpec}</p>
+            <p className="mt-1 text-xs font-bold text-gray-800 uppercase tracking-wider leading-relaxed [overflow-wrap:anywhere]">
+              {listing.quickSpec}
+            </p>
           ) : null}
 
-          {listing.buyerSignal ? (
-            <p className="text-xs text-brand-green font-bold uppercase tracking-wide">{listing.buyerSignal}</p>
-          ) : null}
+            {listing.buyerSignal ? <p className="detail-secondary-line">{listing.buyerSignal}</p> : null}
+          </div>
         </div>
 
-        <div className="mt-auto border-t border-gray-100 pt-4">
-          <span className="inline-flex items-center text-xs font-black uppercase tracking-[0.14em] text-brand-green group-hover:underline">
-            {viewLabel}
+        <div className="mt-auto pt-5">
+          <span className="inline-flex w-fit max-w-full items-center gap-1.5 whitespace-nowrap rounded-md bg-brand-green px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white transition-colors duration-150 group-hover:bg-brand-black group-focus-visible:bg-brand-black group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-brand-green group-active:bg-brand-green/90 sm:px-3 sm:py-1.5 sm:text-xs">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-3.5 w-3.5 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 7h3l2-2h4l2 2h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+              <circle cx="12" cy="13" r="3" />
+            </svg>
+            <span className="truncate">{viewLabel}</span>
           </span>
         </div>
       </div>

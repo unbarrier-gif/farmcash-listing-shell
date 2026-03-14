@@ -2,13 +2,14 @@ import React, { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { listings, type Listing as ListingType, type MediaImage } from "../data/listings";
 import ImageLightbox from "../components/ImageLightbox";
+import { listingPillBaseClass, listingPillToneClass } from "../components/listingPillStyles";
 
 const badgeClass = (status: ListingType["status"]) =>
   status === "wanted"
-    ? "bg-brand-gold text-white"
+    ? listingPillToneClass.wanted
     : status === "sold"
-      ? "bg-red-600 text-white"
-      : "bg-brand-green text-white";
+      ? listingPillToneClass.sold
+      : listingPillToneClass.success;
 
 const badgeText = (status: ListingType["status"]) =>
   status === "wanted" ? "Wanted" : status === "sold" ? "Sold" : "For sale";
@@ -155,7 +156,8 @@ const Listing: React.FC = () => {
               />
               <div
                 className={[
-                  "absolute top-4 left-4 px-4 py-1.5 rounded-full font-bold text-[10px] shadow-md uppercase tracking-widest",
+                  "absolute top-4 left-4 shadow-md",
+                  listingPillBaseClass,
                   badgeClass(status),
                 ].join(" ")}
               >
@@ -178,7 +180,7 @@ const Listing: React.FC = () => {
               </p>
 
               {machineConditionBadge ? (
-                <p className="inline-flex mt-4 bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider uppercase">
+                <p className={`mt-4 ${listingPillBaseClass} ${listingPillToneClass.highlight}`}>
                   {machineConditionBadge}
                 </p>
               ) : null}
