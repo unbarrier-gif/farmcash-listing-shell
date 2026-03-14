@@ -9,3 +9,35 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@layer components {
+  .detail-text-stack {
+    @apply mt-3 min-h-[4.5rem];
+  }
+
+  .detail-pill {
+    @apply inline-flex rounded-full border border-amber-300 bg-amber-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-900;
+  }
+
+  .detail-copy {
+    @apply mt-2 space-y-1;
+  }
+
+  .detail-primary-line {
+    @apply text-xs font-bold uppercase tracking-wider text-gray-800 leading-[1.35];
+  }
+
+  .detail-secondary-line {
+    @apply text-xs font-bold uppercase tracking-wide text-brand-green leading-[1.35];
+  }
+
+  @screen md {
+    .detail-text-stack {
+      @apply mt-3.5;
+    }
+
+    .detail-copy {
+      @apply mt-2.5 space-y-1.5;
+    }
+  }
+}
