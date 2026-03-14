@@ -3,6 +3,10 @@ import React from "react";
 const whatsappUrl =
   "https://wa.me/447939138063?text=Hi%20FarmCash%20-%20I'm%20looking%20for%20a%20machine.%20Make:%20%0AModel:%20%0AType:%20%0ABudget:%20";
 
+const ctaWrapperClasses = "mt-auto pt-6 flex justify-center";
+const ctaButtonClasses =
+  "inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90";
+
 const SourcingRequestCard: React.FC = () => {
   const handleSourcingClick = async () => {
     try {
@@ -56,14 +60,17 @@ const SourcingRequestCard: React.FC = () => {
           No obligation – just tell us what you&apos;re looking for.
         </p>
 
-        <button
-          type="button"
-          onClick={handleSourcingClick}
-          aria-label="Send your sourcing request on WhatsApp"
-          className="mt-auto pt-6 inline-flex items-center rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90"
-        >
-          💬 Send your request →
-        </button>
+        <div className={ctaWrapperClasses}>
+          <button
+            type="button"
+            onClick={handleSourcingClick}
+            aria-label="Send your sourcing request on WhatsApp"
+            className={ctaButtonClasses}
+          >
+            <span aria-hidden="true">💬</span>
+            <span>Send your request →</span>
+          </button>
+        </div>
       </div>
     </article>
   );
