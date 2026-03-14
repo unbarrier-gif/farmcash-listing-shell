@@ -38,22 +38,24 @@ const SourcingRequestCard: React.FC = () => {
       />
 
       <div className="flex flex-col flex-grow p-6 py-8">
-        <span className="mb-3 inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
+        <span className="inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
           SOURCING REQUEST
         </span>
 
-        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
-          WANTED: YOUR NEXT MACHINE STORY
-        </h3>
+        <div className="detail-text-stack min-h-0">
+          <h3 className="detail-primary-line text-xl md:text-2xl tracking-tight text-black">
+            WANTED: YOUR NEXT MACHINE STORY
+          </h3>
 
-        <div className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
-          <p>Looking for something specific?</p>
-          <p>
-            Can&apos;t find the right machine?
-            <br />
-            Tell us the make, model or spec and we&apos;ll source it.
-          </p>
-          <p>We regularly source machinery across the UK and Europe.</p>
+          <div className="detail-copy space-y-2 text-sm text-gray-700 leading-relaxed normal-case tracking-normal font-normal md:space-y-3">
+            <p>Looking for something specific?</p>
+            <p>
+              Can&apos;t find the right machine?
+              <br />
+              Tell us the make, model or spec and we&apos;ll source it.
+            </p>
+            <p>We regularly source machinery across the UK and Europe.</p>
+          </div>
         </div>
 
         <p className="mt-4 text-xs text-gray-500">

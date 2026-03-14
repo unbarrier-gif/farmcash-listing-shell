@@ -160,9 +160,8 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
             </p>
           ) : null}
 
-          {listing.buyerSignal ? (
-            <p className="text-xs text-brand-green font-bold uppercase tracking-wide">{listing.buyerSignal}</p>
-          ) : null}
+            {listing.buyerSignal ? <p className="detail-secondary-line">{listing.buyerSignal}</p> : null}
+          </div>
         </div>
 
         <div className="mt-auto pt-5">
