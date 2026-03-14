@@ -144,19 +144,23 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         <h3 className="mt-1 min-h-[3.5rem] text-lg font-semibold leading-snug text-gray-900">{title}</h3>
 
-        <div className="mt-2 min-h-[1.5rem]">
+        <div className="mt-3 min-h-[1.5rem]">
           {meta ? <p className="text-sm text-gray-500">{meta}</p> : null}
         </div>
 
-        <div className="mt-3 min-h-[4.5rem] space-y-1">
+        <div className="mt-3 min-h-[4.5rem] flex flex-col gap-2">
           {listing.highlight ? (
-            <p className="inline-flex bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
-              {listing.highlight}
-            </p>
+            <div className="mt-1">
+              <p className="inline-flex max-w-full bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider leading-tight whitespace-normal [overflow-wrap:anywhere]">
+                {listing.highlight}
+              </p>
+            </div>
           ) : null}
 
           {listing.quickSpec ? (
-            <p className="text-xs font-bold text-gray-800 uppercase tracking-wider">{listing.quickSpec}</p>
+            <p className="mt-1 text-xs font-bold text-gray-800 uppercase tracking-wider leading-relaxed [overflow-wrap:anywhere]">
+              {listing.quickSpec}
+            </p>
           ) : null}
 
           {listing.buyerSignal ? (
