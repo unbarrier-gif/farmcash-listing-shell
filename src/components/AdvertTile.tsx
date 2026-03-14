@@ -164,8 +164,8 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           ) : null}
         </div>
 
-        <div className="mt-auto pt-5">
-          <span className="text-xs font-black tracking-wide text-brand-green group-hover:underline">
+        <div className="mt-auto border-t border-gray-100 pt-4">
+          <span className="inline-flex items-center text-xs font-black uppercase tracking-[0.14em] text-brand-green group-hover:underline">
             {viewLabel}
           </span>
         </div>

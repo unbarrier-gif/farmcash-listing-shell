@@ -38,7 +38,7 @@ const SourcingRequestCard: React.FC = () => {
           SOURCING REQUEST
         </span>
 
-        <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight leading-snug text-black">
+        <h3 className="text-xl font-black uppercase tracking-tight leading-snug text-black">
           WANTED: YOUR NEXT MACHINE STORY
         </h3>
 
@@ -56,14 +56,16 @@ const SourcingRequestCard: React.FC = () => {
           No obligation – just tell us what you&apos;re looking for.
         </p>
 
-        <button
-          type="button"
-          onClick={handleSourcingClick}
-          aria-label="Send your sourcing request on WhatsApp"
-          className="mt-auto pt-6 inline-flex items-center rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90"
-        >
-          💬 Send your request →
-        </button>
+        <div className="mt-auto border-t border-brand-green/15 pt-4">
+          <button
+            type="button"
+            onClick={handleSourcingClick}
+            aria-label="Send your sourcing request on WhatsApp"
+            className="inline-flex items-center text-xs font-black uppercase tracking-[0.14em] text-brand-green transition hover:underline"
+          >
+            💬 Send your request →
+          </button>
+        </div>
       </div>
     </article>
   );
