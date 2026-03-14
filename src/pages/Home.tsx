@@ -165,7 +165,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
         {filteredListings.length < 3 ? <SourcingRequestCard /> : null}
 
         {/* Slot Available tile 1 */}
-        <div className="bg-white/50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-12 text-center flex-col opacity-70">
+        <div className="h-full bg-white/50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-12 text-center flex-col opacity-70">
           <div className="w-12 h-1 bg-brand-gold mb-8 rounded-full" />
           <p className="font-bold text-gray-400 uppercase tracking-widest text-xs mb-2">
             Slot available
@@ -176,7 +176,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
         </div>
 
         {/* Slot Available tile 2 */}
-        <div className="bg-white/50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-12 text-center flex-col opacity-70">
+        <div className="h-full bg-white/50 border-2 border-dashed border-gray-200 rounded-2xl flex items-center justify-center p-12 text-center flex-col opacity-70">
           <div className="w-12 h-1 bg-brand-gold mb-8 rounded-full" />
           <p className="font-bold text-gray-400 uppercase tracking-widest text-xs mb-2">
             Slot available
