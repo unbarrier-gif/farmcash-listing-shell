@@ -25,7 +25,7 @@ const SourcingRequestCard: React.FC = () => {
   };
 
   return (
-    <article className="group relative block h-full overflow-hidden rounded-2xl border border-gray-200 bg-brand-green/5 shadow-sm transition-all hover:-translate-y-[1px] hover:shadow-lg">
+    <article className="group flex flex-col h-full overflow-hidden rounded-2xl border border-gray-200 bg-brand-green/5 shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg">
       <img
         src="/images/wanted-hero-1.png"
         alt="FarmCash sourcing request – tell us what machine you need"
@@ -33,7 +33,7 @@ const SourcingRequestCard: React.FC = () => {
         loading="lazy"
       />
 
-      <div className="p-6 py-8">
+      <div className="flex flex-col flex-grow p-6 py-8">
         <span className="mb-3 inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
           SOURCING REQUEST
         </span>
@@ -60,7 +60,7 @@ const SourcingRequestCard: React.FC = () => {
           type="button"
           onClick={handleSourcingClick}
           aria-label="Send your sourcing request on WhatsApp"
-          className="mt-6 inline-flex items-center rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90"
+          className="mt-auto pt-6 inline-flex items-center rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90"
         >
           💬 Send your request →
         </button>

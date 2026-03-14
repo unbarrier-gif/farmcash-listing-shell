@@ -59,7 +59,7 @@ const Wanted: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 items-stretch">
         {filteredListings.map((item, index) => {
           return (
             <React.Fragment key={item.id}>
