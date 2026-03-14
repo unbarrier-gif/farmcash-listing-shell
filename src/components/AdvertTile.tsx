@@ -73,7 +73,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     (new Date().getTime() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24) <= 14;
 
   const photoCount = Math.max(listing.galleryCount || 0, hero ? 1 : 0);
-  const viewLabel = photoCount > 0 ? `View ${photoCount}` : "View";
+  const viewLabel = photoCount > 0 ? `${photoCount} ${photoCount === 1 ? "photo" : "photos"}` : "View";
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
@@ -107,17 +107,17 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           </div>
         ) : null}
 
-        {listing.machineType ? (
-          <div
-            className={`absolute top-3 left-1/2 -translate-x-1/2 z-10 shadow ${listingPillBaseClass} ${listingPillToneClass.neutral}`}
-          >
-            {listing.machineType}
-          </div>
-        ) : null}
+        <div className="absolute top-3 left-1/2 z-10 flex max-w-[calc(100%-1.5rem)] -translate-x-1/2 items-start gap-2">
+          {listing.machineType ? (
+            <div className={`shadow ${listingPillBaseClass} ${listingPillToneClass.neutral} max-w-[11.5rem] truncate`}>
+              {listing.machineType}
+            </div>
+          ) : null}
 
-        <span className={`absolute top-3 right-3 z-10 shadow-sm ${listingPillBaseClass} ${badgeClass}`}>
-          {badgeText}
-        </span>
+          <span className={`shadow-sm ${listingPillBaseClass} ${badgeClass} shrink-0`}>
+            {badgeText}
+          </span>
+        </div>
 
         {photoCount > 0 ? (
           <div className={`absolute bottom-3 left-3 z-10 ${listingPillBaseClass} ${listingPillToneClass.mutedDark}`}>
@@ -126,7 +126,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
         ) : null}
       </div>
 
-      <div className="flex flex-col flex-grow p-5">
+      <div className="flex flex-col flex-grow p-5 sm:p-6">
         <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">
           {status === "wanted" ? "Request" : "Sale price"}
         </p>
@@ -139,33 +139,32 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           )}
         </div>
 
-        <h3 className="mt-1 min-h-[3.5rem] text-lg font-semibold leading-snug text-gray-900">{title}</h3>
+        <h3 className="mt-2 min-h-[3.5rem] text-lg font-semibold leading-snug text-gray-900">{title}</h3>
 
         <div className="mt-3 min-h-[1.5rem]">
           {meta ? <p className="text-sm text-gray-500">{meta}</p> : null}
         </div>
 
-        <div className="mt-3 min-h-[4.5rem] flex flex-col gap-2">
+        <div className="mt-4 min-h-[5.25rem] flex flex-col gap-2.5">
           {listing.highlight ? (
-            <div className="mt-1">
-              <p className="inline-flex max-w-full bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider leading-tight whitespace-normal [overflow-wrap:anywhere]">
+            <div>
+              <p className={`${listingPillBaseClass} ${listingPillToneClass.highlight} max-w-full whitespace-normal leading-tight [overflow-wrap:anywhere]`}>
                 {listing.highlight}
               </p>
             </div>
           ) : null}
 
           {listing.quickSpec ? (
-            <p className="mt-1 text-xs font-bold text-gray-800 uppercase tracking-wider leading-relaxed [overflow-wrap:anywhere]">
+            <p className="text-xs font-bold text-gray-800 uppercase tracking-wider leading-relaxed [overflow-wrap:anywhere]">
               {listing.quickSpec}
             </p>
           ) : null}
 
-            {listing.buyerSignal ? <p className="detail-secondary-line">{listing.buyerSignal}</p> : null}
-          </div>
+          {listing.buyerSignal ? <p className="detail-secondary-line">{listing.buyerSignal}</p> : null}
         </div>
 
-        <div className="mt-auto pt-5">
-          <span className="inline-flex w-fit max-w-full items-center gap-1.5 whitespace-nowrap rounded-md bg-brand-green px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white transition-colors duration-150 group-hover:bg-brand-black group-focus-visible:bg-brand-black group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-brand-green group-active:bg-brand-green/90 sm:px-3 sm:py-1.5 sm:text-xs">
+        <div className="mt-auto pt-6">
+          <span className="inline-flex w-fit max-w-full items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-green px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white transition-colors duration-150 group-hover:bg-brand-black group-focus-visible:bg-brand-black group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-brand-green group-active:bg-brand-green/90 sm:px-3.5 sm:py-2 sm:text-xs">
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"

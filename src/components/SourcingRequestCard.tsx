@@ -5,7 +5,7 @@ const whatsappUrl =
 
 const ctaWrapperClasses = "mt-auto pt-6 flex justify-center";
 const ctaButtonClasses =
-  "inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-4 py-2 font-semibold text-white transition hover:opacity-90";
+  "inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-2xl bg-brand-green px-4 py-3 text-base font-semibold text-white transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green";
 
 const SourcingRequestCard: React.FC = () => {
   const handleSourcingClick = async () => {
@@ -69,7 +69,18 @@ const SourcingRequestCard: React.FC = () => {
             aria-label="Send your sourcing request on WhatsApp"
             className={ctaButtonClasses}
           >
-            <span aria-hidden="true">💬</span>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 11.5a8.38 8.38 0 0 1-1 4 8.5 8.5 0 0 1-7.5 4.5 8.38 8.38 0 0 1-4-1L3 21l1.1-5.4a8.38 8.38 0 0 1-1.1-4.1 8.5 8.5 0 0 1 4.5-7.5 8.38 8.38 0 0 1 4-1h.5A8.5 8.5 0 0 1 21 11v.5Z" />
+            </svg>
             <span>Send your request →</span>
           </button>
         </div>
