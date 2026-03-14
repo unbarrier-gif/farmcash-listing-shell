@@ -72,7 +72,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     (new Date().getTime() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24) <= 14;
 
   const photoCount = Math.max(listing.galleryCount || 0, hero ? 1 : 0);
-  const viewLabel = photoCount > 0 ? `VIEW ${photoCount} PHOTOS →` : "VIEW LISTING →";
+  const viewLabel = photoCount > 0 ? `View ${photoCount}` : "View";
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
@@ -165,8 +165,21 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
         </div>
 
         <div className="mt-auto pt-5">
-          <span className="text-xs font-black tracking-wide text-brand-green group-hover:underline">
-            {viewLabel}
+          <span className="inline-flex w-fit max-w-full items-center gap-1.5 whitespace-nowrap rounded-md bg-brand-green px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white transition-colors duration-150 group-hover:bg-brand-black group-focus-visible:bg-brand-black group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-brand-green group-active:bg-brand-green/90 sm:px-3 sm:py-1.5 sm:text-xs">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-3.5 w-3.5 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 7h3l2-2h4l2 2h3a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+              <circle cx="12" cy="13" r="3" />
+            </svg>
+            <span className="truncate">{viewLabel}</span>
           </span>
         </div>
       </div>
