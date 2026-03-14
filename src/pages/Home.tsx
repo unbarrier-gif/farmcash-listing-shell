@@ -66,6 +66,47 @@ const pickTileSpec = (l: Listing) => {
   return "";
 };
 
+
+const getMachineType = (l: Listing) => {
+  const fromSpecs = findSpecValue(l.specs, (label) =>
+    label === "machine type" || label === "type" || label === "category" || label === "configuration"
+  );
+  if (fromSpecs) return String(fromSpecs);
+  const title = String(l.title || "").toLowerCase();
+  if (title.includes("tractor")) return "Tractor";
+  if (title.includes("drill")) return "Seed Drill";
+  if (title.includes("sprayer")) return "Sprayer";
+  if (title.includes("header")) return "Header";
+  return "Machine";
+};
+
+const getHighlight = (l: Listing) => {
+  const title = String(l.title || "").toLowerCase();
+  const features = (l.features || []).map((f) => String(f).toLowerCase());
+  const hoursNum = Number(String(l.hours || "").replace(/[^0-9.]/g, ""));
+
+  if ((title.includes("tractor") || String(l.subtitle || "").toLowerCase().includes("tractor")) && Number.isFinite(hoursNum) && hoursNum >= 10000) {
+    return "HIGH HOURS WORKING TRACTOR";
+  }
+
+  if (features.some((f) => f.includes("new") && f.includes("wheel"))) return "NEW TYRES FITTED";
+  if (features.some((f) => f.includes("ready") && f.includes("season"))) return "READY FOR SEASON";
+  if (features.some((f) => f.includes("prepared"))) return "FIELD READY";
+
+  return "FIELD READY";
+};
+
+const getQuickSpec = (l: Listing) => {
+  const hp = findSpecValue(l.specs, (label) => label === "hp" || label.includes("horsepower"));
+  if (hp) return `${String(hp).toUpperCase()} TRACTOR`;
+
+  const rows = findSpecValue(l.specs, (label) => label === "rows" || label.includes("row"));
+  if (rows) return `${String(rows).toUpperCase()} MAIZE DRILL`;
+
+  const spec = pickTileSpec(l);
+  return spec ? String(spec).toUpperCase() : "IN DEMAND MODEL";
+};
+
 const Home: React.FC<Props> = ({ mode = "all" }) => {
   const sortedListings = [...listings].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
@@ -94,7 +135,7 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 items-stretch">
         {filteredListings.map((item, index) => {
           return (
             <React.Fragment key={item.id}>
@@ -108,8 +149,13 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
                   heroImage: item.heroImage?.src,
                   year: item.year,
                   priceText: item.priceText ?? "",
-                  specSummary: pickTileSpec(item),
                   country: item.country,
+                  hours: item.hours,
+                  galleryCount: item.gallery?.length ?? 0,
+                  highlight: getHighlight(item),
+                  quickSpec: getQuickSpec(item),
+                  buyerSignal: "In demand model",
+                  machineType: getMachineType(item),
                 }}
               />
             </React.Fragment>

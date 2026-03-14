@@ -29,6 +29,14 @@ const formatWidthShort = (widthRaw?: string) => {
   return `${mMatch[1]}M`.toUpperCase();
 };
 
+
+const getMachineType = (l: Listing) => {
+  const fromSpecs = findSpecValue(l.specs, (label) =>
+    label === "machine type" || label === "type" || label === "category" || label === "configuration"
+  );
+  return fromSpecs ? String(fromSpecs) : "Machine";
+};
+
 const Wanted: React.FC = () => {
   const sortedListings = [...listings].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
@@ -51,7 +59,7 @@ const Wanted: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 items-stretch">
         {filteredListings.map((item, index) => {
           return (
             <React.Fragment key={item.id}>
@@ -65,8 +73,13 @@ const Wanted: React.FC = () => {
                   heroImage: item.heroImage?.src,
                   year: item.year,
                   price: item.priceText ?? item.price ?? "",
-                  specSummary: formatWidthShort(getTileWidth(item)),
                   country: item.country,
+                  hours: item.hours,
+                  galleryCount: item.gallery?.length ?? 0,
+                  highlight: "EXPORT READY",
+                  quickSpec: formatWidthShort(getTileWidth(item)) || "ACTIVE SOURCING REQUEST",
+                  buyerSignal: "Popular buyer request",
+                  machineType: getMachineType(item),
                 }}
               />
             </React.Fragment>

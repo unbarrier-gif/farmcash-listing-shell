@@ -1,42 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-/**
- * Keep this component resilient:
- * - Works even if some fields are missing
- * - Meta line adapts per listing
- */
-
 type ListingStatus = "for-sale" | "wanted" | "sale" | "for_sale" | "for sale" | string;
 
 export type AdvertTileListing = {
   id: string;
   status?: ListingStatus;
   country?: "UK" | "Germany" | "Netherlands";
-
-  // Core display
   title: string;
   location?: string;
-
-  // Image
   heroImage?: string;
-
-  // Pricing
-  priceText?: string; // e.g. "POA" or "£35,000"
+  priceText?: string;
   price?: number | string;
-  currency?: string; // e.g. "£"
-
-  // Meta
+  currency?: string;
   year?: number | string;
   createdAt?: string;
-
-  // Flexible spec fields (use any you have in your data)
-  specSummary?: string; // best option: "6.2m" or "9m working width | 12-row"
-  width?: number | string;
-  workingWidth?: number | string;
-  rows?: number | string;
   hours?: number | string;
-  detail?: string; // any other short line
+  highlight?: string;
+  quickSpec?: string;
+  buyerSignal?: string;
+  machineType?: string;
+  galleryCount?: number;
 };
 
 const normaliseStatus = (status?: ListingStatus) => {
@@ -57,44 +41,9 @@ const formatYear = (year?: number | string) => {
   return String(year).trim();
 };
 
-const buildSpec = (l: AdvertTileListing) => {
-  if (l.specSummary && String(l.specSummary).trim()) return String(l.specSummary).trim();
-
-  const parts: string[] = [];
-
-  const ww = l.workingWidth ?? l.width;
-  if (ww !== undefined && ww !== null && String(ww).trim()) {
-    const v = String(ww).trim();
-    parts.push(v.toLowerCase().includes("m") ? v : `${v}m`);
-  }
-
-  if (l.rows !== undefined && l.rows !== null && String(l.rows).trim()) {
-    parts.push(
-      String(l.rows).trim().toLowerCase().includes("row")
-        ? String(l.rows).trim()
-        : `${String(l.rows).trim()}-row`
-    );
-  }
-
-  if (l.hours !== undefined && l.hours !== null && String(l.hours).trim()) {
-    const v = String(l.hours).trim();
-    parts.push(v.toLowerCase().includes("h") ? v : `${v}h`);
-  }
-
-  if (l.detail && String(l.detail).trim()) parts.push(String(l.detail).trim());
-
-  return parts.join(" · ");
-};
-
 type Props = {
   listing: AdvertTileListing;
 };
-
-const flagMap = {
-  UK: "🇬🇧",
-  Germany: "🇩🇪",
-  Netherlands: "🇳🇱",
-} as const;
 
 const AdvertTile: React.FC<Props> = ({ listing }) => {
   const status = normaliseStatus(listing.status);
@@ -108,10 +57,10 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
       : "bg-brand-black";
 
   const title = (listing.title || "").trim();
-
   const year = formatYear(listing.year);
-  const spec = buildSpec(listing);
-  const meta = [year, spec].filter(Boolean).join(" • ").toUpperCase();
+  const hoursValue = listing.hours ? `${String(listing.hours).replace(/[^0-9,]/g, "")} hrs` : "";
+  const locationValue = listing.location ? String(listing.location).trim() : "";
+  const meta = [year, hoursValue, locationValue].filter(Boolean).join(" · ");
 
   const priceText =
     (listing.priceText && String(listing.priceText).trim()) ||
@@ -120,7 +69,10 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const hero = listing.heroImage?.trim();
   const isNewListing =
     !!listing.createdAt &&
-    (new Date().getTime() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24) <= 7;
+    (new Date().getTime() - new Date(listing.createdAt).getTime()) / (1000 * 60 * 60 * 24) <= 14;
+
+  const photoCount = Math.max(listing.galleryCount || 0, hero ? 1 : 0);
+  const viewLabel = photoCount > 0 ? `VIEW ${photoCount} PHOTOS →` : "VIEW LISTING →";
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
@@ -136,31 +88,30 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   return (
     <Link
       to={`/listing/${listing.id}`}
-      className="group relative block h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-[1px]"
+      className="group flex flex-col h-full bg-white rounded-xl shadow-sm transition transform hover:-translate-y-1 hover:shadow-lg border border-gray-200 overflow-hidden"
       aria-label={title ? `Open listing: ${title}` : "Open listing"}
     >
-      {/* Image */}
-      <div
-        className={`relative overflow-hidden rounded-xl bg-gray-100 ${isSoldListing ? "ring-2 ring-red-500/30" : ""}`}
-      >
-          <img
-            src={hero || fallbackHero}
-            alt={title || "Listing image"}
-            className={`w-full h-48 object-cover transition-transform duration-300 hover:scale-105 ${isSoldListing ? "grayscale-[30%] brightness-[0.95]" : ""}`}
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
-          {isSoldListing ? (
-            <div className="absolute inset-0 bg-gradient-to-t from-red-900/10 to-transparent"></div>
-          ) : null}
+      <div className={`relative overflow-hidden rounded-xl bg-gray-100 ${isSoldListing ? "ring-2 ring-red-500/30" : ""}`}>
+        <img
+          src={hero || fallbackHero}
+          alt={title || "Listing image"}
+          className={`w-full h-48 object-cover object-center transition-transform duration-300 hover:scale-105 ${isSoldListing ? "grayscale-[30%] brightness-[0.95]" : ""}`}
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-transparent" />
 
-          {isNewListing && (
-            <div className="absolute bottom-3 left-3 z-10 bg-brand-green text-white text-xs font-semibold px-2 py-1 rounded-md shadow">
-              NEW LISTING
-            </div>
-          )}
+        {isNewListing ? (
+          <div className="absolute top-3 left-3 z-10 bg-brand-green text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow uppercase tracking-wider">
+            NEW LISTING
+          </div>
+        ) : null}
 
-        {/* Badge */}
+        {listing.machineType ? (
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 bg-white/90 px-2.5 py-1 rounded-md text-[10px] font-bold shadow uppercase tracking-wider text-gray-700">
+            {listing.machineType}
+          </div>
+        ) : null}
+
         <span
           className={`absolute top-3 right-3 z-10 shadow-sm ${
             isSoldListing
@@ -171,64 +122,48 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           {badgeText}
         </span>
 
-        {listing.country ? (
-          <div className="absolute top-3 left-3 z-10 bg-white/90 px-2 py-1 rounded-md text-sm font-medium shadow">
-            {flagMap[listing.country]} {listing.country}
+        {photoCount > 0 ? (
+          <div className="absolute bottom-3 left-3 z-10 bg-black/70 text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wide">
+            {photoCount} photos
           </div>
         ) : null}
       </div>
 
-      {/* Content */}
-      <div className="p-6 pb-20">
-        {/* Price / Request */}
-        <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">
-            {status === "wanted" ? "Request" : "Sale price"}
-          </p>
+      <div className="flex flex-col flex-grow p-5">
+        <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">
+          {status === "wanted" ? "Request" : "Sale price"}
+        </p>
 
-          {isSoldListing ? (
-            <>
-              <p className="text-2xl text-red-600 font-semibold">SOLD</p>
-              <p className="text-xs text-gray-500 mt-1">Similar machines available</p>
-            </>
-          ) : (
-            <p className="text-2xl font-bold text-gray-900">
-              {status === "wanted" ? "Get in touch" : (priceText || "POA")}
+        {isSoldListing ? (
+          <p className="text-2xl text-red-600 font-semibold">SOLD</p>
+        ) : (
+          <p className="text-2xl font-bold text-gray-900">{status === "wanted" ? "Get in touch" : (priceText || "POA")}</p>
+        )}
+
+        <h3 className="mt-1 text-lg font-semibold leading-snug text-gray-900">{title}</h3>
+
+        {meta ? <p className="mt-2 text-sm text-gray-500">{meta}</p> : null}
+
+        <div className="mt-3 space-y-1">
+          {listing.highlight ? (
+            <p className="inline-flex bg-amber-100 text-amber-900 border border-amber-300 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
+              {listing.highlight}
             </p>
-          )}
+          ) : null}
+
+          {listing.quickSpec ? (
+            <p className="text-xs font-bold text-gray-800 uppercase tracking-wider">{listing.quickSpec}</p>
+          ) : null}
+
+          {listing.buyerSignal ? (
+            <p className="text-xs text-brand-green font-bold uppercase tracking-wide">{listing.buyerSignal}</p>
+          ) : null}
         </div>
 
-        {/* Title */}
-        <h3 className="mt-3 text-lg font-semibold text-gray-900">
-          {title}
-        </h3>
-
-        {/* Meta */}
-        {meta ? (
-          <p className="mt-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
-            {meta}
-          </p>
-        ) : null}
-      </div>
-
-      {/* Arrow CTA — pinned bottom-right */}
-      <div className="absolute bottom-6 right-6">
-        <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center transition-colors group-hover:bg-brand-green shadow-sm">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-5 w-5 text-gray-500 transition-colors group-hover:text-white"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path d="M5 12h12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-            <path
-              d="M13 6l6 6-6 6"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        <div className="mt-auto pt-5">
+          <span className="text-xs font-black tracking-wide text-brand-green group-hover:underline">
+            {viewLabel}
+          </span>
         </div>
       </div>
     </Link>
