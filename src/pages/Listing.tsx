@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { listings, type Listing as ListingType, type MediaImage } from "../data/listings";
 import ImageLightbox from "../components/ImageLightbox";
 import { listingPillBaseClass, listingPillToneClass } from "../components/listingPillStyles";
+import { getVatDisplayPrice } from "../utils/priceDisplay";
 
 const badgeClass = (status: ListingType["status"]) =>
   status === "wanted"
@@ -110,7 +111,11 @@ const Listing: React.FC = () => {
     portalUrl: ctas?.portalUrl ?? PORTAL_URL,
   };
 
-  const priceValue = isSold ? "SOLD" : priceText ?? (isWanted ? "Wanted" : "POA");
+  const { primary: priceValue, showVat } = getVatDisplayPrice({
+    status,
+    value: priceText,
+    fallback: isWanted ? "Wanted" : "POA",
+  });
 
   const machineType =
     subtitle?.split("|")[0]?.trim() ||
@@ -175,9 +180,12 @@ const Listing: React.FC = () => {
               <h1 className="text-3xl md:text-4xl font-black tracking-tight text-neutral-900">{title}</h1>
               {subtitle ? <p className="mt-2 text-lg text-gray-700 font-semibold">{subtitle}</p> : null}
 
-              <p className={`mt-4 ${isSold ? "text-red-600" : "text-neutral-900"} text-4xl md:text-5xl font-black`}>
-                {priceValue}
-              </p>
+              <div className="mt-4">
+                <p className={`${isSold ? "text-red-600" : "text-neutral-900"} text-4xl md:text-5xl font-black`}>
+                  {priceValue}
+                </p>
+                {showVat ? <p className="mt-2 text-xs md:text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">+ VAT</p> : null}
+              </div>
 
               {machineConditionBadge ? (
                 <p className={`mt-4 ${listingPillBaseClass} ${listingPillToneClass.highlight}`}>
