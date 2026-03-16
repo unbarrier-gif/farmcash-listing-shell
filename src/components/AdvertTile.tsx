@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { listingPillBaseClass, listingPillToneClass } from "./listingPillStyles";
+import { getVatDisplayPrice } from "../utils/priceDisplay";
 
 type ListingStatus = "for-sale" | "wanted" | "sale" | "for_sale" | "for sale" | string;
 
@@ -67,6 +68,11 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const priceText =
     (listing.priceText && String(listing.priceText).trim()) ||
     formatPrice(listing.price, listing.currency || "£");
+  const { primary: pricePrimary, showVat } = getVatDisplayPrice({
+    status: listing.status,
+    value: priceText,
+    fallback: "POA",
+  });
 
   const hero = listing.heroImage?.trim();
   const isNewListing =
@@ -141,8 +147,13 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
         <div>
           {isSoldListing ? (
             <p className="text-2xl font-semibold text-red-600">SOLD</p>
+          ) : isWantedListing ? (
+            <p className="text-3xl font-bold leading-tight text-gray-900">Get in touch</p>
           ) : (
-            <p className="text-3xl font-bold leading-tight text-gray-900">{isWantedListing ? "Get in touch" : (priceText || "POA")}</p>
+            <div>
+              <p className="text-3xl font-bold leading-tight text-gray-900">{pricePrimary}</p>
+              {showVat ? <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">+ VAT</p> : null}
+            </div>
           )}
         </div>
 
