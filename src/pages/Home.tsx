@@ -36,6 +36,12 @@ const formatWidthShort = (widthRaw?: string) => {
   return `${mMatch[1]}M`.toUpperCase();
 };
 
+const formatRowsShort = (value?: string) => {
+  if (!value) return "";
+  const match = String(value).match(/(\d+)\s*[- ]?\s*row/i);
+  return match?.[1] ? `${match[1]} ROW` : "";
+};
+
 const pickTileSpec = (l: Listing) => {
   // 1) Prefer width (short)
   const w = formatWidthShort(getWidthRaw(l));
@@ -46,7 +52,7 @@ const pickTileSpec = (l: Listing) => {
   if (sub) {
     // try to extract "12-row" or "12 row"
     const rowMatch = sub.match(/(\d+)\s*-\s*row/i) || sub.match(/(\d+)\s*row/i);
-    if (rowMatch?.[0]) return rowMatch[0].replace(/\s+/g, " ").toUpperCase();
+    if (rowMatch?.[1]) return `${rowMatch[1]} ROW`;
 
     // try to extract "9 m" / "9m"
     const mMatch = sub.match(/(\d+(\.\d+)?)\s*m/i);
@@ -58,7 +64,8 @@ const pickTileSpec = (l: Listing) => {
 
   // 3) Else try common spec rows
   const rows = findSpecValue(l.specs, (label) => label === "rows" || label.includes("row"));
-  if (rows) return String(rows).toUpperCase();
+  const rowsShort = formatRowsShort(rows);
+  if (rowsShort) return rowsShort;
 
   const model = findSpecValue(l.specs, (label) => label === "model");
   if (model) return String(model);
@@ -98,13 +105,14 @@ const getHighlight = (l: Listing) => {
 
 const getQuickSpec = (l: Listing) => {
   const hp = findSpecValue(l.specs, (label) => label === "hp" || label.includes("horsepower"));
-  if (hp) return `${String(hp).toUpperCase()} TRACTOR`;
+  if (hp) return `${String(hp).toUpperCase()} HP`;
 
   const rows = findSpecValue(l.specs, (label) => label === "rows" || label.includes("row"));
-  if (rows) return `${String(rows).toUpperCase()} MAIZE DRILL`;
+  const rowsShort = formatRowsShort(rows);
+  if (rowsShort) return rowsShort;
 
   const spec = pickTileSpec(l);
-  return spec ? String(spec).toUpperCase() : "IN DEMAND MODEL";
+  return spec ? String(spec).toUpperCase() : "";
 };
 
 const Home: React.FC<Props> = ({ mode = "all" }) => {
@@ -154,7 +162,6 @@ const Home: React.FC<Props> = ({ mode = "all" }) => {
                   galleryCount: item.gallery?.length ?? 0,
                   highlight: getHighlight(item),
                   quickSpec: getQuickSpec(item),
-                  buyerSignal: "In demand model",
                   machineType: getMachineType(item),
                 }}
               />

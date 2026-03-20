@@ -18,6 +18,8 @@ Use this checklist when reviewing listing tiles and sourcing-request cards for d
 ## 4) Feature pill
 - [x] Highlight pill uses the same uppercase treatment, border weight, and spacing on mobile/desktop.
 - [x] Pill line-wrap behavior is acceptable for long content.
+- [x] No generic marketing badges (for example: “in demand”, “great example”).
+- [x] All pills convey objective, verifiable information only.
 
 ## 5) Detail lines
 - [x] Quick spec and buyer-signal lines maintain consistent hierarchy and tracking at all breakpoints.
