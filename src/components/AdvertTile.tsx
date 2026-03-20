@@ -130,7 +130,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         <div className="pointer-events-none absolute inset-x-3 bottom-3 z-10 flex items-center justify-between gap-2">
           {photoCount > 0 ? (
-            <div className="inline-flex items-center rounded-full bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+            <div className={`${listingPillBaseClass} ${listingPillToneClass.mutedDark}`}>
               📷 {photoCount} {photoCount === 1 ? "PHOTO" : "PHOTOS"}
             </div>
           ) : (
@@ -169,7 +169,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           {secondaryBadges.map((badge) => (
             <span
               key={badge}
-              className={`${listingPillBaseClass} ${listingPillToneClass.highlight} max-w-full whitespace-normal leading-tight [overflow-wrap:anywhere]`}
+              className={`${listingPillBaseClass} ${listingPillToneClass.highlight} max-w-[10rem] truncate`}
             >
               {badge}
             </span>
