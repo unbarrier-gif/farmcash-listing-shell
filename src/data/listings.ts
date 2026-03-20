@@ -517,6 +517,72 @@ Contact FarmCash for full details.`,
   },
 
   /**
+   * AD 9 — FOR SALE
+   * URL: /listing/fc-2017-horsch-maestro-1275-003
+   */
+  {
+    id: "fc-2017-horsch-maestro-1275-003",
+    status: "for-sale",
+    createdAt: "2026-03-20T09:00:00Z",
+    title: "2017 Horsch Maestro 16.75 SW",
+    subtitle: "16 row maize drill",
+    year: "2017",
+    location: "UK",
+    country: "UK",
+    serialRef: "FC-2017-HORSCH-MAESTRO-1275-003",
+    priceText: "£99,500 + VAT",
+    price: "£99,500 + VAT",
+    heroImage: {
+      src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/hero.png",
+      alt: "2017 Horsch Maestro 16.75 SW maize drill hero view.",
+    },
+    gallery: [
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/hero.png", alt: "Horsch Maestro 16.75 SW hero view." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/1.png", alt: "Horsch Maestro 16.75 SW image 1." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/2.png", alt: "Horsch Maestro 16.75 SW image 2." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/3.png", alt: "Horsch Maestro 16.75 SW image 3." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/4.png", alt: "Horsch Maestro 16.75 SW image 4." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/5.png", alt: "Horsch Maestro 16.75 SW image 5." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/6.png", alt: "Horsch Maestro 16.75 SW image 6." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/7.png", alt: "Horsch Maestro 16.75 SW image 7." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/8.png", alt: "Horsch Maestro 16.75 SW image 8." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/9.png", alt: "Horsch Maestro 16.75 SW image 9." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/10.png", alt: "Horsch Maestro 16.75 SW image 10." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/11.png", alt: "Horsch Maestro 16.75 SW image 11." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/12.png", alt: "Horsch Maestro 16.75 SW image 12." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/13.png", alt: "Horsch Maestro 16.75 SW image 13." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/14.png", alt: "Horsch Maestro 16.75 SW image 14." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/15.png", alt: "Horsch Maestro 16.75 SW image 15." },
+      { src: "/images/FC-2017-HORSCH-MAESTRO-1275-003/16.png", alt: "Horsch Maestro 16.75 SW image 16." },
+    ],
+    description:
+      "2017 Horsch Maestro 16.75 SW 16-row maize drill with approximately 5,100 hectares completed. A high-capacity precision drill built for large-scale operations looking to maximise output and efficiency.\n\nThe machine is in good working condition with expected wear for its age and workload. A well-regarded model offering reliable performance and strong field results.\n\nA great option for buyers looking to step up capacity without committing to new machine cost.",
+    features: [
+      "16 row capacity for serious output and scale",
+      "Proven Horsch Maestro precision planting system",
+      "High hectare efficiency with fewer passes",
+      "Strong commercial alternative to new pricing",
+    ],
+    specs: [
+      { label: "Brand", value: "Horsch" },
+      { label: "Model", value: "Maestro 16.75 SW" },
+      { label: "Year", value: "2017" },
+      { label: "Rows", value: "16 row maize drill" },
+      { label: "Serial / Ref", value: "Machine 13447" },
+      { label: "Work done", value: "Approx. 5,100 hectares" },
+      { label: "Hopper capacity", value: "Large central hopper system" },
+      { label: "Condition", value: "Good working order, typical wear for age/use" },
+      { label: "Location", value: "UK" },
+      { label: "Price", value: "£99,500 + VAT" },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
+      financeQuoteUrl: FINANCE_FORM_URL,
+    },
+  },
+
+  /**
    * WANTED 2
    * URL: /listing/wanted-2
    */
