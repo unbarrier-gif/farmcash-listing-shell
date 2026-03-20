@@ -1,4 +1,5 @@
 import React from "react";
+import { listingPillBaseClass, listingPillToneClass } from "./listingPillStyles";
 
 const whatsappUrl =
   "https://wa.me/447939138063?text=Hi%20FarmCash%20-%20I'm%20looking%20for%20a%20machine.%20Make:%20%0AModel:%20%0AType:%20%0ABudget:%20";
@@ -38,7 +39,7 @@ const SourcingRequestCard: React.FC = () => {
       />
 
       <div className="flex flex-col flex-grow p-6 py-8">
-        <span className="inline-flex items-center rounded-full bg-brand-green px-3 py-1 text-xs font-semibold text-white uppercase tracking-widest">
+        <span className={`${listingPillBaseClass} ${listingPillToneClass.success}`}>
           SOURCING REQUEST
         </span>
 
