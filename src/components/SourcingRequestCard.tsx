@@ -39,7 +39,7 @@ const SourcingRequestCard: React.FC = () => {
       />
 
       <div className="flex flex-col flex-grow p-6 py-8">
-        <span className={`${listingPillBaseClass} ${listingPillToneClass.success}`}>
+        <span className={`${listingPillBaseClass} ${listingPillToneClass.newIn}`}>
           SOURCING REQUEST
         </span>
 
