@@ -470,7 +470,6 @@ Contact FarmCash for full details.`,
     },
     gallery: [
       { src: "/images/FC-2019-HORSCH-MAESTRO-1275-002/hero.png", alt: "Horsch Maestro 12.75 SW hero view." },
-      { src: "/images/FC-2019-HORSCH-MAESTRO-1275-002/1.png", alt: "Horsch Maestro 12.75 SW image 1." },
       { src: "/images/FC-2019-HORSCH-MAESTRO-1275-002/2.png", alt: "Horsch Maestro 12.75 SW image 2." },
       { src: "/images/FC-2019-HORSCH-MAESTRO-1275-002/3.png", alt: "Horsch Maestro 12.75 SW image 3." },
       { src: "/images/FC-2019-HORSCH-MAESTRO-1275-002/4.png", alt: "Horsch Maestro 12.75 SW image 4." },
