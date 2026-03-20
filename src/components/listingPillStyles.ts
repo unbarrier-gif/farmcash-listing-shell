@@ -1,12 +1,9 @@
 export const listingPillBaseClass =
-  "inline-flex items-center justify-center min-h-[1.625rem] rounded-full border border-neutral-200 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] leading-none whitespace-nowrap";
+  "inline-flex h-7 items-center justify-center rounded-full border px-3 py-0 text-[11px] font-semibold uppercase tracking-[0.16em] leading-none whitespace-nowrap";
 
 export const listingPillToneClass = {
-  dark: "bg-brand-black text-white",
-  wanted: "bg-brand-gold text-white",
-  sold: "bg-red-600 text-white",
-  success: "bg-brand-green text-white",
-  neutral: "bg-white/90 text-gray-700",
-  mutedDark: "bg-black/70 text-white",
-  highlight: "bg-amber-100 text-amber-900",
+  default: "border-gray-200 bg-white/95 text-gray-700",
+  subtle: "border-white/20 bg-black/65 text-white",
+  sold: "border-red-200 bg-red-600 text-white",
+  newIn: "border-emerald-200 bg-emerald-600 text-white",
 } as const;

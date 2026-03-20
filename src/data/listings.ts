@@ -1,4 +1,7 @@
-export type ListingStatus = "for-sale" | "wanted";
+export type ListingType = "for-sale" | "wanted";
+export type ListingStatus = "available" | "sold" | "reserved";
+export type ListingHighlight = "12-row" | "16-row" | "low-hours" | "vintage" | "pro-spec";
+export type ListingCategoryTag = "forager-header" | "front-weights" | "self-propelled-sprayer" | "maize-drill" | "tractor" | "rotary-rake";
 
 export type MediaImage = {
   src: string;
@@ -22,8 +25,13 @@ export type Listing = {
   /** This is the URL id: /listing/:id */
   id: string;
 
-  /** "for-sale" | "wanted" */
+  /** Feed grouping */
+  listingType: ListingType;
+
+  /** Commercial availability */
   status: ListingStatus;
+  highlights?: ListingHighlight[];
+  category?: ListingCategoryTag;
 
   /** Main display title */
   title: string;
@@ -75,13 +83,11 @@ const FINANCE_FORM_URL =
 const PROFICUT_BROCHURE_URL = "/brochures/proficut_fendt_brochure_en_2015-03_web.pdf";
 
 export const listings: Listing[] = [
-  /**
-   * AD 1 — FOR SALE
-   * URL: /listing/fc-2013-620
-   */
   {
     id: "fc-2013-620",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    category: "forager-header",
     createdAt: "2026-03-08T09:00:00Z",
     title: "Zürn ProfiCut 620 Wholecrop Header",
     subtitle: "Direct Cut Wholecrop Header",
@@ -132,14 +138,11 @@ export const listings: Listing[] = [
       brochureUrl: PROFICUT_BROCHURE_URL,
     },
   },
-
-  /**
-   * AD 2 — FOR SALE
-   * URL: /listing/fc-2012-620
-   */
   {
     id: "fc-2012-620",
+    listingType: "for-sale",
     status: "sold",
+    category: "forager-header",
     createdAt: "2026-03-07T09:00:00Z",
     title: "Zürn ProfiCut 620",
     subtitle: "Direct Cut Wholecrop Header",
@@ -180,14 +183,12 @@ export const listings: Listing[] = [
       brochureUrl: PROFICUT_BROCHURE_URL,
     },
   },
-
-  /**
-   * AD 3 — FOR SALE
-   * URL: /listing/fc-2020-490
-   */
   {
     id: "fc-2020-490",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["12-row"],
+    category: "forager-header",
     createdAt: "2026-03-06T09:00:00Z",
     title: "Kemper 490 Plus Forager Header",
     subtitle: "9.0 m working width | 12-row",
@@ -226,14 +227,12 @@ export const listings: Listing[] = [
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * AD 4 — FOR SALE
-   * URL: /listing/fc-ford-weights
-   */
   {
     id: "fc-ford-weights",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["vintage"],
+    category: "front-weights",
     createdAt: "2026-03-05T09:00:00Z",
     title: "Ford Tractor Front Weights",
     subtitle: "Full set on stand — proper old-school ballast",
@@ -264,14 +263,11 @@ export const listings: Listing[] = [
       phoneNumber: PHONE_NUMBER,
     },
   },
-
-  /**
-   * AD 5 — FOR SALE
-   * URL: /listing/bateman-rb35-2019
-   */
   {
     id: "bateman-rb35-2019",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    category: "self-propelled-sprayer",
     createdAt: "2026-03-12T10:45:00Z",
     title: "2019 Bateman RB35 Self Propelled Sprayer",
     subtitle: "30/24m VG contour boom | 4-speed 60k transmission",
@@ -339,14 +335,11 @@ Contact FarmCash for full details.`,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * AD 6 — FOR SALE
-   * URL: /listing/fc-2012-horsch-maestro-1275-001
-   */
   {
     id: "fc-2012-horsch-maestro-1275-001",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["12-row"],
     createdAt: "2026-03-13T09:00:00Z",
     title: "2012 Horsch Maestro 12.75 SW",
     subtitle: "12 row maize drill",
@@ -403,14 +396,12 @@ Contact FarmCash for full details.`,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * AD 7 — FOR SALE
-   * URL: /listing/fc-2014-new-holland-t6-140-001
-   */
   {
     id: "fc-2014-new-holland-t6-140-001",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["low-hours"],
+    category: "tractor",
     createdAt: "2026-03-13T12:00:00Z",
     title: "New Holland T6 140",
     subtitle: "New listing",
@@ -447,14 +438,11 @@ Contact FarmCash for full details.`,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * AD 8 — FOR SALE
-   * URL: /listing/fc-2019-horsch-maestro-1275-002
-   */
   {
     id: "fc-2019-horsch-maestro-1275-002",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["12-row"],
     createdAt: "2026-03-17T09:00:00Z",
     title: "2019 Horsch Maestro 12.75 SW",
     subtitle: "12 row maize drill",
@@ -515,14 +503,11 @@ Contact FarmCash for full details.`,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * AD 9 — FOR SALE
-   * URL: /listing/fc-2017-horsch-maestro-1275-003
-   */
   {
     id: "fc-2017-horsch-maestro-1275-003",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["16-row"],
     createdAt: "2026-03-20T09:00:00Z",
     title: "2017 Horsch Maestro 16.75 SW",
     subtitle: "16 row maize drill",
@@ -581,14 +566,11 @@ Contact FarmCash for full details.`,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * AD 10 — FOR SALE
-   * URL: /listing/fc-2016-horsch-maestro-1275-004
-   */
   {
     id: "fc-2016-horsch-maestro-1275-004",
-    status: "for-sale",
+    listingType: "for-sale",
+    status: "available",
+    highlights: ["12-row"],
     createdAt: "2026-03-20T09:00:00Z",
     title: "2016 Horsch Maestro 12.75 SW",
     subtitle: "12 row maize drill",
@@ -632,14 +614,11 @@ Contact FarmCash for full details.`,
       financeQuoteUrl: FINANCE_FORM_URL,
     },
   },
-
-  /**
-   * WANTED 2
-   * URL: /listing/wanted-2
-   */
   {
     id: "wanted-2",
-    status: "wanted",
+    listingType: "wanted",
+    status: "available",
+    category: "rotary-rake",
     createdAt: "2026-03-10T09:00:00Z",
     title: "Claas Liner 2700 / 2800 Rotary Rake",
     subtitle: "Twin rotor rotary rake",
@@ -665,11 +644,10 @@ Contact FarmCash for full details.`,
       phoneNumber: PHONE_NUMBER,
     },
   },
-
-  ];
+];
 
 export const counts = {
   all: listings.length,
-  forSale: listings.filter((l) => l.status === "for-sale").length,
-  wanted: listings.filter((l) => l.status === "wanted").length,
+  forSale: listings.filter((l) => l.listingType === "for-sale").length,
+  wanted: listings.filter((l) => l.listingType === "wanted").length,
 };

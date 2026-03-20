@@ -1,19 +1,32 @@
 import React, { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { listings, type Listing as ListingType, type MediaImage } from "../data/listings";
+import { listings, type Listing as ListingType, type ListingHighlight, type ListingCategoryTag, type MediaImage } from "../data/listings";
 import ImageLightbox from "../components/ImageLightbox";
 import { listingPillBaseClass, listingPillToneClass } from "../components/listingPillStyles";
 import { getVatDisplayPrice } from "../utils/priceDisplay";
 
-const badgeClass = (status: ListingType["status"]) =>
-  status === "wanted"
-    ? listingPillToneClass.wanted
-    : status === "sold"
-      ? listingPillToneClass.sold
-      : listingPillToneClass.success;
+const badgeClass = (listing: ListingType) =>
+  listing.status === "sold" ? listingPillToneClass.sold : listing.listingType === "wanted" ? listingPillToneClass.default : listingPillToneClass.newIn;
 
-const badgeText = (status: ListingType["status"]) =>
-  status === "wanted" ? "Wanted" : status === "sold" ? "Sold" : "For sale";
+const badgeText = (listing: ListingType) =>
+  listing.status === "sold" ? "SOLD" : listing.listingType === "wanted" ? "WANTED" : "AVAILABLE";
+
+const HIGHLIGHT_LABELS: Record<ListingHighlight, string> = {
+  "12-row": "12 ROW",
+  "16-row": "16 ROW",
+  "low-hours": "LOW HOURS",
+  vintage: "VINTAGE",
+  "pro-spec": "PRO SPEC",
+};
+
+const CATEGORY_LABELS: Record<ListingCategoryTag, string> = {
+  "forager-header": "FORAGER HEADER",
+  "front-weights": "FRONT WEIGHTS",
+  "self-propelled-sprayer": "SELF PROPELLED",
+  "maize-drill": "MAIZE DRILL",
+  tractor: "TRACTOR",
+  "rotary-rake": "ROTARY RAKE",
+};
 
 const formatPhoneLabel = (phone: string) => {
   const p = String(phone || "").trim();
@@ -87,19 +100,14 @@ const Listing: React.FC = () => {
     notes,
     ctas,
     status,
+    listingType,
     hours,
+    highlights,
+    category,
   } = listing;
 
-  const isWanted = status === "wanted";
+  const isWanted = listingType === "wanted";
   const isSold = status === "sold";
-  const isTractor = /tractor/i.test(`${title} ${subtitle || ""}`);
-  const numericHours = getNumericHours(hours);
-  const machineConditionBadge =
-    !isWanted && isTractor
-      ? numericHours && numericHours >= 10000
-        ? "HIGH HOURS WORKING TRACTOR"
-        : "WORKING FARM TRACTOR"
-      : null;
 
   const safeCtas = {
     whatsappUrl: ctas?.whatsappUrl ?? "https://wa.me/447393138063",
@@ -112,7 +120,7 @@ const Listing: React.FC = () => {
   };
 
   const { primary: priceValue, showVat } = getVatDisplayPrice({
-    status,
+    status: listingType,
     value: priceText,
     fallback: isWanted ? "Wanted" : "POA",
   });
@@ -121,6 +129,12 @@ const Listing: React.FC = () => {
     subtitle?.split("|")[0]?.trim() ||
     specs?.find((row) => /type|category|configuration/i.test(row.label))?.value ||
     "Machine";
+
+
+  const detailPills = [
+    ...(highlights || []).map((highlight) => HIGHLIGHT_LABELS[highlight]),
+    ...(category ? [CATEGORY_LABELS[category]] : []),
+  ].slice(0, 2);
 
   const summaryItems = [
     { label: "Year", value: year || "—", icon: "📅" },
@@ -163,10 +177,10 @@ const Listing: React.FC = () => {
                 className={[
                   "absolute top-4 left-4 shadow-md",
                   listingPillBaseClass,
-                  badgeClass(status),
+                  badgeClass(listing),
                 ].join(" ")}
               >
-                {badgeText(status)}
+                {badgeText(listing)}
               </div>
             </button>
 
@@ -187,11 +201,13 @@ const Listing: React.FC = () => {
                 {showVat ? <p className="mt-2 text-xs md:text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">+ VAT</p> : null}
               </div>
 
-              {machineConditionBadge ? (
-                <span className={`mt-4 ${listingPillBaseClass} ${listingPillToneClass.highlight}`}>
-                  {machineConditionBadge}
-                </span>
-              ) : null}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {detailPills.map((pill) => (
+                  <span key={pill} className={`${listingPillBaseClass} ${listingPillToneClass.default}`}>
+                    {pill}
+                  </span>
+                ))}
+              </div>
 
               <div className="mt-6 overflow-x-auto">
                 <div className="min-w-max grid grid-flow-col auto-cols-max gap-3">
