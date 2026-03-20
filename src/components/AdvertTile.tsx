@@ -86,7 +86,6 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     ? ["BUYER WAITING", "ACTIVE SEARCH"]
     : [listing.highlight || "FIELD READY", listing.quickSpec].filter(Boolean);
   const hasSecondaryBadges = secondaryBadges.length > 0;
-  const secondaryBadgeClass = `${listingPillBaseClass} ${listingPillToneClass.highlight} min-w-[5.25rem] max-w-[11rem] whitespace-nowrap truncate`;
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
@@ -132,7 +131,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
         <div className="pointer-events-none absolute inset-x-3 bottom-3 z-10 flex items-center justify-between gap-2">
           {photoCount > 0 ? (
-            <div className="inline-flex items-center rounded-full bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+            <div className={`${listingPillBaseClass} ${listingPillToneClass.mutedDark}`}>
               📷 {photoCount} {photoCount === 1 ? "PHOTO" : "PHOTOS"}
             </div>
           ) : (
@@ -165,17 +164,18 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           {meta ? <p className="text-sm text-gray-500">{meta}</p> : null}
         </div>
 
-        {activitySignal ? <p className="mt-1 text-xs font-medium text-gray-500">{activitySignal}</p> : null}
+        <p className="mt-2 text-xs font-medium text-gray-500">{activitySignal}</p>
 
-        {hasSecondaryBadges ? (
-          <div className="mt-1 flex flex-wrap gap-1.5">
-            {secondaryBadges.map((badge) => (
-              <span key={badge} className={secondaryBadgeClass} title={badge}>
-                {badge}
-              </span>
-            ))}
-          </div>
-        ) : null}
+        <div className="mt-3 flex min-h-[3.25rem] flex-wrap gap-2">
+          {secondaryBadges.map((badge) => (
+            <span
+              key={badge}
+              className={`${listingPillBaseClass} ${listingPillToneClass.highlight} max-w-[10rem] truncate`}
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
 
         <div className="mt-auto pt-4">
           <span className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-green px-4 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors duration-150 group-hover:bg-brand-black group-focus-visible:bg-brand-black group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-brand-green group-active:bg-brand-green/90">
