@@ -583,6 +583,57 @@ Contact FarmCash for full details.`,
   },
 
   /**
+   * AD 10 — FOR SALE
+   * URL: /listing/fc-2016-horsch-maestro-1275-004
+   */
+  {
+    id: "fc-2016-horsch-maestro-1275-004",
+    status: "for-sale",
+    createdAt: "2026-03-20T09:00:00Z",
+    title: "2016 Horsch Maestro 12.75 SW",
+    subtitle: "12 row maize drill",
+    year: "2016",
+    location: "UK",
+    country: "UK",
+    serialRef: "FC-2016-HORSCH-MAESTRO-1275-004",
+    priceText: "£59,500 + VAT",
+    price: "£59,500 + VAT",
+    heroImage: {
+      src: "/images/FC-2016-HORSCH-MAESTRO-1275-004/hero.png",
+      alt: "2016 Horsch Maestro 12.75 SW maize drill side profile.",
+    },
+    gallery: [
+      { src: "/images/FC-2016-HORSCH-MAESTRO-1275-004/hero.png", alt: "2016 Horsch Maestro 12.75 SW maize drill side profile." },
+      { src: "/images/FC-2016-HORSCH-MAESTRO-1275-004/1.png", alt: "Horsch Maestro 12.75 SW — close-up of chassis, axle and tyre condition." },
+    ],
+    description:
+      "2016 Horsch Maestro 12.75 SW 12-row maize drill with approximately 7,600 hectares completed.\n\nA well-proven precision drill offering strong output and reliable performance. This machine sits in a practical middle ground — newer than early models, but still representing good value against later machines.\n\nThe drill is in good working condition with expected wear for its age and workload. Some wear parts may require attention depending on buyer preference, which can be discussed as part of the sale.\n\nA solid option for operators looking for dependable Horsch performance without stepping up to newer price points.",
+    features: [
+      "12 row precision maize drill",
+      "Proven Horsch Maestro system",
+      "Approx. 7,600 hectares completed",
+      "Strong balance of price vs performance",
+      "Straight, honest machine ready for work",
+    ],
+    specs: [
+      { label: "Brand", value: "Horsch" },
+      { label: "Model", value: "Maestro 12.75 SW" },
+      { label: "Year", value: "2016" },
+      { label: "Rows", value: "12 row maize drill" },
+      { label: "Serial / Ref", value: "Machine 14806" },
+      { label: "Work done", value: "Approx. 7,600 hectares" },
+      { label: "Condition", value: "Good working order, typical wear for age/use" },
+      { label: "Location", value: "UK" },
+      { label: "Price", value: "£59,500 + VAT" },
+    ],
+    ctas: {
+      whatsappUrl: WHATSAPP_URL,
+      phoneNumber: PHONE_NUMBER,
+      financeQuoteUrl: FINANCE_FORM_URL,
+    },
+  },
+
+  /**
    * WANTED 2
    * URL: /listing/wanted-2
    */
