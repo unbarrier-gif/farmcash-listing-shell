@@ -81,10 +81,11 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
   const photoCount = Math.max(listing.galleryCount || 0, hero ? 1 : 0);
   const ctaLabel = isWantedListing ? "VIEW REQUEST" : "VIEW LISTING";
-  const activitySignal = listing.buyerSignal || "👁 Marketplace activity this week";
+  const activitySignal = listing.buyerSignal?.trim();
   const secondaryBadges = isWantedListing
     ? ["BUYER WAITING", "ACTIVE SEARCH"]
-    : [listing.highlight || "FIELD READY", listing.quickSpec || "IN DEMAND MODEL"];
+    : [listing.highlight || "FIELD READY", listing.quickSpec].filter(Boolean);
+  const hasSecondaryBadges = secondaryBadges.length > 0;
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
