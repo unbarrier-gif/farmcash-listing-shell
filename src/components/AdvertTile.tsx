@@ -81,7 +81,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
 
   const photoCount = Math.max(listing.galleryCount || 0, hero ? 1 : 0);
   const ctaLabel = isWantedListing ? "VIEW REQUEST" : "VIEW LISTING";
-  const activitySignal = listing.buyerSignal || "👁 Marketplace activity this week";
+  const activitySignal = listing.buyerSignal?.trim();
   const secondaryBadges = isWantedListing
     ? ["BUYER WAITING", "ACTIVE SEARCH"]
     : [listing.highlight || "FIELD READY", listing.quickSpec].filter(Boolean);
@@ -164,7 +164,7 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           {meta ? <p className="text-sm text-gray-500">{meta}</p> : null}
         </div>
 
-        <p className="mt-1 text-xs font-medium text-gray-500">{activitySignal}</p>
+        {activitySignal ? <p className="mt-1 text-xs font-medium text-gray-500">{activitySignal}</p> : null}
 
         {hasSecondaryBadges ? (
           <div className="mt-1 flex flex-wrap gap-1.5">
