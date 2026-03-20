@@ -104,7 +104,7 @@ const getQuickSpec = (l: Listing) => {
   if (rows) return `${String(rows).toUpperCase()} MAIZE DRILL`;
 
   const spec = pickTileSpec(l);
-  return spec ? String(spec).toUpperCase() : "IN DEMAND MODEL";
+  return spec ? String(spec).toUpperCase() : "";
 };
 
 const Home: React.FC<Props> = ({ mode = "all" }) => {

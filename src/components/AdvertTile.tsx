@@ -84,7 +84,8 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
   const activitySignal = listing.buyerSignal || "👁 Marketplace activity this week";
   const secondaryBadges = isWantedListing
     ? ["BUYER WAITING", "ACTIVE SEARCH"]
-    : [listing.highlight || "FIELD READY", listing.quickSpec || "IN DEMAND MODEL"];
+    : [listing.highlight || "FIELD READY", listing.quickSpec].filter(Boolean);
+  const hasSecondaryBadges = secondaryBadges.length > 0;
 
   const fallbackHero =
     "data:image/svg+xml;charset=utf-8," +
@@ -163,18 +164,20 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
           {meta ? <p className="text-sm text-gray-500">{meta}</p> : null}
         </div>
 
-        <p className="mt-2 text-xs font-medium text-gray-500">{activitySignal}</p>
+        <p className="mt-1 text-xs font-medium text-gray-500">{activitySignal}</p>
 
-        <div className="mt-3 flex min-h-[3.25rem] flex-wrap gap-2">
-          {secondaryBadges.map((badge) => (
-            <span
-              key={badge}
-              className={`${listingPillBaseClass} ${listingPillToneClass.highlight} max-w-full whitespace-normal leading-tight [overflow-wrap:anywhere]`}
-            >
-              {badge}
-            </span>
-          ))}
-        </div>
+        {hasSecondaryBadges ? (
+          <div className="mt-1 flex flex-wrap gap-1.5">
+            {secondaryBadges.map((badge) => (
+              <span
+                key={badge}
+                className={`${listingPillBaseClass} ${listingPillToneClass.highlight} max-w-full whitespace-normal leading-tight [overflow-wrap:anywhere]`}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+        ) : null}
 
         <div className="mt-auto pt-4">
           <span className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-green px-4 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors duration-150 group-hover:bg-brand-black group-focus-visible:bg-brand-black group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-brand-green group-active:bg-brand-green/90">
