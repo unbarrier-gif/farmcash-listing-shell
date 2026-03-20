@@ -188,9 +188,9 @@ const Listing: React.FC = () => {
               </div>
 
               {machineConditionBadge ? (
-                <p className={`mt-4 ${listingPillBaseClass} ${listingPillToneClass.highlight}`}>
+                <span className={`mt-4 ${listingPillBaseClass} ${listingPillToneClass.highlight}`}>
                   {machineConditionBadge}
-                </p>
+                </span>
               ) : null}
 
               <div className="mt-6 overflow-x-auto">
