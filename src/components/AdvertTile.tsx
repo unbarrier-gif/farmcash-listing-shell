@@ -107,6 +107,9 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
     value: priceText,
     fallback: isWantedListing ? "Wanted" : "POA",
   });
+  const isJcbGuidePriceListing = listing.id === "fc-2022-jcb-535-95-001";
+  const tilePricePrimary = isJcbGuidePriceListing ? "Guide price to follow" : pricePrimary;
+  const tilePriceSecondary = isJcbGuidePriceListing ? "Only 400 hours from new" : "";
 
   const hero = listing.heroImage?.trim();
   const pills = getListingPills(listing);
@@ -172,7 +175,10 @@ const AdvertTile: React.FC<Props> = ({ listing }) => {
             <p className="text-3xl font-bold leading-tight text-gray-900">Wanted</p>
           ) : (
             <div>
-              <p className="text-3xl font-bold leading-tight text-gray-900">{pricePrimary}</p>
+              <p className="text-3xl font-bold leading-tight text-gray-900">{tilePricePrimary}</p>
+              {tilePriceSecondary ? (
+                <p className="mt-1 max-w-full text-sm leading-snug text-gray-500">{tilePriceSecondary}</p>
+              ) : null}
               {showVat ? <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">+ VAT</p> : null}
             </div>
           )}
