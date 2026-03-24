@@ -124,6 +124,9 @@ const Listing: React.FC = () => {
     value: priceText,
     fallback: isWanted ? "Wanted" : "POA",
   });
+  const isJcbGuidePriceListing = listing.id === "fc-2022-jcb-535-95-001";
+  const detailPriceValue = isJcbGuidePriceListing ? "Guide price to follow" : priceValue;
+  const detailPriceSecondary = isJcbGuidePriceListing ? "Only 400 hours from new" : "";
 
   const machineType =
     subtitle?.split("|")[0]?.trim() ||
@@ -196,8 +199,13 @@ const Listing: React.FC = () => {
 
               <div className="mt-4">
                 <p className={`${isSold ? "text-red-600" : "text-neutral-900"} text-4xl md:text-5xl font-black`}>
-                  {priceValue}
+                  {detailPriceValue}
                 </p>
+                {detailPriceSecondary ? (
+                  <p className="mt-2 max-w-full text-sm font-medium leading-snug text-gray-500 md:text-base">
+                    {detailPriceSecondary}
+                  </p>
+                ) : null}
                 {showVat ? <p className="mt-2 text-xs md:text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">+ VAT</p> : null}
               </div>
 
